@@ -24,7 +24,7 @@ CREATE TABLE Users (
 	user_id            SERIAL,
 	first_name         TEXT      NOT NULL,
  	last_name          TEXT      NOT NULL,
- 	username           TEXT      NOT NULL
+ 	username           TEXT      NOT NULL,
  	email              TEXT      NOT NULL,
  	birth_date         DATE      NOT NULL,
  	location           TEXT,
