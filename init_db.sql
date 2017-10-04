@@ -12,11 +12,22 @@
  *
  */
 
+DROP TABLE IF EXISTS TaggedPosts;
+DROP TABLE IF EXISTS Hashtags;
+DROP TABLE IF EXISTS PostUpdates;
+DROP TABLE IF EXISTS Reports;
+DROP TABLE IF EXISTS Comments;
+DROP TABLE IF EXISTS PostsToCommunities;
+DROP TABLE IF EXISTS Posts;
+DROP TABLE IF EXISTS Moderators;
+DROP TABLE IF EXISTS Members;
+DROP TABLE IF EXISTS Communities;
+DROP TABLE IF EXISTS Follows;
+DROP TABLE IF EXISTS Users;
+
  --
  -- Users Table
  --
-
-DROP TABLE IF EXISTS Users;
 
 CREATE TYPE BANSTATUS AS ENUM ('NOT_BANNED', 'PENDING', 'BANNED');
 
@@ -42,8 +53,6 @@ CREATE TABLE Users (
  -- Follows Table
  --
 
-DROP TABLE IF EXISTS Follows;
-
 CREATE TABLE Follows (
 	follower_id INTEGER NOT NULL REFERENCES Users(user_id),
 	followee_id INTEGER NOT NULL REFERENCES Users(user_id),
@@ -53,8 +62,6 @@ CREATE TABLE Follows (
  --
  -- Communities Table
  --
-
-DROP TABLE IF EXISTS Communities;
 
 CREATE TABLE Communities (
 	community_id SERIAL,
@@ -70,8 +77,6 @@ CREATE TABLE Communities (
  -- Members Table
  --
 
-DROP TABLE IF EXISTS Members;
-
 CREATE TABLE Members (
 	user_id      INTEGER NOT NULL REFERENCES Users(user_id),
 	community_id INTEGER NOT NULL REFERENCES Communities(community_id),
@@ -82,8 +87,6 @@ CREATE TABLE Members (
  -- Moderators Table
  --
 
-DROP TABLE IF EXISTS Moderators;
-
 CREATE TABLE Moderators (
 	user_id      INTEGER NOT NULL REFERENCES Users(user_id),
 	community_id INTEGER NOT NULL REFERENCES Communities(community_id),
@@ -93,8 +96,6 @@ CREATE TABLE Moderators (
  --
  -- Posts Table
  --
-
-DROP TABLE IF EXISTS Posts;
 
 CREATE TABLE Posts (
 	post_id         SERIAL,
@@ -113,8 +114,6 @@ CREATE TABLE Posts (
  -- PostsToCommunities Table
  --
 
-DROP TABLE IF EXISTS PostsToCommunities;
-
 CREATE TABLE PostsToCommunities (
 	post_id      INTEGER NOT NULL REFERENCES Posts(post_id),
 	community_id INTEGER NOT NULL REFERENCES Communities(community_id),
@@ -124,8 +123,6 @@ CREATE TABLE PostsToCommunities (
  --
  -- Comments Table
  --
-
-DROP TABLE IF EXISTS Comments;
 
 CREATE TABLE Comments (
 	comment_id SERIAL,
@@ -138,8 +135,6 @@ CREATE TABLE Comments (
  -- Reports Table
  --
 
-DROP TABLE IF EXISTS Reports;
-
 CREATE TABLE Reports (
 	report_id     SERIAL,
 	post_id       INTEGER NOT NULL REFERENCES Posts(post_id),
@@ -150,8 +145,6 @@ CREATE TABLE Reports (
  --
  -- PostUpdates Table
  --
-
-DROP TABLE IF EXISTS PostUpdates;
 
 CREATE TABLE PostUpdates (
 	post_update_id SERIAL,
@@ -164,8 +157,6 @@ CREATE TABLE PostUpdates (
  -- Hashtags Table
  --
 
-DROP TABLE IF EXISTS Hashtags;
-
 CREATE TABLE Hashtags (
 	hashtag_name TEXT NOT NULL,
  PRIMARY KEY(hashtag_name)
@@ -174,8 +165,6 @@ CREATE TABLE Hashtags (
  --
  -- TaggedPosts Table
  --
-
-DROP TABLE IF EXISTS TaggedPosts;
 
 CREATE TABLE TaggedPosts (
 	hashtag_name TEXT    NOT NULL REFERENCES Hashtags(hashtag_name),
