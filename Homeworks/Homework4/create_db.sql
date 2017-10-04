@@ -36,6 +36,7 @@ CREATE TABLE Users (
 	first_name         TEXT      NOT NULL,
  	last_name          TEXT      NOT NULL,
  	username           TEXT      NOT NULL,
+ 	password_hash      TEXT      NOT NULL,
  	email              TEXT      NOT NULL,
  	birth_date         DATE      NOT NULL,
  	location           TEXT,
@@ -49,10 +50,10 @@ CREATE TABLE Users (
  PRIMARY KEY(user_id)
 );
 
-INSERT INTO Users (first_name, last_name, username, email, birth_date, location, profile_image_path, bio, reputation_points)
+INSERT INTO Users (first_name, last_name, username, password_hash, email, birth_date, location, profile_image_path, bio, reputation_points)
 	VALUES
-	('Moses',  'Smith', 'redsea1',    'moses@gmail.com',  to_date('1963-10-04', 'YYYY-MM-DD'), 'The Desert',   'images/moses.png',  'I was found in a river.', 100),
-	('Buddha', 'Jones', 'the_buddha', 'buddha@gmail.com', to_date('1950-07-13', 'YYYY-MM-DD'), 'Under a Tree', 'images/buddha.png', 'I am enlightened.',       100);
+	('Moses',  'Smith', 'redsea1',    'jaslkdjlajglkaj'  'moses@gmail.com',  to_date('1963-10-04', 'YYYY-MM-DD'), 'The Desert',   'images/moses.png',  'I was found in a river.', 100),
+	('Buddha', 'Jones', 'the_buddha', 'asdjklasjdkljal', 'buddha@gmail.com', to_date('1950-07-13', 'YYYY-MM-DD'), 'Under a Tree', 'images/buddha.png', 'I am enlightened.',       100);
 
  --
  -- Follows Table
