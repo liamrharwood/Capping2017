@@ -41,13 +41,18 @@ CREATE TABLE Users (
  	location           TEXT,
  	profile_image_path TEXT,
  	bio                TEXT,
- 	reputation_points  INTEGER   DEFAULT 0,
+ 	reputation_points  INTEGER   NOT NULL DEFAULT 0,
  	is_administrator   BOOLEAN   NOT NULL DEFAULT FALSE,
  	ban_status         BANSTATUS NOT NULL DEFAULT 'NOT_BANNED',
  	create_date        TIMESTAMP NOT NULL DEFAULT now(),
- 	update_date        TIMESTAMP,
+ 	update_date        TIMESTAMP NOT NULL DEFAULT now(),
  PRIMARY KEY(user_id)
 );
+
+INSERT INTO Users (first_name, last_name, username, email, birth_date, location, profile_image_path, bio, reputation_points)
+	VALUES
+	('Moses',  'Smith', 'redsea1',    'moses@gmail.com',  to_date('1963-10-04', 'YYYY-MM-DD'), 'The Desert',   'images/moses.png',  'I was found in a river.', 100),
+	('Buddha', 'Jones', 'the_buddha', 'buddha@gmail.com', to_date('1950-07-13', 'YYYY-MM-DD'), 'Under a Tree', 'images/buddha.png', 'I am enlightened.',       100);
 
  --
  -- Follows Table
@@ -59,6 +64,11 @@ CREATE TABLE Follows (
  PRIMARY KEY(follower_id, followee_id)
 );
 
+INSERT INTO Follows (follower_id, followee_id)
+	VALUES
+	((SELECT user_id FROM Users WHERE username = 'redsea1'),    (SELECT user_id FROM Users WHERE username = 'the_buddha')),
+	((SELECT user_id FROM Users WHERE username = 'the_buddha'), (SELECT user_id FROM Users WHERE username = 'redsea1'));
+
  --
  -- Communities Table
  --
@@ -69,9 +79,13 @@ CREATE TABLE Communities (
 	description  TEXT      NOT NULL,
 	is_verified  BOOLEAN   DEFAULT FALSE,
 	create_date  TIMESTAMP NOT NULL DEFAULT now(),
-	ban_status   BANSTATUS DEFAULT 'NOT_BANNED',
+	ban_status   BANSTATUS NOT NULL DEFAULT 'NOT_BANNED',
  PRIMARY KEY(community_id)
 );
+
+INSERT INTO Communities (name, description, is_verified)
+	VALUES
+	('Buddhism', 'Come get enlightened!', TRUE);
 
  --
  -- Members Table
@@ -83,6 +97,10 @@ CREATE TABLE Members (
  PRIMARY KEY (user_id, community_id)
 );
 
+INSERT INTO Members (user_id, community_id)
+	VALUES
+	((SELECT user_id FROM Users WHERE username = 'redsea1'), (SELECT community_id FROM Communities WHERE name = 'Buddhism'));
+
  --
  -- Moderators Table
  --
@@ -92,6 +110,10 @@ CREATE TABLE Moderators (
 	community_id INTEGER NOT NULL REFERENCES Communities(community_id),
  PRIMARY KEY (user_id, community_id)
 );
+
+INSERT INTO Moderators (user_id, community_id)
+	VALUES
+	((SELECT user_id FROM Users WHERE username = 'the_buddha'), (SELECT community_id FROM Communities WHERE name = 'Buddhism'));
 
  --
  -- Posts Table
@@ -105,10 +127,14 @@ CREATE TABLE Posts (
 	body_text       TEXT,
 	post_title      TEXT      NOT NULL,
 	post_image_path TEXT,
-	create_date     TIMESTAMP NOT NULL,
+	create_date     TIMESTAMP NOT NULL DEFAULT now(),
 	is_complete     BOOLEAN   NOT NULL DEFAULT FALSE,
  PRIMARY KEY(post_id)
 );
+
+INSERT INTO Posts (user_id, upvotes, downvotes, body_text, post_title, post_image_path)
+	VALUES
+	((SELECT user_id FROM Users WHERE username = 'redsea1'), 24, 1, 'I need some help. #please', 'Please help me become enlightened!', 'images/help.png');
 
  --
  -- PostsToCommunities Table
@@ -120,6 +146,10 @@ CREATE TABLE PostsToCommunities (
  PRIMARY KEY(post_id, community_id)
 );
 
+INSERT INTO PostsToCommunities (post_id, community_id)
+	VALUES
+	((SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'), (SELECT community_id FROM Communities WHERE name = 'Buddhism'));
+
  --
  -- Comments Table
  --
@@ -128,8 +158,13 @@ CREATE TABLE Comments (
 	comment_id SERIAL,
 	user_id    INTEGER NOT NULL REFERENCES Users(user_id),
 	post_id    INTEGER NOT NULL REFERENCES Posts(post_id),
+	body_text  TEXT    NOT NULL,
  PRIMARY KEY(comment_id)
 );
+
+INSERT INTO Comments (user_id, post_id, body_text)
+	VALUES
+	((SELECT user_id FROM Users WHERE username = 'the_buddha'), (SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'), 'You must help yourself.');
 
  --
  -- Reports Table
@@ -142,6 +177,10 @@ CREATE TABLE Reports (
  PRIMARY KEY(report_id)
 );
 
+INSERT INTO Reports (post_id, report_reason)
+	VALUES
+	((SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'), 'This offends me.');
+
  --
  -- PostUpdates Table
  --
@@ -153,6 +192,10 @@ CREATE TABLE PostUpdates (
  PRIMARY KEY (post_update_id)
 );
 
+INSERT INTO PostUpdates (post_id, body_text)
+	VALUES
+	((SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'), 'I now realize I must help myself!');
+
  --
  -- Hashtags Table
  --
@@ -161,6 +204,10 @@ CREATE TABLE Hashtags (
 	hashtag_name TEXT NOT NULL,
  PRIMARY KEY(hashtag_name)
 );
+
+INSERT INTO Hashtags (hashtag_name)
+	VALUES
+	('please');
 
  --
  -- TaggedPosts Table
@@ -171,3 +218,7 @@ CREATE TABLE TaggedPosts (
 	post_id      INTEGER NOT NULL REFERENCES Posts(post_id),
  PRIMARY KEY(hashtag_name, post_id)
 );
+
+INSERT INTO TaggedPosts (hashtag_name, post_id)
+	VALUES
+	('please', (SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'));
