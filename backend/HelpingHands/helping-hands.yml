@@ -1,0 +1,8 @@
+server:
+  type: default
+  maxThreads: 1024
+database:
+  driverClass : org.postgresql.Driver
+  url:
+  user:
+  password:
