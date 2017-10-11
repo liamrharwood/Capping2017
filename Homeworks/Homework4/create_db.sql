@@ -114,14 +114,14 @@ INSERT INTO Members (user_id, community_id, is_moderator)
 
 CREATE TABLE Posts (
 	post_id         SERIAL,
-	user_id         INTEGER   NOT NULL REFERENCES Users(user_id),
-	upvotes         INTEGER   NOT NULL DEFAULT 0,
-	downvotes       INTEGER   NOT NULL DEFAULT 0,
-	body_text       TEXT,
-	post_title      TEXT      NOT NULL,
+	user_id         INTEGER        NOT NULL REFERENCES Users(user_id),
+	upvotes         INTEGER        NOT NULL DEFAULT 0,
+	downvotes       INTEGER        NOT NULL DEFAULT 0,
+	body_text       VARCHAR(5000),
+	post_title      VARCHAR(140)   NOT NULL,
 	post_image_path TEXT,
-	create_date     TIMESTAMP NOT NULL DEFAULT now(),
-	is_complete     BOOLEAN   NOT NULL DEFAULT FALSE,
+	create_date     TIMESTAMP      NOT NULL DEFAULT now(),
+	is_complete     BOOLEAN        NOT NULL DEFAULT FALSE,
  PRIMARY KEY(post_id)
 );
 
@@ -152,9 +152,9 @@ INSERT INTO PostsToCommunities (post_id, community_id)
 
 CREATE TABLE Comments (
 	comment_id SERIAL,
-	user_id    INTEGER NOT NULL REFERENCES Users(user_id),
-	post_id    INTEGER NOT NULL REFERENCES Posts(post_id),
-	body_text  TEXT    NOT NULL,
+	user_id    INTEGER      NOT NULL REFERENCES Users(user_id),
+	post_id    INTEGER      NOT NULL REFERENCES Posts(post_id),
+	body_text  VARCHAR(140) NOT NULL,
  PRIMARY KEY(comment_id)
 );
 
@@ -184,8 +184,8 @@ INSERT INTO Reports (post_id, report_reason)
 
 CREATE TABLE PostUpdates (
 	post_update_id SERIAL,
-	post_id        INTEGER NOT NULL REFERENCES Posts(post_id),
-	body_text      TEXT    NOT NULL,
+	post_id        INTEGER      NOT NULL REFERENCES Posts(post_id),
+	body_text      VARCHAR(140) NOT NULL,
  PRIMARY KEY (post_update_id)
 );
 
