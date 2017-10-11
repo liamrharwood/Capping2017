@@ -12,14 +12,12 @@
  *
  */
 
-DROP TABLE IF EXISTS TaggedPosts;
 DROP TABLE IF EXISTS Hashtags;
 DROP TABLE IF EXISTS PostUpdates;
 DROP TABLE IF EXISTS Reports;
 DROP TABLE IF EXISTS Comments;
 DROP TABLE IF EXISTS PostsToCommunities;
 DROP TABLE IF EXISTS Posts;
-DROP TABLE IF EXISTS Moderators;
 DROP TABLE IF EXISTS Members;
 DROP TABLE IF EXISTS Communities;
 DROP TABLE IF EXISTS Follows;
@@ -52,8 +50,9 @@ CREATE TABLE Users (
 
 INSERT INTO Users (first_name, last_name, username, password_hash, email, birth_date, location, profile_image_path, bio, reputation_points)
 	VALUES
-	('Moses',  'Smith', 'redsea1',    'jaslkdjlajglkaj', 'moses@gmail.com',  to_date('1963-10-04', 'YYYY-MM-DD'), 'The Desert',   'images/moses.png',  'I was found in a river.', 100),
-	('Buddha', 'Jones', 'the_buddha', 'asdjklasjdkljal', 'buddha@gmail.com', to_date('1950-07-13', 'YYYY-MM-DD'), 'Under a Tree', 'images/buddha.png', 'I am enlightened.',       100);
+	('Thor',   'Odinsson', 'mjoln1r',    'bkjlkasfklasklf', 'thor@gmail.com',   to_date('1985-11-10', 'YYYY-MM-DD'), 'Valhalla',     'images/thor.png',   'I am the god of thunder.', 50),
+	('Moses',  'Smith',    'redsea1',    'jaslkdjlajglkaj', 'moses@gmail.com',  to_date('1963-10-04', 'YYYY-MM-DD'), 'The Desert',   'images/moses.png',  'I was found in a river.',  100),
+	('Buddha', 'Jones',    'the_buddha', 'asdjklasjdkljal', 'buddha@gmail.com', to_date('1950-07-13', 'YYYY-MM-DD'), 'Under a Tree', 'images/buddha.png', 'I am enlightened.',        100);
 
  --
  -- Follows Table
@@ -68,7 +67,9 @@ CREATE TABLE Follows (
 INSERT INTO Follows (follower_id, followee_id)
 	VALUES
 	((SELECT user_id FROM Users WHERE username = 'redsea1'),    (SELECT user_id FROM Users WHERE username = 'the_buddha')),
-	((SELECT user_id FROM Users WHERE username = 'the_buddha'), (SELECT user_id FROM Users WHERE username = 'redsea1'));
+	((SELECT user_id FROM Users WHERE username = 'the_buddha'), (SELECT user_id FROM Users WHERE username = 'redsea1')),
+	((SELECT user_id FROM Users WHERE username = 'mjoln1r'),    (SELECT user_id FROM Users WHERE username = 'the_buddha')),
+	((SELECT user_id FROM Users WHERE username = 'mjoln1r'),    (SELECT user_id FROM Users WHERE username = 'redsea1'));
 
  --
  -- Communities Table
@@ -86,7 +87,8 @@ CREATE TABLE Communities (
 
 INSERT INTO Communities (name, description, is_verified)
 	VALUES
-	('Buddhism', 'Come get enlightened!', TRUE);
+	('Buddhism',   'Come get enlightened!', TRUE),
+	('Norse Gods', 'To Valhalla!',          FALSE);
 
  --
  -- Members Table
@@ -95,26 +97,16 @@ INSERT INTO Communities (name, description, is_verified)
 CREATE TABLE Members (
 	user_id      INTEGER NOT NULL REFERENCES Users(user_id),
 	community_id INTEGER NOT NULL REFERENCES Communities(community_id),
+	is_moderator BOOLEAN NOT NULL DEFAULT FALSE
  PRIMARY KEY (user_id, community_id)
 );
 
-INSERT INTO Members (user_id, community_id)
+INSERT INTO Members (user_id, community_id, is_moderator)
 	VALUES
-	((SELECT user_id FROM Users WHERE username = 'redsea1'), (SELECT community_id FROM Communities WHERE name = 'Buddhism'));
-
- --
- -- Moderators Table
- --
-
-CREATE TABLE Moderators (
-	user_id      INTEGER NOT NULL REFERENCES Users(user_id),
-	community_id INTEGER NOT NULL REFERENCES Communities(community_id),
- PRIMARY KEY (user_id, community_id)
-);
-
-INSERT INTO Moderators (user_id, community_id)
-	VALUES
-	((SELECT user_id FROM Users WHERE username = 'the_buddha'), (SELECT community_id FROM Communities WHERE name = 'Buddhism'));
+	((SELECT user_id FROM Users WHERE username = 'redsea1'),    (SELECT community_id FROM Communities WHERE name = 'Buddhism'),   FALSE),
+	((SELECT user_id FROM Users WHERE username = 'mjoln1r'),    (SELECT community_id FROM Communities WHERE name = 'Norse Gods'), TRUE),
+	((SELECT user_id FROM Users WHERE username = 'mjoln1r'),    (SELECT community_id FROM Communities WHERE name = 'Buddhism'),   FALSE),
+	((SELECT user_id FROM Users WHERE username = 'the_buddha'), (SELECT community_id FROM Communities WHERE name = 'Buddhism'),   TRUE);
 
  --
  -- Posts Table
@@ -135,7 +127,8 @@ CREATE TABLE Posts (
 
 INSERT INTO Posts (user_id, upvotes, downvotes, body_text, post_title, post_image_path)
 	VALUES
-	((SELECT user_id FROM Users WHERE username = 'redsea1'), 24, 1, 'I need some help. #please', 'Please help me become enlightened!', 'images/help.png');
+	((SELECT user_id FROM Users WHERE username = 'redsea1'), 24, 1, 'I need some help. #please',                         'Please help me become enlightened!', 'images/help.png'),
+	((SELECT user_id FROM Users WHERE username = 'mjoln1r'), 1,  0, 'My dang brother Loki is at it again. #godproblems', 'Pray for me to defeat Loki',         NULL);
 
  --
  -- PostsToCommunities Table
@@ -149,7 +142,9 @@ CREATE TABLE PostsToCommunities (
 
 INSERT INTO PostsToCommunities (post_id, community_id)
 	VALUES
-	((SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'), (SELECT community_id FROM Communities WHERE name = 'Buddhism'));
+	((SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'), (SELECT community_id FROM Communities WHERE name = 'Buddhism')),
+	((SELECT post_id FROM Posts WHERE post_title = 'Pray for me to defeat Loki'),         (SELECT community_id FROM Communities WHERE name = 'Buddhism')),
+	((SELECT post_id FROM Posts WHERE post_title = 'Pray for me to defeat Loki'),         (SELECT community_id FROM Communities WHERE name = 'Norse Gods'));
 
  --
  -- Comments Table
@@ -165,7 +160,8 @@ CREATE TABLE Comments (
 
 INSERT INTO Comments (user_id, post_id, body_text)
 	VALUES
-	((SELECT user_id FROM Users WHERE username = 'the_buddha'), (SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'), 'You must help yourself.');
+	((SELECT user_id FROM Users WHERE username = 'the_buddha'), (SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'), 'You must help yourself.'),
+	((SELECT user_id FROM Users WHERE username = 'mjoln1r'),    (SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'), 'I believe in you!');
 
  --
  -- Reports Table
@@ -197,29 +193,18 @@ INSERT INTO PostUpdates (post_id, body_text)
 	VALUES
 	((SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'), 'I now realize I must help myself!');
 
+
  --
  -- Hashtags Table
  --
 
 CREATE TABLE Hashtags (
-	hashtag_name TEXT NOT NULL,
- PRIMARY KEY(hashtag_name)
-);
-
-INSERT INTO Hashtags (hashtag_name)
-	VALUES
-	('please');
-
- --
- -- TaggedPosts Table
- --
-
-CREATE TABLE TaggedPosts (
-	hashtag_name TEXT    NOT NULL REFERENCES Hashtags(hashtag_name),
+	hashtag_name TEXT    NOT NULL,
 	post_id      INTEGER NOT NULL REFERENCES Posts(post_id),
  PRIMARY KEY(hashtag_name, post_id)
 );
 
-INSERT INTO TaggedPosts (hashtag_name, post_id)
+INSERT INTO Hashtags (hashtag_name, post_id)
 	VALUES
-	('please', (SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'));
+	('please',      (SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!')),
+	('godproblems', (SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'));
