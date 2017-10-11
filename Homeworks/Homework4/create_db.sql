@@ -97,7 +97,7 @@ INSERT INTO Communities (name, description, is_verified)
 CREATE TABLE Members (
 	user_id      INTEGER NOT NULL REFERENCES Users(user_id),
 	community_id INTEGER NOT NULL REFERENCES Communities(community_id),
-	is_moderator BOOLEAN NOT NULL DEFAULT FALSE
+	is_moderator BOOLEAN NOT NULL DEFAULT FALSE,
  PRIMARY KEY (user_id, community_id)
 );
 
