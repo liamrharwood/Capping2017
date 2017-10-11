@@ -207,4 +207,4 @@ CREATE TABLE Hashtags (
 INSERT INTO Hashtags (hashtag_name, post_id)
 	VALUES
 	('please',      (SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!')),
-	('godproblems', (SELECT post_id FROM Posts WHERE post_title = 'Please help me become enlightened!'));
+	('godproblems', (SELECT post_id FROM Posts WHERE post_title = 'Pray for me to defeat Loki'));
