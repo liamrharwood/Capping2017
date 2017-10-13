@@ -16,8 +16,8 @@ class TestComponent extends React.Component {
   render() {
     return (
       <div>
-        Likes : <span>{this.state.likesCount}</span>
-        <div><button onClick={this.onLike}>Like Me</button></div>
+        Prayers : <span>{this.state.likesCount}</span>
+        <div><button onClick={this.onLike}>Pray</button></div>
       </div>
     );
   }
