@@ -1,3 +1,6 @@
-/home/liamrharwood/IdeaProjects/HelpingHands/src/main/java/com/helpinghands/HelpingHandsApplication.java
-/home/liamrharwood/IdeaProjects/HelpingHands/src/main/java/com/helpinghands/resources/UsersResource.java
-/home/liamrharwood/IdeaProjects/HelpingHands/src/main/java/com/helpinghands/HelpingHandsConfiguration.java
+C:\Users\kingo_000\Desktop\Capping2017\backend\HelpingHands\src\main\java\com\helpinghands\dao\UserDAO.java
+C:\Users\kingo_000\Desktop\Capping2017\backend\HelpingHands\src\main\java\com\helpinghands\HelpingHandsApplication.java
+C:\Users\kingo_000\Desktop\Capping2017\backend\HelpingHands\src\main\java\com\helpinghands\core\mapper\UserMapper.java
+C:\Users\kingo_000\Desktop\Capping2017\backend\HelpingHands\src\main\java\com\helpinghands\HelpingHandsConfiguration.java
+C:\Users\kingo_000\Desktop\Capping2017\backend\HelpingHands\src\main\java\com\helpinghands\core\user\User.java
+C:\Users\kingo_000\Desktop\Capping2017\backend\HelpingHands\src\main\java\com\helpinghands\resources\UserResource.java

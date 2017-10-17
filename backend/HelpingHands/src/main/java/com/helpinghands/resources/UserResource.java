@@ -1,9 +1,10 @@
 package com.helpinghands.resources;
 
-import com.helpinghands.core.User;
+import com.helpinghands.core.user.User;
 import com.helpinghands.dao.UserDAO;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -21,6 +22,11 @@ public class UserResource {
     @GET
     public List<User> getAll() {
         return userDAO.getAllUsers();
+    }
+
+    @POST
+    public User registerNewUser() {
+        return null;
     }
 
 }
