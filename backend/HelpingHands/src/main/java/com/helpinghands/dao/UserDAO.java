@@ -9,7 +9,10 @@ import java.util.List;
 
 @RegisterMapper(UserMapper.class)
 public interface UserDAO {
-    @SqlQuery("SELECT user_id, username, first_name, last_name FROM Users")
+    String SELECT_FIELDS = "user_id, username, first_name, last_name, email, birth_date, " +
+            "location, profile_image_path, bio, reputation_points, is_administrator, ban_status, create_date, update_date";
+
+    @SqlQuery("SELECT " + SELECT_FIELDS + " FROM Users")
     List<User> getAllUsers();
 
 }
