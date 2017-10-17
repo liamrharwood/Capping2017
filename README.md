@@ -4,8 +4,10 @@ Senior capping project for Fall 2017.
 ### Running the Backend
 Main class:
 ```com.helpinghands.HelpingHandsApplication```
+
 Program arguments:
 ```server helping-hands.yml```
+
 VM options:
 ```
 -Ddw.database.url=[DATABASE URL]
