@@ -5,48 +5,48 @@ node_modules/
 #
 
 # User-specific stuff:
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/dictionaries
+backend/HelpingHands/.idea/**/workspace.xml
+backend/HelpingHands/.idea/**/tasks.xml
+backend/HelpingHands/.idea/dictionaries
 
 # Sensitive or high-churn files:
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.xml
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
+backend/HelpingHands/.idea/**/dataSources/
+backend/HelpingHands/.idea/**/dataSources.ids
+backend/HelpingHands/.idea/**/dataSources.xml
+backend/HelpingHands/.idea/**/dataSources.local.xml
+backend/HelpingHands/.idea/**/sqlDataSources.xml
+backend/HelpingHands/.idea/**/dynamic.xml
+backend/HelpingHands/.idea/**/uiDesigner.xml
 
 # Gradle:
-.idea/**/gradle.xml
-.idea/**/libraries
+backend/HelpingHands/.idea/**/gradle.xml
+backend/HelpingHands/.idea/**/libraries
 
 # CMake
-cmake-build-debug/
+backend/HelpingHands/cmake-build-debug/
 
 # Mongo Explorer plugin:
-.idea/**/mongoSettings.xml
+backend/HelpingHands/.idea/**/mongoSettings.xml
 
 ## File-based project format:
-*.iws
+backend/HelpingHands/*.iws
 
 ## Plugin-specific files:
 
 # IntelliJ
-out/
+backend/HelpingHands/out/
 
 # mpeltonen/sbt-idea plugin
-.idea_modules/
+backend/HelpingHands/.idea_modules/
 
 # JIRA plugin
-atlassian-ide-plugin.xml
+backend/HelpingHands/atlassian-ide-plugin.xml
 
 # Cursive Clojure plugin
-.idea/replstate.xml
+backend/HelpingHands/.idea/replstate.xml
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
+backend/HelpingHands/com_crashlytics_export_strings.xml
+backend/HelpingHands/crashlytics.properties
+backend/HelpingHands/crashlytics-build.properties
+backend/HelpingHands/fabric.properties
