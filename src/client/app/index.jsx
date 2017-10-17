@@ -1,13 +1,14 @@
 import React from 'react';
 import {render} from 'react-dom';
-import TestComponent from './TestComponent.jsx'
+import Navbar from './components/Navbar.jsx'
 
 class App extends React.Component {
   render () {
     return(
     	<div>
+    		
+    		<Navbar />
     		<p> Pray for me!</p>
-    		<TestComponent />
     	</div>
     	);
   }
