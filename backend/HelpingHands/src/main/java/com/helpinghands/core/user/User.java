@@ -1,8 +1,11 @@
 package com.helpinghands.core.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.helpinghands.core.BanStatus;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class User {
 
@@ -22,24 +25,131 @@ public class User {
     @JsonProperty
     private String lastName;
 
+    @NotNull
+    @JsonProperty
+    private String email;
+
+    @NotNull
+    @JsonProperty
+    private Date birth_date;
+
+    @JsonProperty
+    private String location;
+
+    @JsonProperty
+    private String profileImagePath;
+
+    @JsonProperty
+    private String bio;
+
+    @NotNull
+    @JsonProperty
+    private Integer reputationPoints;
+
+    @NotNull
+    @JsonProperty
+    private boolean isAdministrator;
+
+    @NotNull
+    @JsonProperty
+    private BanStatus banStatus;
+
+    @NotNull
+    @JsonProperty
+    private Timestamp createDate;
+
+    @NotNull
+    @JsonProperty
+    private Timestamp updateDate;
+
     public User() {
         // Jackson deserialization
     }
 
-    public User(int id, String username, String firstName, String lastName) {
+    public User(int id,
+                String username,
+                String firstName,
+                String lastName,
+                String email,
+                Date birth_date,
+                String location,
+                String profileImagePath,
+                String bio,
+                Integer reputationPoints,
+                boolean isAdministrator,
+                BanStatus banStatus,
+                Timestamp createDate,
+                Timestamp updateDate) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-
+        this.email = email;
+        this.birth_date = birth_date;
+        this.location = location;
+        this.profileImagePath = profileImagePath;
+        this.bio = bio;
+        this.reputationPoints = reputationPoints;
+        this.isAdministrator = isAdministrator;
+        this.banStatus = banStatus;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
     }
 
     public Integer getId() {
         return id;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public String getFirstName() {
         return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Date getBirth_date() {
+        return birth_date;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getProfileImagePath() {
+        return profileImagePath;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public Integer getReputationPoints() {
+        return reputationPoints;
+    }
+
+    public boolean isAdministrator() {
+        return isAdministrator;
+    }
+
+    public BanStatus getBanStatus() {
+        return banStatus;
+    }
+
+    public Timestamp getCreateDate() {
+        return createDate;
+    }
+
+    public Timestamp getUpdateDate() {
+        return updateDate;
     }
 
 }
