@@ -12,6 +12,7 @@ public class HelpingHandsApplication extends Application<HelpingHandsConfigurati
         new HelpingHandsApplication().run(args);
     }
 
+    @Override
     public void run(HelpingHandsConfiguration configuration, Environment environment) {
         final DBIFactory factory = new DBIFactory();
         final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
