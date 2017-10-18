@@ -1,11 +1,13 @@
 .navbar {
 	position: fixed;
+	display: flex;
+	align-items: center;
 	background: #aaffb5; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(#aaffb5, #6ae87c); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#aaffb5, #6ae87c); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#aaffb5, #6ae87c); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#aaffb5, #6ae87c); /* Standard syntax */
-	height: 125px;
+	height: 75px;
 	width: 100%;
 	overflow: hidden;
 	box-shadow: -4px 0px 2px rgba(34,34,34,0.6);
@@ -19,8 +21,8 @@
     background: -o-radial-gradient(#fffb8e, #f9f9ed); /* For Opera 11.1 to 12.0 */
     background: -moz-radial-gradient(#fffb8e, #f9f9ed); /* For Firefox 3.6 to 15 */
     background: radial-gradient(#fffb8e, #f9f9ed); /* Standard syntax */
-	height: 125px;
-	width: 142px;
+	height: 75px;
+	width: 90px;
 	border-color: #68c975;
 	border-width: 5px;
 	border-radius: 200px;
@@ -44,6 +46,15 @@
 	transition: 0.5s;
 }
 
+.login-button {
+	float:right;
+	padding-top: 10px 15px;
+	background-color: #14a5ff;
+	font-size: 18px;
+	border: none;
+	
+}
 body {
 	margin: 0px;
+	background-color: #fffef7;
 }

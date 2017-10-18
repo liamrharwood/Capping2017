@@ -1,4 +1,5 @@
 import React from 'react';
+import 'react-bootstrap'
 
 class Logo extends React.Component {
 
@@ -10,7 +11,7 @@ class Logo extends React.Component {
 
   render() {
     return (
-      <div className = "logo">
+      <div className =  "logo">
         <img src= "../images/large-logo.png" />
       </div>
     );

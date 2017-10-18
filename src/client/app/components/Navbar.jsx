@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from '../components/Logo.jsx';
+import 'react-bootstrap';
 
 class Navbar extends React.Component {
 
@@ -13,8 +14,10 @@ class Navbar extends React.Component {
 
   render() {
     return (
-      <div className = "navbar">
+      <div className = "container navbar">
         <Logo />
+        <div className = "col-sm-10" />
+        <button className = "btn col-sm-2 login-button">Log In/Register</button>
       </div>
     );
   }
