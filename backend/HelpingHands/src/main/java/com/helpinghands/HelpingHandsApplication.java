@@ -1,14 +1,21 @@
 package com.helpinghands;
 
+import com.helpinghands.auth.HelpingHandsAuthenticator;
+import com.helpinghands.auth.HelpingHandsAuthorizer;
 import com.helpinghands.dao.UserDAO;
 import com.helpinghands.resources.UserResource;
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.skife.jdbi.v2.DBI;
+
+import java.security.Principal;
 
 public class HelpingHandsApplication extends Application<HelpingHandsConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -32,5 +39,13 @@ public class HelpingHandsApplication extends Application<HelpingHandsConfigurati
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
 
         environment.jersey().register(new UserResource(userDAO));
+        environment.jersey().register(new AuthDynamicFeature(
+                new BasicCredentialAuthFilter.Builder<Principal>()
+                    .setAuthenticator(new HelpingHandsAuthenticator(userDAO))
+                    .setAuthorizer(new HelpingHandsAuthorizer())
+                    .setRealm("SECRET")
+                    .buildAuthFilter()
+        ));
+        environment.jersey().register(RolesAllowedDynamicFeature.class);
     }
 }
