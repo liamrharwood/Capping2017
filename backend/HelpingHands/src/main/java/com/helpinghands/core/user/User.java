@@ -48,7 +48,7 @@ public class User {
 
     @NotNull
     @JsonProperty
-    private boolean isAdministrator;
+    private boolean administrator;
 
     @NotNull
     @JsonProperty
@@ -76,7 +76,7 @@ public class User {
                 String profileImagePath,
                 String bio,
                 Integer reputationPoints,
-                boolean isAdministrator,
+                boolean administrator,
                 BanStatus banStatus,
                 Timestamp createDate,
                 Timestamp updateDate) {
@@ -90,7 +90,7 @@ public class User {
         this.profileImagePath = profileImagePath;
         this.bio = bio;
         this.reputationPoints = reputationPoints;
-        this.isAdministrator = isAdministrator;
+        this.administrator = administrator;
         this.banStatus = banStatus;
         this.createDate = createDate;
         this.updateDate = updateDate;
@@ -137,7 +137,7 @@ public class User {
     }
 
     public boolean isAdministrator() {
-        return isAdministrator;
+        return administrator;
     }
 
     public BanStatus getBanStatus() {
