@@ -15,7 +15,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserResource {
-    UserDAO userDAO;
+    private UserDAO userDAO;
 
     public UserResource(UserDAO userDAO) {
         this.userDAO = userDAO;
