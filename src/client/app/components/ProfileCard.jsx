@@ -23,6 +23,8 @@ class ProfileCard extends React.Component {
   	 				<div className="col-3" />
   	 				<div className="col-9"><a className="text-muted" href="#">@BigBYessiree</a></div>
   	 			</div>
+  	 			<div className="row">
+  	 			</div>
   	 		</div>
   	 	</div>
   	);
