@@ -14,13 +14,16 @@
 	background: #633d91
 }
 
-.post-pill {
-	width: 50rem;
-	margin: 1rem;
+.post-card {
+	width: 100%;
 }
 
 .card-subtitle {
 	font-size: 14px;
+}
+
+.voter:hover {
+	color:#727074;
 }
 
 .logo {

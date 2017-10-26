@@ -31,8 +31,8 @@ class MainNavbar extends React.Component {
               Your Communities
              </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="#">Favorite Community 1</a>
-                <a className="dropdown-item" href="#">Favorite Community 2</a>
+                <a className="dropdown-item" href="#"><i className="fa fa-star mr-2" aria-hidden="true"></i>Favorite Community 1</a>
+                <a className="dropdown-item" href="#"><i className="fa fa-star mr-2" aria-hidden="true"></i>Favorite Community 2</a>
               <div className="dropdown-divider"></div>
                 <a className="dropdown-item" href="#">Community 3</a>
               </div>
