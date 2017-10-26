@@ -24,7 +24,7 @@ public class PostResource {
     }
 
     @GET
-    public List<Post> getAllPosts(@Auth UserPrincipal user) {
+    public List<Post> getAllPosts() {
         return postDAO.getAllPosts();
     }
 
