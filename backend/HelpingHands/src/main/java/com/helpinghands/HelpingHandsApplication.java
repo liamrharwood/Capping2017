@@ -2,12 +2,14 @@ package com.helpinghands;
 
 import com.helpinghands.auth.HelpingHandsAuthenticator;
 import com.helpinghands.auth.HelpingHandsAuthorizer;
+import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.dao.PostDAO;
 import com.helpinghands.dao.UserDAO;
 import com.helpinghands.resources.PostResource;
 import com.helpinghands.resources.UserResource;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
@@ -44,12 +46,13 @@ public class HelpingHandsApplication extends Application<HelpingHandsConfigurati
         environment.jersey().register(new UserResource(userDAO));
         environment.jersey().register(new PostResource(postDAO));
         environment.jersey().register(new AuthDynamicFeature(
-                new BasicCredentialAuthFilter.Builder<Principal>()
+                new BasicCredentialAuthFilter.Builder<UserPrincipal>()
                     .setAuthenticator(new HelpingHandsAuthenticator(userDAO))
                     .setAuthorizer(new HelpingHandsAuthorizer())
                     .setRealm("SECRET")
                     .buildAuthFilter()
         ));
         environment.jersey().register(RolesAllowedDynamicFeature.class);
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(UserPrincipal.class));
     }
 }

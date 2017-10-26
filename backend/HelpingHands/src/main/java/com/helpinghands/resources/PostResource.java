@@ -1,13 +1,16 @@
 package com.helpinghands.resources;
 
+import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.post.Post;
 import com.helpinghands.dao.PostDAO;
+import io.dropwizard.auth.Auth;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.security.Principal;
 import java.util.List;
 
 @Path("/posts")
@@ -21,7 +24,13 @@ public class PostResource {
     }
 
     @GET
-    public List<Post> getAllPosts() {
+    public List<Post> getAllPosts(@Auth UserPrincipal user) {
         return postDAO.getAllPosts();
+    }
+
+    @Path("following")
+    @GET
+    public List<Post> getFollowedPosts(@Auth UserPrincipal user) {
+        return postDAO.getFollowedPosts(user.getName());
     }
 }
