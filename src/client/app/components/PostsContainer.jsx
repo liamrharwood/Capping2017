@@ -9,8 +9,8 @@ class PostsContainer extends React.Component {
     this.state = {
         queryUri: "http://10.10.7.191:8080/posts",
         posts: PropTypes.Array,
-        postcards: [],
     };
+    this.renderPostCards = this.renderPostCards.bind(this);
   }
 
   componentDidMount() {
@@ -18,28 +18,37 @@ class PostsContainer extends React.Component {
       .then(res => {
         const posts = res.data;
         this.setState({ posts });
-      });
+      })
   }
 
   componentDidUpdate() {
     console.log(this.state.posts);
     var posts = this.state.posts;
     var array = [];
-    for(var i = 0; i < posts.length; i++){
-      array.push(
-        <PostCard key={i} votes = {posts[i].upvotes - posts[i].downvotes} title = {posts[i].title} complete = {posts[i].complete} createDate = {posts[i].createDate} user = {posts[i].userId} />
+  }
+
+  renderPostCards(posts){
+    if(posts){
+      console.log("1");
+      return(
+        posts.map(this.generatePostCard)
+      );
+    } else {
+      console.log("2");
+      return (
+        <p>Nothing right now</p>
       );
     }
+  }
 
-    this.state.postcards = array;
-
-    console.log(this.state.postcards);
+  generatePostCard(post){
+    return <PostCard key={post} votes = {post.upvotes - post.downvotes} title = {post.title} complete = {post.complete} createDate = {post.createDate} user = {post.userId} />;
   }
 
   render() {
   	return (
-  	 	<div className="container">
-  	 		{this.state.postcards}
+  	 	<div className="container posts-container">
+  	 		{this.renderPostCards(this.state.posts)}
   	 	</div>
   	);
   }

@@ -13,7 +13,7 @@ class PostCard extends React.Component {
 
   render() {
   	return (
-  	<div className="card post-card">
+  	<div className="card post-card mt-3">
   		<div className="card-body container ml-2">
   				<div className="row">
 	  				<div className="col-sm-1 container m-0">  			

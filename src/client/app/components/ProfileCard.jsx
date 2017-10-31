@@ -7,13 +7,11 @@ class ProfileCard extends React.Component {
     this.state = {
 
     };
-
-
   }
 
   render() {
   	return (
-  	 	<div className="card">
+  	 	<div className="card profile-card">
   	 		<div className = "card-body container">
   	 			<div className="row">
   	 				<div className="col-3">IMG</div>
@@ -24,6 +22,8 @@ class ProfileCard extends React.Component {
   	 				<div className="col-9"><a className="text-muted" href="#">@BigBYessiree</a></div>
   	 			</div>
   	 			<div className="row">
+  	 				<div className="col-6"><a className="text-muted" href="#"></a>39 Followers</div>
+  	 				<div className="col-6"><a className="text-muted" href="#"></a>39 Followed</div>
   	 			</div>
   	 		</div>
   	 	</div>

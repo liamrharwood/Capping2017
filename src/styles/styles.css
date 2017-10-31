@@ -26,6 +26,18 @@
 	color:#727074;
 }
 
+.profile-card {
+	background-color: #daebff
+}
+
+.posts-container{
+	height: 1000px;
+	border-style: solid;
+	border-radius: 10px;
+	border-color: black;
+	border-width: 1px;
+}
+
 .logo {
 	position: fixed;
 	background: #fffb8e; /* For browsers that do not support gradients */
