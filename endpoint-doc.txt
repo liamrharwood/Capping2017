@@ -1,0 +1,75 @@
+###############################
+#							  #
+# API End Point Documentation #
+#							  #
+###############################
+
+
+
+GET /posts 
+
+# Returns all posts from all users and communities followed by a single user (from authenticated user)
+
+[
+	{
+		userId:
+		username:
+		title:
+		bodyText:
+		upvotes:
+		downvotes:
+		createDate:
+		completed:
+	},
+	{
+		...
+	}
+]
+
+-------------------------------
+
+GET /userprofile
+
+# Returns user profile info
+
+{
+	userId:
+	userName:
+	firstName:
+	lastName:
+	followersCount:
+	followedCommunitiesCount:
+	followedUsersCount:
+	bio:
+	profileImg:
+}
+
+-------------------------------
+
+POST /upvote?postid={postid}
+
+# Adds 1 to the upvote total of a post
+
+-------------------------------
+
+POST /downvote?postid={postid}
+
+# Adds 1 to the downvote total of a post
+
+-------------------------------
+
+POST /remove_upvote?postid={postid}
+
+# Remove 1 upvote from post total
+
+-------------------------------
+
+POST /remove_downvote?postid={postid}
+
+# Remove 1 downvote from post total
+
+-------------------------------
+
+POST /new_post?user-id={userId}&title={title}&body-text={bodytext}&img={img}&communitiy={community 1}&community={community 2} ...
+
+# creates a new post 
