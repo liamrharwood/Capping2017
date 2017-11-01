@@ -1,17 +1,41 @@
-.navbar {
+.main-navbar {
 	position: fixed;
 	display: flex;
 	align-items: center;
-	background: #aaffb5; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#aaffb5, #6ae87c); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#aaffb5, #6ae87c); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#aaffb5, #6ae87c); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#aaffb5, #6ae87c); /* Standard syntax */
-	height: 75px;
+	background: #7f4eb7;
+	height: 60px;
 	width: 100%;
 	overflow: hidden;
 	box-shadow: -4px 0px 2px rgba(34,34,34,0.6);
 	border-radius: 0px 0px 5px 5px;
+}
+
+.nav-purple{
+	background: #633d91
+}
+
+.post-card {
+	width: 100%;
+}
+
+.card-subtitle {
+	font-size: 14px;
+}
+
+.voter:hover {
+	color:#727074;
+}
+
+.profile-card {
+	background-color: #daebff
+}
+
+.posts-container{
+	height: 1000px;
+	border-style: solid;
+	border-radius: 10px;
+	border-color: black;
+	border-width: 1px;
 }
 
 .logo {
@@ -46,14 +70,11 @@
 	transition: 0.5s;
 }
 
-.login-button {
-	float:right;
-	padding-top: 10px 15px;
-	background-color: #14a5ff;
-	font-size: 18px;
-	border: none;
-	
+.logo:active {
+	border-color: #fdd960;
 }
+
+
 body {
 	margin: 0px;
 	background-color: #fffef7;

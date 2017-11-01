@@ -5,6 +5,7 @@ import com.helpinghands.core.user.User;
 import com.helpinghands.core.user.UserRegistration;
 import com.helpinghands.dao.UserDAO;
 import io.dropwizard.auth.Auth;
+import org.slf4j.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -29,17 +30,22 @@ public class UserResource {
 
     @POST
     @Path("register")
-    public void registerNewUser(UserRegistration userRegistration) {
+    public String registerNewUser(UserRegistration userRegistration) {
         PasswordEncryption passwordEncryption = new PasswordEncryption();
         String passwordHash = passwordEncryption.hash(userRegistration.getPassword().toCharArray());
 
-        userDAO.insertNewUser(
-                userRegistration.getUsername(),
-                passwordHash,
-                userRegistration.getFirstName(),
-                userRegistration.getLastName(),
-                userRegistration.getEmail(),
-                userRegistration.getBirthDate());
+        try {
+            userDAO.insertNewUser(
+                    userRegistration.getUsername(),
+                    passwordHash,
+                    userRegistration.getFirstName(),
+                    userRegistration.getLastName(),
+                    userRegistration.getEmail(),
+                    userRegistration.getBirthDate());
+            return "";
+        } catch (Exception ex) {
+            return ex.toString();
+        }
     }
 
 }
