@@ -28,7 +28,7 @@ GET /posts
 
 -------------------------------
 
-GET /userprofile
+GET /users/profile
 
 # Returns user profile info
 

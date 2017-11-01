@@ -18,8 +18,17 @@ public interface UserDAO {
     @SqlQuery("SELECT " + SELECT_FIELDS + " FROM Users")
     List<User> getAllUsers();
 
-    @SqlQuery("SELECT " + SELECT_FIELDS + " FROM Users WHERE username = :username AND password_hash = :password")
-    User getByCredentials(@Bind("username") String username, @Bind("password") String password);
+    @SqlQuery("SELECT " + SELECT_FIELDS + " FROM Users WHERE username = :username")
+    User getUserByUsername(@Bind("username") String username);
+
+    @SqlQuery("SELECT COUNT(*) FROM Follows WHERE followee_id = :id")
+    Integer getFollowersCountForUser(@Bind("id") int id);
+
+    @SqlQuery("SELECT COUNT(*) FROM Follows WHERE follower_id = :id")
+    Integer getFollowedCountForUser(@Bind("id") int id);
+
+    @SqlQuery("SELECT COUNT(*) FROM Members WHERE user_id = :id")
+    Integer getFollowedCommunitiesCountForUser(@Bind("id") int id);
 
     @SqlQuery("SELECT password_hash FROM Users WHERE username = :username")
     String getPasswordForUsername(@Bind("username") String username);

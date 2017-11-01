@@ -1,7 +1,9 @@
 package com.helpinghands.resources;
 
 import com.helpinghands.auth.PasswordEncryption;
+import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.user.User;
+import com.helpinghands.core.user.UserProfile;
 import com.helpinghands.core.user.UserRegistration;
 import com.helpinghands.dao.UserDAO;
 import io.dropwizard.auth.Auth;
@@ -26,6 +28,21 @@ public class UserResource {
     public List<User> getAll() {
         List<User> users = userDAO.getAllUsers();
         return users;
+    }
+
+    @GET
+    @Path("profile")
+    public UserProfile getProfile(@Auth UserPrincipal userPrincipal) {
+        User user = userDAO.getUserByUsername(userPrincipal.getName());
+        return new UserProfile(user.getId(),
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName(),
+                userDAO.getFollowersCountForUser(user.getId()),
+                userDAO.getFollowedCommunitiesCountForUser(user.getId()),
+                userDAO.getFollowedCountForUser(user.getId()),
+                user.getBio(),
+                user.getProfileImagePath());
     }
 
     @POST
