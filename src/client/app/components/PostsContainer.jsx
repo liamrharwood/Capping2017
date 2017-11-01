@@ -9,22 +9,43 @@ class PostsContainer extends React.Component {
     this.state = {
         queryUri: "http://10.10.7.191:8080/posts",
         posts: PropTypes.Array,
+        numPostsPerPage: 10,
+        pageNum: 1
     };
     this.renderPostCards = this.renderPostCards.bind(this);
+    this.fetchPostCards = this.fetchPostCards.bind(this);
   }
 
   componentDidMount() {
-    axios.get(this.state.queryUri)
+    this.fetchPostCards();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.posts == prevState.posts){
+      this.fetchPostCards
+    }
+  }
+
+  fetchPostCards(){
+    var callDate = (new Date()).getTime();
+    var startNum = (this.state.pageNum - 1) * this.state.numPostsPerPage;
+    var endNum = (this.state.pageNum) * this.state.numPostsPerPage;
+
+    axios.get(this.state.queryUri, {
+      callDate: callDate,
+      startNum: startNum,
+      endNum: endNum,
+    })
       .then(res => {
         const posts = res.data;
         this.setState({ posts });
-      })
-  }
-
-  componentDidUpdate() {
-    console.log(this.state.posts);
-    var posts = this.state.posts;
-    var array = [];
+      }).catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
   }
 
   renderPostCards(posts){
