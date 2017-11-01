@@ -1,6 +1,6 @@
 package com.helpinghands.resources;
 
-import com.helpinghands.core.post.Post;
+import com.helpinghands.core.post.PostCard;
 import com.helpinghands.dao.PostDAO;
 
 import javax.ws.rs.Consumes;
@@ -21,7 +21,7 @@ public class PostResource {
     }
 
     @GET
-    public List<Post> getAllPosts() {
+    public List<PostCard> getAllPosts() {
         return postDAO.getAllPosts();
     }
 }
