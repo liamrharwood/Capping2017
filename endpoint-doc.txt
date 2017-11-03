@@ -63,30 +63,81 @@ Request Body:
 
 -------------------------------
 
-POST /upvote?postid={postid}
+POST /vote
 
-# Adds 1 to the upvote total of a post
+# submit or remove a vote from a given post
 
--------------------------------
-
-POST /downvote?postid={postid}
-
-# Adds 1 to the downvote total of a post
-
--------------------------------
-
-POST /remove_upvote?postid={postid}
-
-# Remove 1 upvote from post total
+Request Body:
+{
+	postId:
+	vote: (1 = upvote, 0 = unvote, -1 = downvote)
+}
 
 -------------------------------
 
-POST /remove_downvote?postid={postid}
-
-# Remove 1 downvote from post total
-
--------------------------------
-
-POST /new_post?user-id={userId}&title={title}&body-text={bodytext}&img={img}&communitiy={community 1}&community={community 2} ...
+POST /new_post
 
 # creates a new post 
+
+Request Body:
+{
+	title:
+	userId:
+	bodyText:
+	imgPath:
+	communities: [communityId]
+}
+
+
+-------------------------------
+
+GET /communities/posts
+
+# fetches posts for a given community
+
+Request Body:
+{
+	communityId:
+	callDate: only fetch posts older than this date in unix time
+	startNum:
+	endNum: fetch posts between the start and end num (pagination)
+}
+
+Response Body:
+
+[
+	{
+		userId:
+		username:
+		title:
+		bodyText:
+		upvotes:
+		downvotes:
+		createDate:
+		completed:
+	},
+	{
+		...
+	}
+]
+
+-------------------------------
+
+GET /communities/profile
+
+# fetch profile data for a given community
+
+Request Body:
+{
+	communityId:
+}
+
+Response Body:
+{
+	communityId:
+	communityName:
+	communityDescription:
+	communityImagePath:
+	followersCount:
+	postCount:
+}
