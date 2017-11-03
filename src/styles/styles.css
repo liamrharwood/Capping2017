@@ -18,6 +18,8 @@
 
 .dashboard{
 	padding-top:80px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 .post-card {
@@ -47,6 +49,10 @@
 
 .post-body{
 	font-size:12px;
+}
+
+.bio {
+	font-size: 14px;
 }
 
 .logo {

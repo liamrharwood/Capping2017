@@ -42,6 +42,7 @@ GET /users/profile
 	followedUsersCount:
 	bio:
 	profileImagePath:
+	postCount:
 }
 
 -------------------------------
