@@ -41,7 +41,23 @@ GET /users/profile
 	followedCommunitiesCount:
 	followedUsersCount:
 	bio:
-	profileImg:
+	profileImagePath:
+}
+
+-------------------------------
+
+POST /users/register
+
+# Registers a new user
+
+Request Body:
+{
+	username:
+	password:
+	firstName:
+	lastName:
+	email:
+	birthDate:	
 }
 
 -------------------------------
