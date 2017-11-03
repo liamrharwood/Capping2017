@@ -9,11 +9,22 @@ class MainNavbar extends React.Component {
     //this.onLike = this.onLike.bind(this);
   }
 
+  renderCommunitiesDropdown() {
+    return (
+      <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+      <a className="dropdown-item" href="#"><i className="fa fa-star mr-2" aria-hidden="true"></i>Favorite Community 1</a>
+      <a className="dropdown-item" href="#"><i className="fa fa-star mr-2" aria-hidden="true"></i>Favorite Community 2</a>
+      <div className="dropdown-divider"></div>
+      <a className="dropdown-item" href="#">Community 3</a>
+      </div>
+    );
+  }
+
 
 
   render() {
     return (
-     <nav className="navbar navbar-expand-lg navbar-dark nav-purple">
+     <nav className="navbar navbar-expand-lg navbar-dark nav-purple position-fixed">
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -30,12 +41,9 @@ class MainNavbar extends React.Component {
              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Your Communities
              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="#"><i className="fa fa-star mr-2" aria-hidden="true"></i>Favorite Community 1</a>
-                <a className="dropdown-item" href="#"><i className="fa fa-star mr-2" aria-hidden="true"></i>Favorite Community 2</a>
-              <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#">Community 3</a>
-              </div>
+              
+                {this.renderCommunitiesDropdown()}
+              
            </li>
          </ul>
          <form className="form-inline my-2 my-lg-0">

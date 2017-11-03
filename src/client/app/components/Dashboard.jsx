@@ -15,7 +15,7 @@ class Dashboard extends React.Component {
 
   render() {
   	return (
-  	 <div className="container mt-3">
+  	 <div className="container dashboard">
      <div className="row">
       <div className="col-8">
         <PostsContainer />

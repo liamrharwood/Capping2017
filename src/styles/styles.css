@@ -11,11 +11,21 @@
 }
 
 .nav-purple{
-	background: #633d91
+	background: #633d91;
+	width: 100%;
+	z-index: 1;
+}
+
+.dashboard{
+	padding-top:80px;
 }
 
 .post-card {
 	width: 100%;
+}
+
+.follower-count{
+	font-size: 14px;
 }
 
 .card-subtitle {
@@ -27,15 +37,16 @@
 }
 
 .profile-card {
-	background-color: #daebff
+	background-color: #daebff;
 }
 
 .posts-container{
 	height: 1000px;
-	border-style: solid;
-	border-radius: 10px;
-	border-color: black;
-	border-width: 1px;
+	
+}
+
+.post-body{
+	font-size:12px;
 }
 
 .logo {

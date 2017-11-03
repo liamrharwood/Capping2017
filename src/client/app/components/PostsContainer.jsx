@@ -63,7 +63,11 @@ class PostsContainer extends React.Component {
   }
 
   generatePostCard(post){
-    return <PostCard key={post} votes = {post.upvotes - post.downvotes} title = {post.title} complete = {post.complete} createDate = {post.createDate} user = {post.userId} />;
+
+    var date = new Date(post.createDate);
+    var formattedDate = date.getUTCDate() + '/' + (date.getUTCMonth() + 1)+ '/' + date.getUTCFullYear()
+
+    return <PostCard key={post.id} votes = {post.upvotes - post.downvotes} title = {post.title} complete = {post.complete} createDate = {formattedDate} user = {post.username} bodyText={post.bodyText} />;
   }
 
   render() {
