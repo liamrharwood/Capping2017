@@ -16,19 +16,6 @@ class ProfileCard extends React.Component {
   }
 
   fetchUserProfile() {
-//   	axios.get(this.state.queryUri, 
-//   		{
-
-//   		}, 
-//   		{
-//   			headers: {
-//   				auth: {
-// 			    	username: 'user1',
-// 			    	password: 'password'
-// 				}
-// 			}
-// 		}
-// 
 	axios({
 		method:'get',
   		url: this.state.queryUri,
@@ -39,7 +26,6 @@ class ProfileCard extends React.Component {
   		responseType: 'json'
 	})
       .then(res => {
-      	console.log(res);
         const profileData = res.data;
         this.setState({ profileData });
       }).catch(function (error) {

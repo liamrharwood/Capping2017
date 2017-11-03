@@ -31,11 +31,18 @@ class PostsContainer extends React.Component {
     var startNum = (this.state.pageNum - 1) * this.state.numPostsPerPage;
     var endNum = (this.state.pageNum) * this.state.numPostsPerPage;
 
-    axios.get(this.state.queryUri, {
+    axios({
+      method:'get',
+      url: this.state.queryUri,
+      auth: {
+        username: 'user1',
+        password: 'password'
+      },
+      responseType: 'json',
       callDate: callDate,
       startNum: startNum,
       endNum: endNum,
-    })
+    })  
       .then(res => {
         const posts = res.data;
         this.setState({ posts });
