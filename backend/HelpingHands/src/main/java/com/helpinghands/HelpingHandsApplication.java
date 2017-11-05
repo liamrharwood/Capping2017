@@ -3,8 +3,10 @@ package com.helpinghands;
 import com.helpinghands.auth.HelpingHandsAuthenticator;
 import com.helpinghands.auth.HelpingHandsAuthorizer;
 import com.helpinghands.auth.UserPrincipal;
+import com.helpinghands.dao.CommunityDAO;
 import com.helpinghands.dao.PostDAO;
 import com.helpinghands.dao.UserDAO;
+import com.helpinghands.resources.CommunityResource;
 import com.helpinghands.resources.PostResource;
 import com.helpinghands.resources.UserResource;
 import io.dropwizard.Application;
@@ -59,9 +61,11 @@ public class HelpingHandsApplication extends Application<HelpingHandsConfigurati
         final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
         final PostDAO postDAO = jdbi.onDemand(PostDAO.class);
+        final CommunityDAO communityDAO = jdbi.onDemand(CommunityDAO.class);
 
         environment.jersey().register(new UserResource(userDAO));
         environment.jersey().register(new PostResource(postDAO));
+        environment.jersey().register(new CommunityResource(communityDAO));
         environment.jersey().register(new AuthDynamicFeature(
                 new BasicCredentialAuthFilter.Builder<UserPrincipal>()
                     .setAuthenticator(new HelpingHandsAuthenticator(userDAO))

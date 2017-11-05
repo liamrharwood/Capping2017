@@ -123,21 +123,15 @@ Response Body:
 
 -------------------------------
 
-GET /communities/profile
+GET /communities/profile?id=[communityId]
 
 # fetch profile data for a given community
 
-Request Body:
-{
-	communityId:
-}
-
 Response Body:
 {
-	communityId:
-	communityName:
-	communityDescription:
-	communityImagePath:
-	followersCount:
+	id:
+	name:
+	description:
+	followerCount:
 	postCount:
 }
