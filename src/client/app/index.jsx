@@ -1,17 +1,9 @@
 import React from 'react';
-import {render} from 'react-dom';
-import Navbar from './components/Navbar.jsx';
-import Dashboard from './components/Dashboard.jsx';
+import ReactDom from 'react-dom';
 
-class App extends React.Component {
-  render () {
-    return(
-    	<div>
-    		<Navbar />
-    		<Dashboard />
-    	</div>
-    	);
-  }
-}
+import App from './components/app.jsx';
 
-render(<App/>, document.getElementById('app'));
+ReactDom.render(
+  <App />,
+  document.getElementById("app")
+);
