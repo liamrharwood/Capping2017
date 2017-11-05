@@ -30,6 +30,9 @@ public interface UserDAO {
     @SqlQuery("SELECT COUNT(*) FROM Members WHERE user_id = :id")
     Integer getFollowedCommunitiesCountForUser(@Bind("id") int id);
 
+    @SqlQuery("SELECT COUNT(*) FROM Posts WHERE user_id = :id")
+    Integer getPostCountForUser(@Bind("id") int id);
+
     @SqlQuery("SELECT password_hash FROM Users WHERE username = :username")
     String getPasswordForUsername(@Bind("username") String username);
 
