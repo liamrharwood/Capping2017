@@ -33,17 +33,8 @@ public class UserResource {
     @GET
     @Path("profile")
     public UserProfile getProfile(@Auth UserPrincipal userPrincipal) {
-        User user = userDAO.getUserByUsername(userPrincipal.getName());
-        return new UserProfile(user.getId(),
-                user.getUsername(),
-                user.getFirstName(),
-                user.getLastName(),
-                userDAO.getFollowersCountForUser(user.getId()),
-                userDAO.getFollowedCommunitiesCountForUser(user.getId()),
-                userDAO.getFollowedCountForUser(user.getId()),
-                user.getBio(),
-                user.getProfileImagePath(),
-                userDAO.getPostCountForUser(user.getId()));
+        int id = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        return userDAO.getUserProfile(id);
     }
 
     @POST
@@ -60,7 +51,7 @@ public class UserResource {
                     userRegistration.getLastName(),
                     userRegistration.getEmail(),
                     userRegistration.getBirthDate());
-            return "";
+            return "SUCCESS";
         } catch (Exception ex) {
             return ex.toString();
         }
