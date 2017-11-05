@@ -14,8 +14,10 @@ class App extends React.Component {
     	<div>
     		<Router>
 			  <div>
+			  	<Route exact path="/" component={Home}/>
 			   	<Route exact path="/home" component={Home}/>
-			   	<Route path="/community" component={Community}/> 
+			   	<Route path="/community" component={Community}/>
+
 			  </div>
 			</Router>
     	</div>

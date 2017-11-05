@@ -7,7 +7,6 @@ class PostsContainer extends React.Component {
 	constructor(props) {
     super(props);
     this.state = {
-        queryUri: "http://10.10.7.191:8080/posts",
         posts: PropTypes.Array,
         numPostsPerPage: 10,
         pageNum: 1
@@ -33,7 +32,7 @@ class PostsContainer extends React.Component {
 
     axios({
       method:'get',
-      url: this.state.queryUri,
+      url: this.props.queryUri,
       auth: {
         username: 'user1',
         password: 'password'
@@ -56,13 +55,11 @@ class PostsContainer extends React.Component {
   }
 
   renderPostCards(posts){
-    if(posts){
-      console.log("1");
+    if(posts && posts.length != 0){
       return(
         posts.map(this.generatePostCard)
       );
     } else {
-      console.log("2");
       return (
         <p>Nothing right now</p>
       );
