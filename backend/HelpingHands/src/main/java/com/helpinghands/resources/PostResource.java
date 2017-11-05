@@ -4,6 +4,7 @@ import com.helpinghands.core.post.PostCard;
 import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.post.PostRequest;
 import com.helpinghands.dao.PostDAO;
+import com.helpinghands.dao.UserDAO;
 import io.dropwizard.auth.Auth;
 
 import javax.ws.rs.*;
@@ -17,9 +18,12 @@ import java.util.Optional;
 @Consumes(MediaType.APPLICATION_JSON)
 public class PostResource {
     private PostDAO postDAO;
+    private UserDAO userDAO;
 
-    public PostResource(PostDAO postDAO) {
+    public PostResource(PostDAO postDAO,
+                        UserDAO userDAO) {
         this.postDAO = postDAO;
+        this.userDAO = userDAO;
     }
 
     @GET
@@ -30,7 +34,8 @@ public class PostResource {
         }
 
         if (userPrincipal.isPresent()) {
-            return postDAO.getFollowedPosts(userPrincipal.get().getName());
+            int userId  = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
+            return postDAO.getFollowedPosts(userId);
         }
         return postDAO.getAllPosts();
     }
