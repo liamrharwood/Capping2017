@@ -22,14 +22,14 @@ public interface PostDAO {
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + " FROM Posts AS p " +
             "JOIN Follows AS f ON f.followee_id = p.user_id " +
             "JOIN Users   AS u ON u.user_id     = f.followee_id " +
-            "WHERE u.username = :username " +
+            "WHERE f.follower_id = :userId " +
             "UNION " +
             "SELECT " + CARD_SELECT_FIELDS + " FROM Posts AS p " +
             "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
             "JOIN Members AS m ON m.community_id = pc.community_id " +
-            "JOIN Users AS u ON u.user_id = m.user_id " +
-            "WHERE u.username = :username")
-    List<PostCard> getFollowedPosts(@Bind("username") String username);
+            "JOIN Users AS u ON u.user_id = p.user_id " +
+            "WHERE m.user_id = :userId")
+    List<PostCard> getFollowedPosts(@Bind("userId") int userId);
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + " FROM Posts AS p " +
             "JOIN Users AS u ON p.user_id = u.user_id " +

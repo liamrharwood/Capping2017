@@ -6,6 +6,8 @@ node_modules/
 # IntelliJ files
 #
 
+backend/HelpingHands/target/
+
 # User-specific stuff:
 backend/HelpingHands/.idea/**/workspace.xml
 backend/HelpingHands/.idea/**/tasks.xml

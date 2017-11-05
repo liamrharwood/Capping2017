@@ -64,7 +64,7 @@ public class HelpingHandsApplication extends Application<HelpingHandsConfigurati
         final CommunityDAO communityDAO = jdbi.onDemand(CommunityDAO.class);
 
         environment.jersey().register(new UserResource(userDAO));
-        environment.jersey().register(new PostResource(postDAO));
+        environment.jersey().register(new PostResource(postDAO, userDAO));
         environment.jersey().register(new CommunityResource(communityDAO));
         environment.jersey().register(new AuthDynamicFeature(
                 new BasicCredentialAuthFilter.Builder<UserPrincipal>()
