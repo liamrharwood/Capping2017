@@ -7,11 +7,9 @@ import com.helpinghands.core.user.UserProfile;
 import com.helpinghands.core.user.UserRegistration;
 import com.helpinghands.dao.UserDAO;
 import io.dropwizard.auth.Auth;
-import org.slf4j.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.security.Principal;
 import java.util.List;
 
 @Path("/users")

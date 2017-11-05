@@ -31,6 +31,12 @@ public interface PostDAO {
             "WHERE u.username = :username")
     List<PostCard> getFollowedPosts(@Bind("username") String username);
 
+    @SqlQuery("SELECT " + CARD_SELECT_FIELDS + " FROM Posts AS p " +
+            "JOIN Users AS u ON p.user_id = u.user_id " +
+            "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
+            "WHERE pc.community_id = :communityId")
+    List<PostCard> getPostsForCommunity(@Bind("communityId") int communityId);
+
     @SqlUpdate("INSERT INTO Posts (user_id, body_text, post_title, post_image_path) " +
             "VALUES (:userId, :bodyText, :postTitle, :postImagePath)")
     @GetGeneratedKeys
