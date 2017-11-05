@@ -75,7 +75,7 @@ Request Body:
 
 -------------------------------
 
-POST /new_post
+POST /posts
 
 # creates a new post 
 
@@ -85,7 +85,7 @@ Request Body:
 	userId:
 	bodyText:
 	imgPath:
-	communities: [communityId]
+	communityIds: [communityId]
 }
 
 

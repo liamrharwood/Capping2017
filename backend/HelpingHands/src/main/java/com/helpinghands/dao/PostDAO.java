@@ -3,7 +3,9 @@ package com.helpinghands.dao;
 import com.helpinghands.core.mapper.post.PostCardMapper;
 import com.helpinghands.core.post.PostCard;
 import org.skife.jdbi.v2.sqlobject.Bind;
+import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
+import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public interface PostDAO {
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + " FROM Posts AS p " +
             "JOIN Follows AS f ON f.followee_id = p.user_id " +
-            "JOIN Users   AS u ON u.user_id     = f.follower_id " +
+            "JOIN Users   AS u ON u.user_id     = f.followee_id " +
             "WHERE u.username = :username " +
             "UNION " +
             "SELECT " + CARD_SELECT_FIELDS + " FROM Posts AS p " +
@@ -28,4 +30,12 @@ public interface PostDAO {
             "JOIN Users AS u ON u.user_id = m.user_id " +
             "WHERE u.username = :username")
     List<PostCard> getFollowedPosts(@Bind("username") String username);
+
+    @SqlUpdate("INSERT INTO Posts (user_id, body_text, post_title, post_image_path) " +
+            "VALUES (:userId, :bodyText, :postTitle, :postImagePath)")
+    @GetGeneratedKeys
+    int insertNewPost(@Bind("userId") int userId, @Bind("bodyText") String bodyText, @Bind("postTitle") String postTitle, @Bind("postImagePath") String postImagePath);
+
+    @SqlUpdate("INSERT INTO PostsToCommunities (post_id, community_id) VALUES (:postId, :communityId)")
+    void associatePostWithCommunity(@Bind("postId") int postId, @Bind("communityId") int communityId);
 }
