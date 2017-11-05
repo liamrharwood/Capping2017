@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 class PostCard extends React.Component {
 
   constructor(props) {
