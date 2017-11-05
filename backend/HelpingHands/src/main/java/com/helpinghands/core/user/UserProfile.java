@@ -39,7 +39,11 @@ public class UserProfile {
     @JsonProperty
     private String profileImagePath;
 
-    public UserProfile(Integer userId, String username, String firstName, String lastName, Integer followersCount, Integer followedCommunitiesCount, Integer followedUsersCount, String bio, String profileImagePath) {
+    @NotNull
+    @JsonProperty
+    private Integer postCount;
+
+    public UserProfile(Integer userId, String username, String firstName, String lastName, Integer followersCount, Integer followedCommunitiesCount, Integer followedUsersCount, String bio, String profileImagePath, Integer postCount) {
         this.userId = userId;
         this.username = username;
         this.firstName = firstName;
@@ -49,6 +53,7 @@ public class UserProfile {
         this.followedUsersCount = followedUsersCount;
         this.bio = bio;
         this.profileImagePath = profileImagePath;
+        this.postCount = postCount;
     }
 
     public Integer getUserId() {
@@ -85,5 +90,9 @@ public class UserProfile {
 
     public String getProfileImagePath() {
         return profileImagePath;
+    }
+
+    public Integer getPostCount() {
+        return postCount;
     }
 }

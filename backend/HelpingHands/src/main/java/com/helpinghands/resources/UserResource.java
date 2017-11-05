@@ -42,7 +42,8 @@ public class UserResource {
                 userDAO.getFollowedCommunitiesCountForUser(user.getId()),
                 userDAO.getFollowedCountForUser(user.getId()),
                 user.getBio(),
-                user.getProfileImagePath());
+                user.getProfileImagePath(),
+                userDAO.getPostCountForUser(user.getId()));
     }
 
     @POST

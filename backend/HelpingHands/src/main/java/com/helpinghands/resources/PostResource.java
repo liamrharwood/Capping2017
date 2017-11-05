@@ -2,13 +2,11 @@ package com.helpinghands.resources;
 
 import com.helpinghands.core.post.PostCard;
 import com.helpinghands.auth.UserPrincipal;
+import com.helpinghands.core.post.PostRequest;
 import com.helpinghands.dao.PostDAO;
 import io.dropwizard.auth.Auth;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.security.Principal;
 import java.util.List;
@@ -32,11 +30,13 @@ public class PostResource {
         return postDAO.getAllPosts();
     }
 
-    /*
-    @Path("following")
-    @GET
-    public List<Post> getFollowedPosts(@Auth UserPrincipal user) {
-        return postDAO.getFollowedPosts(user.getName());
+    @POST
+    public void createNewPost(PostRequest postRequest,
+                              @Auth UserPrincipal userPrincipal) {
+        int postId = postDAO.insertNewPost(postRequest.getUserId(), postRequest.getBodyText(), postRequest.getTitle(), postRequest.getImgPath());
+        for (int communityId : postRequest.getCommunityIds()) {
+            postDAO.associatePostWithCommunity(postId, communityId);
+        }
     }
-    */
+
 }
