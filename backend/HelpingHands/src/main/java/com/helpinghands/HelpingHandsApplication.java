@@ -65,7 +65,7 @@ public class HelpingHandsApplication extends Application<HelpingHandsConfigurati
 
         environment.jersey().register(new UserResource(userDAO));
         environment.jersey().register(new PostResource(postDAO, userDAO));
-        environment.jersey().register(new CommunityResource(communityDAO));
+        environment.jersey().register(new CommunityResource(communityDAO, userDAO));
         environment.jersey().register(new AuthDynamicFeature(
                 new BasicCredentialAuthFilter.Builder<UserPrincipal>()
                     .setAuthenticator(new HelpingHandsAuthenticator(userDAO))

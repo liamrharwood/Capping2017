@@ -94,6 +94,26 @@ Request Body:
 }
 
 
+-------------------------------
+
+GET /communities
+
+# fetch communities followed by the auth'd user
+
+Response Body:
+[
+	{
+		communityId:
+		name:
+		description:
+		verified:
+		createDate:
+		banStatus:
+	},
+	{
+		...
+	}
+]
 
 -------------------------------
 
