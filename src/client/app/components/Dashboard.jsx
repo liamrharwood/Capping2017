@@ -18,7 +18,7 @@ class Dashboard extends React.Component {
   	 <div className="container dashboard">
      <div className="row">
       <div className="col-8">
-        <PostsContainer queryUri="http://10.10.7.191:8080/posts"/>
+        <PostsContainer queryUri = {this.props.queryUri}/>
       </div>
       <div className="col-4">
         <ProfileCard />

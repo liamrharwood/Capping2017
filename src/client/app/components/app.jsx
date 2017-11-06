@@ -9,20 +9,29 @@ import Community from './views/community.jsx';
 
 
 class App extends React.Component {
-  render () {
-    return(
-    	<div>
-    		<Router>
-			  <div>
-			  	<Route exact path="/" component={Home}/>
-			   	<Route exact path="/home" component={Home}/>
-			   	<Route path="/community" component={Community}/>
 
-			  </div>
-			</Router>
-    	</div>
-    	);
-  }
+	constructor(props) {
+    	super(props);
+    	this.state = {
+      
+    	};
+
+  	}
+
+  	render () {
+	    return(
+	    	<div>
+	    		<Router>
+				  <div>
+				  	<Route exact path="/" component={Home}/>
+				   	<Route exact path="/home" component={Home}/>
+				   	<Route path="/community/:communityId" component={Community}/>
+
+				  </div>
+				</Router>
+	    	</div>
+	    	);
+	}
 }
 
 export default App;
