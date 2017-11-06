@@ -66,9 +66,6 @@ class PostsContainer extends React.Component {
     }
   }
 
-
-  //poop
-
   generatePostCard(post){
 
     var date = new Date(post.createDate);
