@@ -27,8 +27,29 @@
 }
 
 .follower-count{
+	color: #868e96 !important;
 	font-size: 14px;
+	font-weight: 2px;
 }
+
+.follower-count:hover {
+	color:#171818 !important;
+	transition:0.25s;
+	text-decoration: none;
+}
+
+.community-count{
+	color: #868e96 !important;
+	font-size: 18px;
+	font-weight: 2px;
+}
+
+.community-count:hover {
+	color:#171818 !important;
+	transition:0.25s;
+	text-decoration: none;
+}
+
 
 .card-subtitle {
 	font-size: 14px;

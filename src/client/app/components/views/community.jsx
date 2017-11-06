@@ -15,9 +15,12 @@ class Community extends React.Component {
 
   render () {
     return(
-    	<div id="home">
-    		<Navbar home="active"/>
-    		<Dashboard queryUri = "http://10.10.7.191:8080/posts"/>
+    	<div id="community">
+    		<Navbar communities="active"/>
+    		<Dashboard 
+    		postsQueryUri = {`http://10.10.7.191:8080/posts?community_id=${this.props.match.params.communityId}`}
+    		profileQueryUri = {`http://10.10.7.191:8080/communities/profile?id=${this.props.match.params.communityId}`}
+    		infoCard="community-profile"/>
     	</div>
     	);
   }

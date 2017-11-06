@@ -50,12 +50,12 @@ class ProfileCard extends React.Component {
   	 				<div className="col-8"><a className="text-muted" href="#">@{this.state.profileData.username}</a></div>
   	 			</div>
   	 			<div className="row mt-4">
-  	 				<div className="col-4 follower-count"><a className="text-muted" href="#">Prayers <br />455 </a></div>
-  	 				<div className="col-4 follower-count"><a className="text-muted" href="#">Followers <br />{this.state.profileData.followersCount} </a></div>
-  	 				<div className="col-4 follower-count"><a className="text-muted" href="#">Following<br />{this.state.profileData.followedUsersCount}</a></div>
+  	 				<div className="col-4"><a className="follower-count" href="#">Prayers <br />{this.state.profileData.postCount} </a></div>
+  	 				<div className="col-4"><a className="follower-count" href="#">Followers <br />{this.state.profileData.followersCount} </a></div>
+  	 				<div className="col-4"><a className="follower-count" href="#">Following<br />{this.state.profileData.followedUsersCount}</a></div>
   	 			</div>
   	 			<div className="row mt-4">
-  	 				<div className="col-12">I'm just a noob trying to get my 6k</div>
+  	 				<div className="col-12">{this.state.profileData.bio}</div>
   	 			</div>
   	 		</div>
   		);
