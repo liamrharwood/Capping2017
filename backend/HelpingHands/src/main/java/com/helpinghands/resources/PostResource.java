@@ -3,6 +3,7 @@ package com.helpinghands.resources;
 import com.helpinghands.core.post.PostCard;
 import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.post.PostRequest;
+import com.helpinghands.core.post.VoteRequest;
 import com.helpinghands.dao.PostDAO;
 import com.helpinghands.dao.UserDAO;
 import io.dropwizard.auth.Auth;
@@ -29,13 +30,14 @@ public class PostResource {
     @GET
     public List<PostCard> getPosts(@Auth Optional<UserPrincipal> userPrincipal,
                                    @QueryParam("community_id") Optional<Integer> communityId) {
-        if (communityId.isPresent()) {
-            return postDAO.getPostsForCommunity(communityId.get());
-        }
-
         if (userPrincipal.isPresent()) {
             int userId  = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
+            if (communityId.isPresent()) {
+                return postDAO.getPostsForCommunityWithVoteHistory(userId, communityId.get());
+            }
             return postDAO.getFollowedPosts(userId);
+        } else if (communityId.isPresent()) {
+            return postDAO.getPostsForCommunity(communityId.get());
         }
         return postDAO.getAllPosts();
     }
@@ -47,6 +49,14 @@ public class PostResource {
         for (int communityId : postRequest.getCommunityIds()) {
             postDAO.associatePostWithCommunity(postId, communityId);
         }
+    }
+
+    @POST
+    @Path("vote")
+    public void voteOnPost(@Auth UserPrincipal userPrincipal,
+                           VoteRequest voteRequest) {
+        int userId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        postDAO.voteOnPost(userId, voteRequest.getPostId(), voteRequest.getDirection());
     }
 
 }

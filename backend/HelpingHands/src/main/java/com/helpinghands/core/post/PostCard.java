@@ -20,11 +20,10 @@ public class PostCard {
 
     @NotNull
     @JsonProperty
-    private Integer upvotes;
+    private Integer score;
 
-    @NotNull
     @JsonProperty
-    private Integer downvotes;
+    private Integer vote;
 
     @JsonProperty
     private String bodyText;
@@ -41,12 +40,12 @@ public class PostCard {
     @JsonProperty
     private boolean complete;
 
-    public PostCard(Integer id, Integer userId, String username, Integer upvotes, Integer downvotes, String bodyText, String title, Timestamp createDate, boolean complete) {
+    public PostCard(Integer id, Integer userId, String username, Integer score, Integer vote, String bodyText, String title, Timestamp createDate, boolean complete) {
         this.id = id;
         this.userId = userId;
         this.username = username;
-        this.upvotes = upvotes;
-        this.downvotes = downvotes;
+        this.score = score;
+        this.vote = vote;
         this.bodyText = bodyText;
         this.title = title;
         this.createDate = createDate;
@@ -65,12 +64,8 @@ public class PostCard {
         return username;
     }
 
-    public Integer getUpvotes() {
-        return upvotes;
-    }
-
-    public Integer getDownvotes() {
-        return downvotes;
+    public Integer getScore() {
+        return score;
     }
 
     public String getBodyText() {
