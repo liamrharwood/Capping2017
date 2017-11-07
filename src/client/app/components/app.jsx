@@ -6,7 +6,7 @@ import {
 from 'react-router-dom';
 import Home from './views/home.jsx';
 import Community from './views/community.jsx';
-
+import Login from './views/login.jsx';
 
 class App extends React.Component {
 
@@ -26,7 +26,7 @@ class App extends React.Component {
 				  	<Route exact path="/" component={Home}/>
 				   	<Route exact path="/home" component={Home}/>
 				   	<Route path="/communities/:communityId" component={Community}/>
-
+				   	<Route exact path="/login" component={Login} />
 				  </div>
 				</Router>
 	    	</div>
