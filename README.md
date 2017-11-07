@@ -38,7 +38,7 @@ The bulk of the written project consists of `.jsx` files, a variant of JavaScrip
 
 `npm run build` bundles all current `.jsx` files into a `bundle.js` file.
 
-`npm run dev` causes Webpack to constantly watch the project, and rebundle any time it detects and new changes saved.
+`npm run dev` causes Webpack to constantly watch the project, and rebundle any time it detects any new changes saved.
 
 
 It is recommended to have both `ws --spa index.html` and `npm run dev` running in two terminal windows while developing.
