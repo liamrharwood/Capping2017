@@ -13,6 +13,10 @@ class Dashboard extends React.Component {
 
   }
 
+  componentDidUpdate(){
+
+  }
+
   renderInfoCard(){
     switch(this.props.infoCard){
       case ("user-profile"): return (<ProfileCard />);
@@ -24,6 +28,7 @@ class Dashboard extends React.Component {
   render() {
   	return (
   	 <div className="container dashboard">
+     <h1 className="pl-3 pb-4">What's New</h1>
      <div className="row">
       <div className="col-8">
         <PostsContainer queryUri = {this.props.postsQueryUri}/>

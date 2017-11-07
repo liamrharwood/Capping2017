@@ -6,7 +6,7 @@ class PostCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      vote: 0,
+      vote: this.props.vote,
     };
     this.upvote = this.upvote.bind(this);
     this.downvote = this.downvote.bind(this);
@@ -35,7 +35,7 @@ class PostCard extends React.Component {
       return (
         <div className="col-sm-1 container m-0 pl-0"> 
           <div className="row mx-auto"><i className="fa fa-thumbs-up voter" style={{color: "green"}} aria-hidden="true" onClick={this.upvote}/></div> 
-          <div className="row mt-1 mx-auto">{this.props.votes + 1}</div>  
+          <div className="row mt-1 mx-auto">{this.props.score}</div>  
           <div className="row mt-1 mx-auto"><i className="fa fa-thumbs-o-down voter" aria-hidden="true" onClick={this.downvote}/></div> 
           <div className="row mt-3 mx-auto"><i className="fa fa-gavel voter" aria-hidden="true" /></div>
         </div>
@@ -44,7 +44,7 @@ class PostCard extends React.Component {
       return (
         <div className="col-sm-1 container m-0 pl-0"> 
           <div className="row mx-auto"><i className="fa fa-thumbs-o-up voter" aria-hidden="true" onClick={this.upvote}/></div> 
-          <div className="row mt-1 mx-auto">{this.props.votes}</div>  
+          <div className="row mt-1 mx-auto">{this.props.score}</div>  
           <div className="row mt-1 mx-auto"><i className="fa fa-thumbs-o-down voter" aria-hidden="true" onClick={this.downvote}/></div> 
           <div className="row mt-3 mx-auto"><i className="fa fa-gavel voter" aria-hidden="true" /></div>
         </div>
@@ -53,7 +53,7 @@ class PostCard extends React.Component {
       return (
         <div className="col-sm-1 container m-0 pl-0"> 
           <div className="row mx-auto"><i className="fa fa-thumbs-o-up voter" aria-hidden="true" onClick={this.upvote}/></div> 
-          <div className="row mt-1 mx-auto">{this.props.votes - 1}</div>  
+          <div className="row mt-1 mx-auto">{this.props.score}</div>  
           <div className="row mt-1 mx-auto"><i className="fa fa-thumbs-down voter" style={{color: "red"}} aria-hidden="true" onClick={this.downvote}/></div> 
           <div className="row mt-3 mx-auto"><i className="fa fa-gavel voter" aria-hidden="true" /></div>
         </div>

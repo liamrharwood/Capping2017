@@ -1,28 +1,64 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Logo from '../components/Logo.jsx';
 import {
   BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom'
+import axios from 'axios';
 
 class Navbar extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
-    //this.onLike = this.onLike.bind(this);
+    this.state = {
+      data: PropTypes.Array,
+    };
+  }
+
+  componentDidMount(){
+    this.fetchCommunities();
+  }
+
+  fetchCommunities(){
+
+    axios({
+      method:'get',
+      url: 'http://10.10.7.191:8080/communities',
+      auth: {
+        username: 'user1',
+        password: 'password'
+      },
+      responseType: 'json',
+    })  
+      .then(res => {
+        const data = res.data;
+        this.setState({ data });
+      }).catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+
   }
 
   renderCommunitiesDropdown() {
-    return (
-      <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-      <a className="dropdown-item" href="#"><i className="fa fa-star mr-2" aria-hidden="true"></i>Favorite Community 1</a>
-      <a className="dropdown-item" href="#"><i className="fa fa-star mr-2" aria-hidden="true"></i>Favorite Community 2</a>
-      <div className="dropdown-divider"></div>
-      <a className="dropdown-item" href="#">Community 3</a>
-      </div>
-    );
+
+    if(this.state.data){
+      return (
+        this.state.data.map(this.renderCommunityOption)
+      );
+    } else {
+
+      return (<a className="dropdown-item" >Loading Communities...</a>)
+    }
+  }
+  
+  renderCommunityOption(data) {
+    return(<Link to={`/communities/${data.communityId}`} key={data.communityId} className="dropdown-item">{data.name}</Link>)
   }
 
 
@@ -46,9 +82,9 @@ class Navbar extends React.Component {
              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Your Communities
              </a>
-              
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 {this.renderCommunitiesDropdown()}
-              
+                </div>
            </li>
          </ul>
          <form className="form-inline my-2 my-lg-0">

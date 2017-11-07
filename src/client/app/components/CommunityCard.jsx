@@ -11,10 +11,16 @@ class CommunityCard extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchUserProfile();
+    this.fetchCommunityProfile();
   }
 
-  fetchUserProfile() {
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.data == prevState.data){
+      this.fetchCommunityProfile();
+    }
+  }
+
+  fetchCommunityProfile() {
 	axios({
 		method:'get',
   		url: this.props.queryUri,

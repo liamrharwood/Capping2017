@@ -20,8 +20,9 @@ class PostsContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+
     if(this.state.posts == prevState.posts){
-      this.fetchPostCards
+      this.fetchPostCards();
     }
   }
 
@@ -71,12 +72,18 @@ class PostsContainer extends React.Component {
     var date = new Date(post.createDate);
     var formattedDate = date.getUTCDate() + '/' + (date.getUTCMonth() + 1)+ '/' + date.getUTCFullYear()
 
-    return <PostCard key={post.id} votes = {post.upvotes - post.downvotes} title = {post.title} complete = {post.complete} createDate = {formattedDate} user = {post.username} bodyText={post.bodyText} />;
+    return <PostCard key={post.id} score = {post.score} vote={post.vote} title = {post.title} complete = {post.complete} createDate = {formattedDate} user = {post.username} bodyText={post.bodyText} />;
   }
 
   render() {
   	return (
   	 	<div className="container posts-container">
+      <div className="input-group mb-4" style={{zIndex: 0}}>
+        <input type="text" className="form-control" placeholder="Submit a new post" aria-label="Submit a new post" />
+        <span className="input-group-btn">
+          <button className="btn btn-secondary" type="button">Submit Post</button>
+        </span>
+      </div>
   	 		{this.renderPostCards(this.state.posts)}
   	 	</div>
   	);
