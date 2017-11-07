@@ -44,4 +44,8 @@ public interface PostDAO {
 
     @SqlUpdate("INSERT INTO PostsToCommunities (post_id, community_id) VALUES (:postId, :communityId)")
     void associatePostWithCommunity(@Bind("postId") int postId, @Bind("communityId") int communityId);
+
+    @SqlUpdate("INSERT INTO Votes (user_id, post_id, direction) VALUES (:userId, :postId, :direction) " +
+            "ON CONFLICT ON CONSTRAINT votes_pkey DO UPDATE SET direction = :direction")
+    void voteOnPost(@Bind("userId") int userId, @Bind("postId") int postId, @Bind("direction") int direction);
 }
