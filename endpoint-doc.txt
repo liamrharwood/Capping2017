@@ -33,6 +33,33 @@ Optional Query Params: community_id, callDate, startNum, endNum
 
 -------------------------------
 
+POST /vote
+
+# submit or remove a vote from a given post
+
+Request Body:
+{
+	postId:
+	vote: (1 = upvote, 0 = unvote, -1 = downvote)
+}
+
+-------------------------------
+
+POST /posts
+
+# creates a new post 
+
+Request Body:
+{
+	title:
+	userId:
+	bodyText:
+	imgPath:
+	communityIds: [communityId]
+}
+
+-------------------------------
+
 GET /users/profile
 
 # Returns user profile info
@@ -64,33 +91,6 @@ Request Body:
 	lastName:
 	email:
 	birthDate:	
-}
-
--------------------------------
-
-POST /vote
-
-# submit or remove a vote from a given post
-
-Request Body:
-{
-	postId:
-	vote: (1 = upvote, 0 = unvote, -1 = downvote)
-}
-
--------------------------------
-
-POST /posts
-
-# creates a new post 
-
-Request Body:
-{
-	title:
-	userId:
-	bodyText:
-	imgPath:
-	communityIds: [communityId]
 }
 
 
