@@ -23,6 +23,9 @@ public class PostCard {
     private Integer score;
 
     @JsonProperty
+    private Integer vote;
+
+    @JsonProperty
     private String bodyText;
 
     @NotNull
@@ -37,11 +40,12 @@ public class PostCard {
     @JsonProperty
     private boolean complete;
 
-    public PostCard(Integer id, Integer userId, String username, Integer score, String bodyText, String title, Timestamp createDate, boolean complete) {
+    public PostCard(Integer id, Integer userId, String username, Integer score, Integer vote, String bodyText, String title, Timestamp createDate, boolean complete) {
         this.id = id;
         this.userId = userId;
         this.username = username;
         this.score = score;
+        this.vote = vote;
         this.bodyText = bodyText;
         this.title = title;
         this.createDate = createDate;

@@ -30,13 +30,14 @@ public class PostResource {
     @GET
     public List<PostCard> getPosts(@Auth Optional<UserPrincipal> userPrincipal,
                                    @QueryParam("community_id") Optional<Integer> communityId) {
-        if (communityId.isPresent()) {
-            return postDAO.getPostsForCommunity(communityId.get());
-        }
-
         if (userPrincipal.isPresent()) {
             int userId  = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
+            if (communityId.isPresent()) {
+                return postDAO.getPostsForCommunityWithVoteHistory(userId, communityId.get());
+            }
             return postDAO.getFollowedPosts(userId);
+        } else if (communityId.isPresent()) {
+            return postDAO.getPostsForCommunity(communityId.get());
         }
         return postDAO.getAllPosts();
     }

@@ -16,27 +16,43 @@ public interface PostDAO {
             "(SELECT SUM(direction) FROM Votes AS v WHERE v.post_id = p.post_id) AS score, " +
             "p.body_text, p.post_title, p.create_date, p.is_complete ";
 
-    @SqlQuery("SELECT " + CARD_SELECT_FIELDS + " FROM Posts AS p " +
+    @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
+            "NULL AS vote " +
+            "FROM Posts AS p " +
             "JOIN Users AS u ON p.user_id = u.user_id")
     List<PostCard> getAllPosts();
 
-    @SqlQuery("SELECT " + CARD_SELECT_FIELDS + " FROM Posts AS p " +
+    @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
+            "(SELECT direction FROM Votes AS v WHERE v.user_id = :userId AND v.post_id = p.post_id) AS vote " +
+            "FROM Posts AS p " +
             "JOIN Follows AS f ON f.followee_id = p.user_id " +
             "JOIN Users   AS u ON u.user_id     = f.followee_id " +
             "WHERE f.follower_id = :userId " +
             "UNION " +
-            "SELECT " + CARD_SELECT_FIELDS + " FROM Posts AS p " +
+            "SELECT " + CARD_SELECT_FIELDS + ", " +
+            "(SELECT direction FROM Votes AS v WHERE v.user_id = :userId AND v.post_id = p.post_id) AS vote " +
+            "FROM Posts AS p " +
             "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
             "JOIN Members AS m ON m.community_id = pc.community_id " +
             "JOIN Users AS u ON u.user_id = p.user_id " +
             "WHERE m.user_id = :userId")
     List<PostCard> getFollowedPosts(@Bind("userId") int userId);
 
-    @SqlQuery("SELECT " + CARD_SELECT_FIELDS + " FROM Posts AS p " +
+    @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
+            "NULL AS vote " +
+            "FROM Posts AS p " +
             "JOIN Users AS u ON p.user_id = u.user_id " +
             "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
             "WHERE pc.community_id = :communityId")
     List<PostCard> getPostsForCommunity(@Bind("communityId") int communityId);
+
+    @SqlQuery("SELECT " + CARD_SELECT_FIELDS + "," +
+            "(SELECT direction FROM Votes AS v WHERE v.user_id = :userId AND v.post_id = p.post_id) AS vote " +
+            "FROM Posts AS p " +
+            "JOIN Users AS u ON p.user_id = u.user_id " +
+            "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
+            "WHERE pc.community_id = :communityId")
+    List<PostCard> getPostsForCommunityWithVoteHistory(@Bind("userId") int userId, @Bind("communityId") int communityId);
 
     @SqlUpdate("INSERT INTO Posts (user_id, body_text, post_title, post_image_path) " +
             "VALUES (:userId, :bodyText, :postTitle, :postImagePath)")

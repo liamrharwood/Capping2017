@@ -14,6 +14,7 @@ public class PostCardMapper implements ResultSetMapper<PostCard> {
                 resultSet.getInt("user_id"),
                 resultSet.getString("username"),
                 resultSet.getInt("score"),
+                resultSet.getInt("vote"),
                 resultSet.getString("body_text"),
                 resultSet.getString("post_title"),
                 resultSet.getTimestamp("create_date"),
