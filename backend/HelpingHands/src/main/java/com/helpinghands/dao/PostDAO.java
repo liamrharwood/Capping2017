@@ -12,7 +12,8 @@ import java.util.List;
 
 @RegisterMapper(PostCardMapper.class)
 public interface PostDAO {
-    String CARD_SELECT_FIELDS = " p.post_id, p.user_id, u.username, p.upvotes, p.downvotes, " +
+    String CARD_SELECT_FIELDS = " p.post_id, p.user_id, u.username, " +
+            "(SELECT SUM(direction) FROM Votes AS v WHERE v.post_id = p.post_id) AS score, " +
             "p.body_text, p.post_title, p.create_date, p.is_complete ";
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + " FROM Posts AS p " +
