@@ -44,6 +44,22 @@ public interface PostDAO {
             "NULL AS vote " +
             "FROM Posts AS p " +
             "JOIN Users AS u ON p.user_id = u.user_id " +
+            "WHERE p.user_id = :userId " +
+            "ORDER BY p.create_date DESC")
+    List<PostCard> getPostsForUser(@Bind("userId") int userId);
+
+    @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
+            "(SELECT direction FROM Votes AS v WHERE v.user_id = :authId AND v.post_id = p.post_id) AS vote " +
+            "FROM Posts AS p " +
+            "JOIN Users AS u ON p.user_id = u.user_id " +
+            "WHERE p.user_id = :userId " +
+            "ORDER BY p.create_date DESC")
+    List<PostCard> getPostsForUserWithVoteHistory(@Bind("authId") int authId, @Bind("userId") int userId);
+
+    @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
+            "NULL AS vote " +
+            "FROM Posts AS p " +
+            "JOIN Users AS u ON p.user_id = u.user_id " +
             "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
             "WHERE pc.community_id = :communityId " +
             "ORDER BY p.create_date DESC")
@@ -57,6 +73,26 @@ public interface PostDAO {
             "WHERE pc.community_id = :communityId " +
             "ORDER BY p.create_date DESC")
     List<PostCard> getPostsForCommunityWithVoteHistory(@Bind("userId") int userId, @Bind("communityId") int communityId);
+
+    @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
+            "NULL AS vote " +
+            "FROM Posts AS p " +
+            "JOIN Users AS u ON p.user_id = u.user_id " +
+            "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
+            "WHERE pc.community_id = :communityId AND p.user_id = :userId " +
+            "ORDER BY p.create_date DESC")
+    List<PostCard> getPostsForUserInCommunity(@Bind("userId") int userId, @Bind("communityId") int communityId);
+
+    @SqlQuery("SELECT " + CARD_SELECT_FIELDS + "," +
+            "(SELECT direction FROM Votes AS v WHERE v.user_id = :authId AND v.post_id = p.post_id) AS vote " +
+            "FROM Posts AS p " +
+            "JOIN Users AS u ON p.user_id = u.user_id " +
+            "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
+            "WHERE pc.community_id = :communityId AND p.user_id = :userId " +
+            "ORDER BY p.create_date DESC")
+    List<PostCard> getPostsForUserInCommunityWithVoteHistory(@Bind("authId") int authId, @Bind("userId") int userId, @Bind("communityId") int communityId);
+
+
 
     @SqlUpdate("INSERT INTO Posts (user_id, body_text, post_title, post_image_path) " +
             "VALUES (:userId, :bodyText, :postTitle, :postImagePath)")

@@ -29,15 +29,26 @@ public class PostResource {
 
     @GET
     public List<PostCard> getPosts(@Auth Optional<UserPrincipal> userPrincipal,
-                                   @QueryParam("community_id") Optional<Integer> communityId) {
+                                   @QueryParam("community_id") Optional<Integer> communityId,
+                                   @QueryParam("user_id") Optional<Integer> userId) {
         if (userPrincipal.isPresent()) {
-            int userId  = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
-            if (communityId.isPresent()) {
-                return postDAO.getPostsForCommunityWithVoteHistory(userId, communityId.get());
+            int authId  = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
+            if (communityId.isPresent() && !userId.isPresent()) {
+                return postDAO.getPostsForCommunityWithVoteHistory(authId, communityId.get());
             }
-            return postDAO.getFollowedPosts(userId);
-        } else if (communityId.isPresent()) {
+            if (!communityId.isPresent() && userId.isPresent()) {
+                return postDAO.getPostsForUserWithVoteHistory(authId, userId.get());
+            }
+            if (communityId.isPresent() && userId.isPresent()) {
+                return postDAO.getPostsForUserInCommunityWithVoteHistory(authId, userId.get(), communityId.get());
+            }
+            return postDAO.getFollowedPosts(authId);
+        } else if (communityId.isPresent() && !userId.isPresent()) {
             return postDAO.getPostsForCommunity(communityId.get());
+        } else if (!communityId.isPresent() && userId.isPresent()) {
+            return postDAO.getPostsForUser(userId.get());
+        } else if (communityId.isPresent() && userId.isPresent()) {
+            return postDAO.getPostsForUserInCommunity(userId.get(), communityId.get());
         }
         return postDAO.getAllPosts();
     }
