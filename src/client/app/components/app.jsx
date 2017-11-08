@@ -7,6 +7,7 @@ from 'react-router-dom';
 import Home from './views/home.jsx';
 import Community from './views/community.jsx';
 import Login from './views/login.jsx';
+import User from './views/user.jsx';
 
 class App extends React.Component {
 
@@ -27,6 +28,7 @@ class App extends React.Component {
 				   	<Route exact path="/home" component={Home}/>
 				   	<Route path="/communities/:communityId" component={Community}/>
 				   	<Route exact path="/login" component={Login} />
+				   	<Route path="/users/:userId" component={User} />
 				  </div>
 				</Router>
 	    	</div>

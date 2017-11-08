@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import PostsContainer from '../components/PostsContainer.jsx';
 import ProfileCard from '../components/ProfileCard.jsx';
 import CommunityCard from '../components/CommunityCard.jsx';
+
 class Dashboard extends React.Component {
 
   constructor(props) {
@@ -19,7 +20,7 @@ class Dashboard extends React.Component {
 
   renderInfoCard(){
     switch(this.props.infoCard){
-      case ("user-profile"): return (<ProfileCard />);
+      case ("user-profile"): return (<ProfileCard loation = {this.props.location} queryUri={this.props.profileQueryUri}/>);
       case ("community-profile"): return (<CommunityCard location = {this.props.location} queryUri = {this.props.profileQueryUri} />);
       default: return(<p>Bad Profile Prop</p>);
     }

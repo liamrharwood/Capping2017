@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link }
+from 'react-router-dom';
 
 class PostCard extends React.Component {
 
@@ -8,6 +13,7 @@ class PostCard extends React.Component {
     super(props);
     this.state = {
       vote: this.props.vote,
+      score: this.props.score,
     };
     this.upvote = this.upvote.bind(this);
     this.downvote = this.downvote.bind(this);
@@ -39,13 +45,18 @@ class PostCard extends React.Component {
     if(this.state.vote == 1){
       
       this.vote(0);
+      this.setState({vote: 0, score: this.state.score - 1});
 
-      this.setState({vote: 0});
+    } else  if (this.state.vote == 0){
+
+      this.vote(1)
+      this.setState({vote: 1, score: this.state.score + 1});
 
     } else {
 
       this.vote(1)
-      this.setState({vote: 1});
+      this.setState({vote: 1, score: this.state.score + 2});
+
     }
   }
 
@@ -53,13 +64,18 @@ class PostCard extends React.Component {
     if(this.state.vote == -1){
 
       this.vote(0);
+      this.setState({vote: 0, score: this.state.score + 1});
 
-      this.setState({vote: 0});
+    } else  if (this.state.vote == 0){
+
+      this.vote(-1);
+      this.setState({vote: -1, score: this.state.score - 1});
+
     } else {
 
       this.vote(-1);
+      this.setState({vote: -1, score: this.state.score - 2});
 
-      this.setState({vote: -1});
     }
   }
 
@@ -69,7 +85,7 @@ class PostCard extends React.Component {
       return (
         <div className="col-sm-1 container m-0 pl-0"> 
           <div className="row mx-auto"><i className="fa fa-thumbs-up voter" style={{color: "green"}} aria-hidden="true" onClick={this.upvote}/></div> 
-          <div className="row mt-1 mx-auto">{this.props.score}</div>  
+          <div className="row mt-1 mx-auto">{this.state.score}</div>  
           <div className="row mt-1 mx-auto"><i className="fa fa-thumbs-o-down voter" aria-hidden="true" onClick={this.downvote}/></div> 
           <div className="row mt-3 mx-auto"><i className="fa fa-gavel voter" aria-hidden="true" /></div>
         </div>
@@ -78,7 +94,7 @@ class PostCard extends React.Component {
       return (
         <div className="col-sm-1 container m-0 pl-0"> 
           <div className="row mx-auto"><i className="fa fa-thumbs-o-up voter" aria-hidden="true" onClick={this.upvote}/></div> 
-          <div className="row mt-1 mx-auto">{this.props.score}</div>  
+          <div className="row mt-1 mx-auto">{this.state.score}</div>  
           <div className="row mt-1 mx-auto"><i className="fa fa-thumbs-o-down voter" aria-hidden="true" onClick={this.downvote}/></div> 
           <div className="row mt-3 mx-auto"><i className="fa fa-gavel voter" aria-hidden="true" /></div>
         </div>
@@ -87,7 +103,7 @@ class PostCard extends React.Component {
       return (
         <div className="col-sm-1 container m-0 pl-0"> 
           <div className="row mx-auto"><i className="fa fa-thumbs-o-up voter" aria-hidden="true" onClick={this.upvote}/></div> 
-          <div className="row mt-1 mx-auto">{this.props.score}</div>  
+          <div className="row mt-1 mx-auto">{this.state.score}</div>  
           <div className="row mt-1 mx-auto"><i className="fa fa-thumbs-down voter" style={{color: "red"}} aria-hidden="true" onClick={this.downvote}/></div> 
           <div className="row mt-3 mx-auto"><i className="fa fa-gavel voter" aria-hidden="true" /></div>
         </div>
@@ -106,7 +122,7 @@ class PostCard extends React.Component {
 	  				
 	  				<div className="col-sm-10 p-0">
 	   					<h6 className="card-title title-link" href="#">{this.props.title}</h6>
-	   					<h6 className="card-subtitle text-muted"><a className="text-muted" href="#">@{this.props.user}</a> {this.props.createDate}</h6>
+	   					<h6 className="card-subtitle text-muted"><Link to={`/users/${this.props.userId}`}  className="text-muted" >@{this.props.user}</Link> {this.props.createDate}</h6>
               <h6 className="post-body mt-2">{this.props.bodyText}</h6>
 	   				</div>
    				</div>

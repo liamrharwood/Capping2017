@@ -6,7 +6,6 @@ class ProfileCard extends React.Component {
 	constructor(props) {
     super(props);
     this.state = {
-    	queryUri: "http://10.10.7.191:8080/users/profile",
     	profileData: PropTypes.Object,
     };
   }
@@ -15,10 +14,16 @@ class ProfileCard extends React.Component {
     this.fetchUserProfile();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.location != prevProps.location){
+      this.fetchUserProfile();
+    }
+  }
+
   fetchUserProfile() {
 	axios({
 		method:'get',
-  		url: this.state.queryUri,
+  		url: this.props.queryUri,
   		auth: {
   			username: 'user1',
   			password: 'password'

@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import Navbar from '../Navbar.jsx';
 import Dashboard from '../Dashboard.jsx';
 
-class Home extends React.Component {
+class User extends React.Component {
 
 	constructor(props) {
     super(props);
@@ -16,10 +16,10 @@ class Home extends React.Component {
 
   render () {
     return(
-    	<div id="home">
-    		<Navbar home="active"/>
+    	<div id="user">
+    		<Navbar />
     		<Dashboard 
-        profileQueryUri ="http://10.10.7.191:8080/users/profile"
+        profileQueryUri = "http://10.10.7.191:8080/users/profile" 
         postsQueryUri = "http://10.10.7.191:8080/posts" 
         infoCard = "user-profile"/>
     	</div>
@@ -27,4 +27,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default User;
