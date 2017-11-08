@@ -8,7 +8,7 @@
 
 GET /posts 
 
-Optional Query Params: community_id, callDate, startNum, endNum
+Optional Query Params: user_id, community_id, callDate, startNum, endNum
 
 # Returns information for post feed.
 # If a community id is specified, it returns all posts from that community.
@@ -61,6 +61,8 @@ Request Body:
 -------------------------------
 
 GET /users/profile
+
+optional parameters: user_id
 
 # Returns user profile info
 
