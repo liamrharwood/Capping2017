@@ -33,7 +33,7 @@ Optional Query Params: community_id, callDate, startNum, endNum
 
 -------------------------------
 
-POST /vote
+POST /posts/vote
 
 # submit or remove a vote from a given post
 
