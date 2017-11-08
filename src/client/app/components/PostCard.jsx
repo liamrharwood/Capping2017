@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 class PostCard extends React.Component {
 
@@ -13,18 +14,51 @@ class PostCard extends React.Component {
 
   }
 
+  vote(vote){
+    axios({
+      method:'post',
+      url: 'http://10.10.7.191:8080/posts/vote',
+      auth: {
+        username: 'user1',
+        password: 'password'
+      },
+      data:{
+        postId: this.props.id,
+        direction: vote,
+      }
+    }).catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+  }
+
   upvote(){
     if(this.state.vote == 1){
+      
+      this.vote(0);
+
       this.setState({vote: 0});
+
     } else {
+
+      this.vote(1)
       this.setState({vote: 1});
     }
   }
 
   downvote(){
     if(this.state.vote == -1){
+
+      this.vote(0);
+
       this.setState({vote: 0});
     } else {
+
+      this.vote(-1);
+
       this.setState({vote: -1});
     }
   }

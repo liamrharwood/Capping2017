@@ -15,7 +15,7 @@ class CommunityCard extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.state.data == prevState.data){
+    if(this.props.location != prevProps.location){
       this.fetchCommunityProfile();
     }
   }

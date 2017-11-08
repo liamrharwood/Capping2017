@@ -39,9 +39,6 @@ class PostsContainer extends React.Component {
         password: 'password'
       },
       responseType: 'json',
-      callDate: callDate,
-      startNum: startNum,
-      endNum: endNum,
     })  
       .then(res => {
         const posts = res.data;
@@ -72,7 +69,7 @@ class PostsContainer extends React.Component {
     var date = new Date(post.createDate);
     var formattedDate = date.getUTCDate() + '/' + (date.getUTCMonth() + 1)+ '/' + date.getUTCFullYear()
 
-    return <PostCard key={post.id} score = {post.score} vote={post.vote} title = {post.title} complete = {post.complete} createDate = {formattedDate} user = {post.username} bodyText={post.bodyText} />;
+    return <PostCard key={post.id} id={post.id} score = {post.score} vote={post.vote} title = {post.title} complete = {post.complete} createDate = {formattedDate} user = {post.username} bodyText={post.bodyText} />;
   }
 
   render() {
