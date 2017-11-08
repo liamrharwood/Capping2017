@@ -11,6 +11,7 @@ import io.dropwizard.auth.Auth;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Optional;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -30,9 +31,17 @@ public class UserResource {
 
     @GET
     @Path("profile")
-    public UserProfile getProfile(@Auth UserPrincipal userPrincipal) {
-        int id = userDAO.getUserByUsername(userPrincipal.getName()).getId();
-        return userDAO.getUserProfile(id);
+    public UserProfile getProfile(@Auth Optional<UserPrincipal> userPrincipal,
+                                  @QueryParam("user_id") Optional<Integer> userId) {
+        if (userId.isPresent()) {
+            return userDAO.getUserProfile(userId.get());
+        }
+        if (userPrincipal.isPresent()) {
+            int id = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
+            return userDAO.getUserProfile(id);
+        } else {
+            throw new BadRequestException();
+        }
     }
 
     @POST
