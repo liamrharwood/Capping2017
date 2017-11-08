@@ -19,7 +19,8 @@ public interface PostDAO {
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
             "NULL AS vote " +
             "FROM Posts AS p " +
-            "JOIN Users AS u ON p.user_id = u.user_id")
+            "JOIN Users AS u ON p.user_id = u.user_id " +
+            "ORDER BY p.create_date DESC")
     List<PostCard> getAllPosts();
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
@@ -35,7 +36,8 @@ public interface PostDAO {
             "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
             "JOIN Members AS m ON m.community_id = pc.community_id " +
             "JOIN Users AS u ON u.user_id = p.user_id " +
-            "WHERE m.user_id = :userId")
+            "WHERE m.user_id = :userId " +
+            "ORDER BY create_date DESC")
     List<PostCard> getFollowedPosts(@Bind("userId") int userId);
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
@@ -43,7 +45,8 @@ public interface PostDAO {
             "FROM Posts AS p " +
             "JOIN Users AS u ON p.user_id = u.user_id " +
             "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
-            "WHERE pc.community_id = :communityId")
+            "WHERE pc.community_id = :communityId " +
+            "ORDER BY p.create_date DESC")
     List<PostCard> getPostsForCommunity(@Bind("communityId") int communityId);
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + "," +
@@ -51,7 +54,8 @@ public interface PostDAO {
             "FROM Posts AS p " +
             "JOIN Users AS u ON p.user_id = u.user_id " +
             "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
-            "WHERE pc.community_id = :communityId")
+            "WHERE pc.community_id = :communityId " +
+            "ORDER BY p.create_date DESC")
     List<PostCard> getPostsForCommunityWithVoteHistory(@Bind("userId") int userId, @Bind("communityId") int communityId);
 
     @SqlUpdate("INSERT INTO Posts (user_id, body_text, post_title, post_image_path) " +
