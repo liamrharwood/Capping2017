@@ -1,9 +1,11 @@
 package com.helpinghands.resources;
 
+import com.helpinghands.core.comment.Comment;
 import com.helpinghands.core.post.PostCard;
 import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.post.PostRequest;
 import com.helpinghands.core.post.VoteRequest;
+import com.helpinghands.dao.CommentDAO;
 import com.helpinghands.dao.PostDAO;
 import com.helpinghands.dao.UserDAO;
 import io.dropwizard.auth.Auth;
@@ -20,11 +22,14 @@ import java.util.Optional;
 public class PostResource {
     private PostDAO postDAO;
     private UserDAO userDAO;
+    private CommentDAO commentDAO;
 
     public PostResource(PostDAO postDAO,
-                        UserDAO userDAO) {
+                        UserDAO userDAO,
+                        CommentDAO commentDAO) {
         this.postDAO = postDAO;
         this.userDAO = userDAO;
+        this.commentDAO = commentDAO;
     }
 
     @GET
@@ -66,6 +71,12 @@ public class PostResource {
         for (int communityId : postRequest.getCommunityIds()) {
             postDAO.associatePostWithCommunity(postId, communityId);
         }
+    }
+
+    @GET
+    @Path("comments")
+    public List<Comment> getComments(@QueryParam("post_id") int postId) {
+        return commentDAO.getCommentsForPost(postId);
     }
 
     @POST

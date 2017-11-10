@@ -34,6 +34,28 @@ Optional Query Params: post_id, user_id, community_id, callDate, startNum, endNu
 
 -------------------------------
 
+GET /posts/comments
+
+Query Param: post_id
+
+# Get list of comments for specified post
+
+[
+	{
+		id:
+		userId:
+		username:
+		postId:
+		bodyText:
+		createDate:
+	},
+	{
+		...
+	}
+]
+
+-------------------------------
+
 POST /posts/vote
 
 # submit or remove a vote from a given post
