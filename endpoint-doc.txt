@@ -56,6 +56,18 @@ Query Param: post_id
 
 -------------------------------
 
+POST /posts/comments
+
+# Create new comment
+
+Request Body:
+{
+	postId:
+	bodyText:
+}
+
+-------------------------------
+
 POST /posts/vote
 
 # submit or remove a vote from a given post

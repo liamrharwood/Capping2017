@@ -1,6 +1,7 @@
 package com.helpinghands.resources;
 
 import com.helpinghands.core.comment.Comment;
+import com.helpinghands.core.comment.CommentRequest;
 import com.helpinghands.core.post.PostCard;
 import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.post.PostRequest;
@@ -77,6 +78,14 @@ public class PostResource {
     @Path("comments")
     public List<Comment> getComments(@QueryParam("post_id") int postId) {
         return commentDAO.getCommentsForPost(postId);
+    }
+
+    @POST
+    @Path("comments")
+    public void createCommentOnPost(@Auth UserPrincipal userPrincipal,
+                                    CommentRequest commentRequest) {
+        int userId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        commentDAO.insertComment(userId, commentRequest.getPostId(), commentRequest.getBodyText());
     }
 
     @POST
