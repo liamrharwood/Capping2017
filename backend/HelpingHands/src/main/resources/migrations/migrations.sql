@@ -24,3 +24,6 @@ GRANT SELECT ON Votes TO app;
 GRANT INSERT ON Votes TO app;
 GRANT UPDATE ON Votes TO app;
 GRANT DELETE ON Votes TO app;
+
+--changeset liamrharwood:5
+ALTER TABLE Comments ADD COLUMN create_date TIMESTAMP NOT NULL DEFAULT now();
