@@ -130,6 +130,14 @@ Request Body:
 	birthDate:	
 }
 
+-------------------------------
+
+PUT /users/follow
+PUT /users/unfollow
+
+Query Param: user_id
+
+# Follow or unfollow the specified user for the auth'd user
 
 -------------------------------
 

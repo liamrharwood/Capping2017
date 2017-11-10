@@ -47,4 +47,11 @@ public interface UserDAO {
                        @Bind("email") String email,
                        @Bind("birth_date") Date birthDate);
 
+    @SqlUpdate("INSERT INTO Follows (follower_id, followee_id) " +
+            "VALUES (:followerId, :followeeId) " +
+            "ON CONFLICT DO NOTHING")
+    void followUser(@Bind("followerId") int followerId, @Bind("followeeId") int followeeId);
+
+    @SqlUpdate("DELETE FROM Follows WHERE follower_id = :followerId AND followee_id = :followeeId")
+    void unfollowUser(@Bind("followerId") int followerId, @Bind("followeeId") int followeeId);
 }
