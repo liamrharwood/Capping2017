@@ -34,4 +34,20 @@ public class CommunityResource {
     public CommunityProfile getCommunityProfile(@QueryParam("id") int communityId) {
         return communityDAO.getCommunityProfile(communityId);
     }
+
+    @PUT
+    @Path("follow")
+    public void followCommunity(@Auth UserPrincipal userPrincipal,
+                                @QueryParam("community_id") int communityId) {
+        int userId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        communityDAO.followCommunity(userId, communityId);
+    }
+
+    @PUT
+    @Path("unfollow")
+    public void unfollowCommunity(@Auth UserPrincipal userPrincipal,
+                                @QueryParam("community_id") int communityId) {
+        int userId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        communityDAO.unfollowCommunity(userId, communityId);
+    }
 }

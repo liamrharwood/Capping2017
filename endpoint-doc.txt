@@ -174,3 +174,14 @@ Response Body:
 	followerCount:
 	postCount:
 }
+
+--------------------------------
+
+PUT /communities/follow
+PUT /communities/unfollow
+
+Query Param: community_id
+
+# Follow or unfollow the specified community for the auth'd user
+
+--------------------------------

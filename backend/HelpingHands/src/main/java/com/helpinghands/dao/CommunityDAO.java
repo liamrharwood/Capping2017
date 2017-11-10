@@ -6,6 +6,7 @@ import com.helpinghands.core.mapper.community.CommunityMapper;
 import com.helpinghands.core.mapper.community.CommunityProfileMapper;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
+import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
 import java.util.List;
@@ -25,4 +26,12 @@ public interface CommunityDAO {
             "WHERE community_id = :communityId")
     @Mapper(CommunityProfileMapper.class)
     CommunityProfile getCommunityProfile(@Bind("communityId") int communityId);
+
+    @SqlUpdate("INSERT INTO Members (user_id, community_id) " +
+            "VALUES (:userId, :communityId) " +
+            "ON CONFLICT DO NOTHING")
+    void followCommunity(@Bind("userId") int userId, @Bind("communityId") int communityId);
+
+    @SqlUpdate("DELETE FROM Members WHERE user_id = :userId AND community_id = :communityId")
+    void unfollowCommunity(@Bind("userId") int userId, @Bind("communityId") int communityId);
 }
