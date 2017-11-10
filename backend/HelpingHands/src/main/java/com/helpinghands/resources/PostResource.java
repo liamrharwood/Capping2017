@@ -29,10 +29,14 @@ public class PostResource {
 
     @GET
     public List<PostCard> getPosts(@Auth Optional<UserPrincipal> userPrincipal,
+                                   @QueryParam("post_id") Optional<Integer> postId,
                                    @QueryParam("community_id") Optional<Integer> communityId,
                                    @QueryParam("user_id") Optional<Integer> userId) {
         if (userPrincipal.isPresent()) {
             int authId  = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
+            if (postId.isPresent()) {
+                return postDAO.getPostByIdWithVoteHistory(authId, postId.get());
+            }
             if (communityId.isPresent() && !userId.isPresent()) {
                 return postDAO.getPostsForCommunityWithVoteHistory(authId, communityId.get());
             }
@@ -43,6 +47,8 @@ public class PostResource {
                 return postDAO.getPostsForUserInCommunityWithVoteHistory(authId, userId.get(), communityId.get());
             }
             return postDAO.getFollowedPosts(authId);
+        } else if (postId.isPresent()) {
+            return postDAO.getPostById(postId.get());
         } else if (communityId.isPresent() && !userId.isPresent()) {
             return postDAO.getPostsForCommunity(communityId.get());
         } else if (!communityId.isPresent() && userId.isPresent()) {
