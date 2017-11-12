@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import PostCard from '../components/PostCard.jsx';
+import PostSubmitter from '../components/PostSubmitter.jsx';
+
 
 class PostsContainer extends React.Component {
 	constructor(props) {
@@ -9,7 +11,7 @@ class PostsContainer extends React.Component {
     this.state = {
         posts: PropTypes.Array,
         numPostsPerPage: 10,
-        pageNum: 1
+        pageNum: 1,
     };
     this.renderPostCards = this.renderPostCards.bind(this);
     this.fetchPostCards = this.fetchPostCards.bind(this);
@@ -75,12 +77,9 @@ class PostsContainer extends React.Component {
   render() {
   	return (
   	 	<div className="container posts-container">
-      <div className="input-group mb-4" style={{zIndex: 0}}>
-        <input type="text" className="form-control" placeholder="Submit a new post" aria-label="Submit a new post" />
-        <span className="input-group-btn">
-          <button className="btn btn-secondary" type="button">Submit Post</button>
-        </span>
-      </div>
+      
+        <PostSubmitter />
+
   	 		{this.renderPostCards(this.state.posts)}
   	 	</div>
   	);
