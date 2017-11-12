@@ -13,6 +13,7 @@ public class CommunityProfileMapper implements ResultSetMapper<CommunityProfile>
                 resultSet.getString("name"),
                 resultSet.getString("description"),
                 resultSet.getInt("follower_count"),
-                resultSet.getInt("post_count"));
+                resultSet.getInt("post_count"),
+                resultSet.getBoolean("is_following"));
     }
 }

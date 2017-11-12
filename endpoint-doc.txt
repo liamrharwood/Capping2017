@@ -100,6 +100,7 @@ GET /users/profile
 optional parameters: user_id
 
 # Returns user profile info
+# If auth'd, "following" is a boolean value which states whether the auth'd user follows the owner of the profile
 
 {
 	userId:
@@ -112,6 +113,7 @@ optional parameters: user_id
 	bio:
 	profileImagePath:
 	postCount:
+	following:
 }
 
 -------------------------------
@@ -165,6 +167,7 @@ Response Body:
 GET /communities/profile?id=[communityId]
 
 # fetch profile data for a given community
+# If auth'd, "following" is a boolean value denoting if the auth'd user is following that community
 
 Response Body:
 {
@@ -173,6 +176,7 @@ Response Body:
 	description:
 	followerCount:
 	postCount:
+	following:
 }
 
 --------------------------------

@@ -25,16 +25,21 @@ public class CommunityProfile {
     @JsonProperty
     private Integer postCount;
 
+    @NotNull
+    @JsonProperty
+    private boolean following;
+
     public CommunityProfile() {
         // Jackson deserialization
     }
 
-    public CommunityProfile(Integer id, String name, String description, Integer followerCount, Integer postCount) {
+    public CommunityProfile(Integer id, String name, String description, Integer followerCount, Integer postCount, boolean following) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.followerCount = followerCount;
         this.postCount = postCount;
+        this.following = following;
     }
 
     public Integer getId() {
@@ -55,5 +60,9 @@ public class CommunityProfile {
 
     public Integer getPostCount() {
         return postCount;
+    }
+
+    public boolean isFollowing() {
+        return following;
     }
 }

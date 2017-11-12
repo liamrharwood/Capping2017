@@ -30,10 +30,23 @@ public interface UserDAO {
             "(SELECT COUNT(*) FROM Members WHERE user_id = :id) AS followed_communities_count, " +
             "(SELECT COUNT(*) FROM Follows WHERE follower_id = :id) AS followed_users_count, " +
             "bio, profile_image_path, " +
-            "(SELECT COUNT(*) FROM Posts WHERE user_id = :id) AS post_count " +
+            "(SELECT COUNT(*) FROM Posts WHERE user_id = :id) AS post_count, " +
+            "FALSE AS is_following " +
             "FROM Users WHERE user_id = :id")
     @Mapper(UserProfileMapper.class)
     UserProfile getUserProfile(@Bind("id") int id);
+
+    @SqlQuery("SELECT user_id, username, first_name, last_name, " +
+            "(SELECT COUNT(*) FROM Follows WHERE followee_id = :userId) AS followers_count, " +
+            "(SELECT COUNT(*) FROM Members WHERE user_id = :userId) AS followed_communities_count, " +
+            "(SELECT COUNT(*) FROM Follows WHERE follower_id = :userId) AS followed_users_count, " +
+            "bio, profile_image_path, " +
+            "(SELECT COUNT(*) FROM Posts WHERE user_id = :userId) AS post_count, " +
+            "EXISTS(SELECT 1 FROM Follows WHERE followee_id = :userId AND follower_id = :authId) AS is_following " +
+            "FROM Users WHERE user_id = :userId")
+    @Mapper(UserProfileMapper.class)
+    UserProfile getUserProfileWithAuth(@Bind("authId") int authId, @Bind("userId") int userId);
+
 
     @SqlQuery("SELECT password_hash FROM Users WHERE username = :username")
     String getPasswordForUsername(@Bind("username") String username);

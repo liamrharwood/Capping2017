@@ -43,7 +43,11 @@ public class UserProfile {
     @JsonProperty
     private Integer postCount;
 
-    public UserProfile(Integer userId, String username, String firstName, String lastName, Integer followersCount, Integer followedCommunitiesCount, Integer followedUsersCount, String bio, String profileImagePath, Integer postCount) {
+    @NotNull
+    @JsonProperty
+    private boolean following;
+
+    public UserProfile(Integer userId, String username, String firstName, String lastName, Integer followersCount, Integer followedCommunitiesCount, Integer followedUsersCount, String bio, String profileImagePath, Integer postCount, boolean following) {
         this.userId = userId;
         this.username = username;
         this.firstName = firstName;
@@ -54,6 +58,7 @@ public class UserProfile {
         this.bio = bio;
         this.profileImagePath = profileImagePath;
         this.postCount = postCount;
+        this.following = following;
     }
 
     public Integer getUserId() {
@@ -94,5 +99,9 @@ public class UserProfile {
 
     public Integer getPostCount() {
         return postCount;
+    }
+
+    public boolean isFollowing() {
+        return following;
     }
 }

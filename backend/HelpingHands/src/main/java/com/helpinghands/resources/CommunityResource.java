@@ -3,6 +3,7 @@ package com.helpinghands.resources;
 import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.community.Community;
 import com.helpinghands.core.community.CommunityProfile;
+import com.helpinghands.core.user.User;
 import com.helpinghands.dao.CommunityDAO;
 import com.helpinghands.dao.UserDAO;
 import io.dropwizard.auth.Auth;
@@ -10,6 +11,7 @@ import io.dropwizard.auth.Auth;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Optional;
 
 @Path("/communities")
 @Produces(MediaType.APPLICATION_JSON)
@@ -31,7 +33,12 @@ public class CommunityResource {
 
     @GET
     @Path("profile")
-    public CommunityProfile getCommunityProfile(@QueryParam("id") int communityId) {
+    public CommunityProfile getCommunityProfile(@Auth Optional<UserPrincipal> userPrincipal,
+                                                @QueryParam("id") int communityId) {
+        if (userPrincipal.isPresent()) {
+            int authId = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
+            return communityDAO.getCommunityProfileWithAuth(authId, communityId);
+        }
         return communityDAO.getCommunityProfile(communityId);
     }
 

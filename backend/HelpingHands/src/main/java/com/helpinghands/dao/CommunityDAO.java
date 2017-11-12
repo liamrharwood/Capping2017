@@ -21,11 +21,21 @@ public interface CommunityDAO {
 
     @SqlQuery("SELECT community_id, name, description, " +
             "(SELECT COUNT(*) FROM Members WHERE community_id = :communityId) AS follower_count, " +
-            "(SELECT COUNT(*) FROM PostsToCommunities WHERE community_id = :communityId) AS post_count " +
+            "(SELECT COUNT(*) FROM PostsToCommunities WHERE community_id = :communityId) AS post_count," +
+            "FALSE AS is_following " +
             "FROM Communities " +
             "WHERE community_id = :communityId")
     @Mapper(CommunityProfileMapper.class)
     CommunityProfile getCommunityProfile(@Bind("communityId") int communityId);
+
+    @SqlQuery("SELECT community_id, name, description, " +
+            "(SELECT COUNT(*) FROM Members WHERE community_id = :communityId) AS follower_count, " +
+            "(SELECT COUNT(*) FROM PostsToCommunities WHERE community_id = :communityId) AS post_count," +
+            "EXISTS(SELECT 1 FROM Members WHERE user_id = :authId AND community_id = :communityId) AS is_following " +
+            "FROM Communities " +
+            "WHERE community_id = :communityId")
+    @Mapper(CommunityProfileMapper.class)
+    CommunityProfile getCommunityProfileWithAuth(@Bind("authId") int authId, @Bind("communityId") int communityId);
 
     @SqlUpdate("INSERT INTO Members (user_id, community_id) " +
             "VALUES (:userId, :communityId) " +

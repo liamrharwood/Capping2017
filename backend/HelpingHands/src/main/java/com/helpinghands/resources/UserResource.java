@@ -34,6 +34,10 @@ public class UserResource {
     public UserProfile getProfile(@Auth Optional<UserPrincipal> userPrincipal,
                                   @QueryParam("user_id") Optional<Integer> userId) {
         if (userId.isPresent()) {
+            if (userPrincipal.isPresent()) {
+                int id = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
+                return userDAO.getUserProfileWithAuth(id, userId.get());
+            }
             return userDAO.getUserProfile(userId.get());
         }
         if (userPrincipal.isPresent()) {
