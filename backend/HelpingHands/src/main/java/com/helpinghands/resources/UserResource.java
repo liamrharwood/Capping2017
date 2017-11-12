@@ -44,6 +44,28 @@ public class UserResource {
         }
     }
 
+    @PUT
+    @Path("follow")
+    public void followUser(@Auth UserPrincipal userPrincipal,
+                           @QueryParam("user_id") int followeeId) {
+        int followerId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        if (followeeId == followerId) {
+            throw new BadRequestException();
+        }
+        userDAO.followUser(followerId, followeeId);
+    }
+
+    @PUT
+    @Path("unfollow")
+    public void unfollowUser(@Auth UserPrincipal userPrincipal,
+                             @QueryParam("user_id") int followeeId) {
+        int followerId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        if (followeeId == followerId) {
+            throw new BadRequestException();
+        }
+        userDAO.unfollowUser(followerId, followeeId);
+    }
+
     @POST
     @Path("register")
     public String registerNewUser(UserRegistration userRegistration) {
