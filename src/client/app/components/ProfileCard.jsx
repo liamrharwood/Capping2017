@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link }
+from 'react-router-dom';
 
 class ProfileCard extends React.Component {
 	constructor(props) {
@@ -47,12 +52,12 @@ class ProfileCard extends React.Component {
   		return(
   			<div className = "card-body container">
   	 			<div className="row">
-  	 				<div className="col-4"><img src={this.state.profileData.profileImg} /></div>
+  	 				<div className="col-4"><img src="" /></div>
   	 				<div className="col-8">{this.state.profileData.firstName}&nbsp;{this.state.profileData.lastName}</div>
   	 			</div>
   	 			<div className="row">
   	 				<div className="col-4" />
-  	 				<div className="col-8"><a className="text-muted" href="#">@{this.state.profileData.username}</a></div>
+  	 				<div className="col-8"><Link to={`/users/4`} className="text-muted" >@{this.state.profileData.username}</Link></div>
   	 			</div>
   	 			<div className="row mt-4">
   	 				<div className="col-4"><a className="follower-count" href="#">Prayers <br />{this.state.profileData.postCount} </a></div>
