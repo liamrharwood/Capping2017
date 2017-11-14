@@ -26,7 +26,8 @@ class Community extends React.Component {
     		<Dashboard 
     		location = {this.props.location.pathname}
     		postsQueryUri = {`http://10.10.7.191:8080/posts?community_id=${this.props.match.params.communityId}`}
-    		profileQueryUri = {`http://10.10.7.191:8080/communities/profile?id=${this.props.match.params.communityId}`}
+    		profileQueryUri = {`http://10.10.7.191:8080/communities/`}
+        id={this.props.match.params.communityId}
     		infoCard="community-profile"/>
     	</div>
     	);

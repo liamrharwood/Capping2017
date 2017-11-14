@@ -19,8 +19,9 @@ class User extends React.Component {
     	<div id="user">
     		<Navbar />
     		<Dashboard 
-        profileQueryUri = {`http://10.10.7.191:8080/users/profile?user_id=${this.props.match.params.userId}`} 
-        postsQueryUri = {`http://10.10.7.191:8080/posts?user_id=${this.props.match.params.userId}`} 
+        profileQueryUri = {`http://10.10.7.191:8080/users`} 
+        postsQueryUri = {`http://10.10.7.191:8080/posts?user_id=${this.props.match.params.userId}`}
+        id={this.props.match.params.userId}
         infoCard = "user-profile"/>
     	</div>
     	);

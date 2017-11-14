@@ -19,9 +19,10 @@ class Home extends React.Component {
     	<div id="home">
     		<Navbar home="active"/>
     		<Dashboard 
-        profileQueryUri ="http://10.10.7.191:8080/users/profile"
-        postsQueryUri = "http://10.10.7.191:8080/posts" 
-        infoCard = "user-profile"/>
+                profileQueryUri ="http://10.10.7.191:8080/users"
+                postsQueryUri = "http://10.10.7.191:8080/posts"
+                infoCard = "home"
+            />
     	</div>
     	);
   }

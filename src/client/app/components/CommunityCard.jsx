@@ -8,6 +8,11 @@ class CommunityCard extends React.Component {
     this.state = {
     	data: PropTypes.Object,
     };
+
+
+    this.renderFollowButton = this.renderFollowButton.bind(this);
+    this.follow = this.follow.bind(this);
+    this.unFollow = this.unFollow.bind(this);
   }
 
   componentDidMount() {
@@ -21,18 +26,63 @@ class CommunityCard extends React.Component {
   }
 
   fetchCommunityProfile() {
-	axios({
-		method:'get',
-  		url: this.props.queryUri,
-  		auth: {
-  			username: 'user1',
-  			password: 'password'
-  		},
-  		responseType: 'json'
-	})
-      .then(res => {
+  	axios({
+  		method:'get',
+    		url: `${this.props.queryUri}profile?id=${this.props.id}`,
+    		auth: {
+    			username: 'user1',
+    			password: 'password'
+    		},
+    		responseType: 'json'
+  	}).then(res => {
         const data = res.data;
         this.setState({ data });
+      }).catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+  }
+
+  renderFollowButton() {
+    if(!this.state.data.following){
+      return (<button type="button" className="btn btn-block btn-info" onClick={this.follow}>Follow</button>);
+    } else {
+      return (<button type="button" className="btn btn-block btn-outline-secondary" onClick={this.unFollow}>Followed</button>)
+    } 
+  }
+
+  follow(){
+    axios({
+      method:'put',
+        url: `${this.props.queryUri}follow?community_id=${this.props.id}`,
+        auth: {
+          username: 'user1',
+          password: 'password'
+        },
+    }).then(res => {
+      this.fetchCommunityProfile();
+      }).catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+  }
+
+  unFollow() {
+    axios({
+      method:'put',
+        url: `${this.props.queryUri}unfollow?community_id=${this.props.id}`,
+        auth: {
+          username: 'user1',
+          password: 'password'
+        },
+    }).then(res => {
+        this.fetchCommunityProfile();
       }).catch(function (error) {
         if (error.response) {
           console.log(error.response.data);
@@ -49,6 +99,11 @@ class CommunityCard extends React.Component {
   	 			<div className="row">
   	 				<h4 className="col-12 card-title">{this.state.data.name}</h4>
   	 			</div>
+          <div className="row mt-2">
+            <div className= "col-6 offset-3">
+              {this.renderFollowButton()}
+            </div>
+          </div>
   	 			<div className="row mt-4">
   	 				<div className="col-6"><a className="community-count" href="#">Prayers <br />{this.state.data.postCount} </a></div>
   	 				<div className="col-6"><a className="community-count" href="#">Followers <br />{this.state.data.followerCount} </a></div>

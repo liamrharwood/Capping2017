@@ -20,8 +20,9 @@ class Dashboard extends React.Component {
 
   renderInfoCard(){
     switch(this.props.infoCard){
-      case ("user-profile"): return (<ProfileCard loation = {this.props.location} queryUri={this.props.profileQueryUri}/>);
-      case ("community-profile"): return (<CommunityCard location = {this.props.location} queryUri = {this.props.profileQueryUri} />);
+      case ("home"): return (<ProfileCard loation = {this.props.location} queryUri={this.props.profileQueryUri} type="home"/>);
+      case ("user-profile"): return (<ProfileCard loation = {this.props.location} queryUri={this.props.profileQueryUri} id={this.props.id} type="user-profile"/>);
+      case ("community-profile"): return (<CommunityCard location = {this.props.location} queryUri = {this.props.profileQueryUri} id={this.props.id} type = "community-profile"/>);
       default: return(<p>Bad Profile Prop</p>);
     }
   }
