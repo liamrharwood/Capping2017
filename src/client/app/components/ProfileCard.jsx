@@ -73,7 +73,7 @@ class ProfileCard extends React.Component {
   }
 
   renderFollowButton() {
-    if(this.props.type=="user-profile"){
+    if(this.props.type=="user-profile" && this.state.profileData.username != "user1"){
       if(!this.state.profileData.following){
         return (
           <div className="row mt-2">

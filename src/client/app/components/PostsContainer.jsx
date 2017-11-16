@@ -69,7 +69,7 @@ class PostsContainer extends React.Component {
   generatePostCard(post){
 
     var date = new Date(post.createDate);
-    var formattedDate = date.getUTCDate() + '/' + (date.getUTCMonth() + 1)+ '/' + date.getUTCFullYear()
+    var formattedDate = (date.getUTCMonth() + 1) + '/' + date.getUTCDate() + '/' + date.getUTCFullYear()
 
     return <PostCard key={post.id} id={post.id} score = {post.score} vote={post.vote} title = {post.title} complete = {post.complete} createDate = {formattedDate} user = {post.username} userId = {post.userId} bodyText={post.bodyText} />;
   }
@@ -78,7 +78,7 @@ class PostsContainer extends React.Component {
   	return (
   	 	<div className="container posts-container">
       
-        <PostSubmitter />
+        <PostSubmitter fetchFunction = {this.fetchPostCards}/>
 
   	 		{this.renderPostCards(this.state.posts)}
   	 	</div>

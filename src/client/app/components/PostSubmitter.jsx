@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -55,6 +56,9 @@ class PostSubmitter extends React.Component {
 	      .then(res => {
 	        
 	        this.hideSubmitter();
+	        this.props.fetchFunction();
+	        ReactDOM.findDOMNode(this.refs.title).value = ""
+	        ReactDOM.findDOMNode(this.refs.body).value = ""
 	        
 	      }).catch(function (error) {
 	        if (error.response) {
@@ -70,7 +74,7 @@ class PostSubmitter extends React.Component {
 		return (
 			<div className= "card mb-4">
 	      		<div className="input-group" style={{zIndex: 0}}>
-				  	<input type="text" className="form-control" onChange={this.handleTitleChange} placeholder="Submit a new post" aria-label="Submit a new post" />
+				  	<input type="text" ref="title" className="form-control" onChange={this.handleTitleChange} placeholder="Submit a new post" aria-label="Submit a new post" />
 				  	<span className="input-group-btn">
 			          <button className="btn btn-secondary" type="button" onClick={this.showSubmitter}>Create Post</button>
 			        </span>
@@ -79,7 +83,7 @@ class PostSubmitter extends React.Component {
 		        	<form className="postForm">
 		        		<div className="form-group">
 		        			<label htmlFor="postBodyText">Post Text</label>
-							<input type="text" className="form-control" id="postBodyText" onChange = {this.handleBodyTextChange} placeholder = "Enter your post's body text" aria-label="Enter your post's body text" />
+							<input type="text" ref="body" className="form-control" id="postBodyText" onChange = {this.handleBodyTextChange} placeholder = "Enter your post's body text" aria-label="Enter your post's body text" />
 						</div>
 						<button type="button" className="btn btn-secondary" onClick = {this.hideSubmitter} >Close</button>
 						<button type="button" className="btn btn-primary ml-4" onClick = {this.submitPost} >Submit New Post</button>

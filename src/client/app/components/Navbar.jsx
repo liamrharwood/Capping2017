@@ -47,10 +47,12 @@ class Navbar extends React.Component {
 
   renderCommunitiesDropdown() {
 
-    if(this.state.data){
+    if(this.state.data && this.state.data.length > 0){
       return (
         this.state.data.map(this.renderCommunityOption)
       );
+    } else if (this.state.data){
+        return (<a className="dropdown-item" >You do not follow any communities.</a>);
     } else {
 
       return (<a className="dropdown-item" >Loading Communities...</a>)
@@ -92,7 +94,7 @@ class Navbar extends React.Component {
           <button className="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
          </form>
          <ul className = "navbar-nav my-1 my-lg-0 ml-lg-4">
-          <li className = {`nav-item ${this.props.profile}`}><Link to="/profile" className="nav-link"><i className="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp; Profile</Link></li>
+          <li className = {`nav-item ${this.props.profile}`}><Link to="/users/4" className="nav-link"><i className="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp; Profile</Link></li>
         </ul>
          <ul className = "navbar-nav my-1 my-lg-0">
           <li className = {`nav-item ${this.props.settings}`}><Link to="/settings" className="nav-link"><i className="fa fa-cog" aria-hidden="true"></i>&nbsp; Settings</Link></li>

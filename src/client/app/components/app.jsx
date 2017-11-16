@@ -2,12 +2,14 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link }
+  Link,
+  Switch }
 from 'react-router-dom';
 import Home from './views/home.jsx';
 import Community from './views/community.jsx';
 import Login from './views/login.jsx';
 import User from './views/user.jsx';
+import NotFound from './views/404.jsx';
 
 class App extends React.Component {
 
@@ -24,11 +26,14 @@ class App extends React.Component {
 	    	<div>
 	    		<Router>
 				  <div>
-				  	<Route exact path="/" component={Home}/>
-				   	<Route exact path="/home" component={Home}/>
-				   	<Route path="/communities/:communityId" component={Community}/>
-				   	<Route exact path="/login" component={Login} />
-				   	<Route path="/users/:userId" component={User} />
+				  	<Switch>
+				  		<Route exact path="/login" component={Login} />
+					  	<Route exact path="/" component={Home}/>
+					   	<Route exact path="/home" component={Home}/>
+					   	<Route path="/communities/:communityId" component={Community}/>
+					   	<Route path="/users/:userId" component={User} />
+					   	<Route component={NotFound} />
+				   	</Switch>
 				  </div>
 				</Router>
 	    	</div>
