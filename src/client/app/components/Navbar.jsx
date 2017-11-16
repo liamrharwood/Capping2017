@@ -100,7 +100,7 @@ class Navbar extends React.Component {
           <li className = {`nav-item ${this.props.settings}`}><Link to="/settings" className="nav-link"><i className="fa fa-cog" aria-hidden="true"></i>&nbsp; Settings</Link></li>
          </ul>
          <ul className = "navbar-nav my-1 my-lg-0">
-          <li className = {`nav-item ${this.props.logOut}`}><Link to="/logout" className="nav-link"><i className="fa fa-sign-out" aria-hidden="true"></i>&nbsp; Log Out</Link></li>
+          <li className = {`nav-item ${this.props.logOut}`}><Link to="/login" onClick={this.props.unauth} className="nav-link"><i className="fa fa-sign-out" aria-hidden="true"></i>&nbsp; Log Out</Link></li>
          </ul>
       </div>
      </nav>
