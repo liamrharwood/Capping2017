@@ -107,4 +107,10 @@ public class UserResource {
         return accessToken;
     }
 
+    @POST
+    @Path("logout")
+    public void logout(@Auth UserPrincipal userPrincipal) {
+        userDAO.updateAccessTokenForUser(userPrincipal.getId(), null, null);
+    }
+
 }
