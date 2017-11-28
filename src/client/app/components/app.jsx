@@ -17,6 +17,7 @@ import Login from './views/login.jsx';
 import User from './views/user.jsx';
 import Post from './views/post.jsx';
 import NotFound from './views/404.jsx';
+import Settings from './views/settings.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -24,7 +25,7 @@ class App extends React.Component {
 	constructor(props) {
     	super(props);
     	this.state = {
-      		authed: false,
+      		authed: true,
       		wrongCreds: false,
     	};
 
@@ -65,7 +66,7 @@ class App extends React.Component {
   	}
 
   	unauth(){
-  		this.setState({ auther: false})
+  		this.setState({ authed: false })
   	}
 
   	render () {
@@ -80,6 +81,7 @@ class App extends React.Component {
 					   	<PrivateRoute path="/communities/:communityId" authed={this.state.authed} redirectTo="/login" component={Community} unauth={this.unauth}/>
 					   	<PrivateRoute path="/users/:userId" authed={this.state.authed} redirectTo="/login" component={User} unauth={this.unauth}/>
 					   	<PrivateRoute path="/posts/:postId" authed={this.state.authed} redirectTo ="/login" component={Post} unauth={this.unauth} />
+					   	<PrivateRoute path="/settings" authed={this.state.authed} redirectTo="/login" component={Settings} unauth={this.unauth} />
 					   	<PropsRoute component={NotFound} />
 				   	</Switch>
 				  </div>
