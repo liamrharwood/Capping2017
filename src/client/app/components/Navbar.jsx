@@ -54,7 +54,6 @@ class Navbar extends React.Component {
     } else if (this.state.data){
         return (<a className="dropdown-item" >You do not follow any communities.</a>);
     } else {
-
       return (<a className="dropdown-item" >Loading Communities...</a>)
     }
   }

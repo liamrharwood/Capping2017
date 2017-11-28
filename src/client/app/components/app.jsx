@@ -15,6 +15,7 @@ import Home from './views/home.jsx';
 import Community from './views/community.jsx';
 import Login from './views/login.jsx';
 import User from './views/user.jsx';
+import Post from './views/post.jsx';
 import NotFound from './views/404.jsx';
 import axios from 'axios';
 
@@ -78,6 +79,7 @@ class App extends React.Component {
 					   	<PrivateRoute exact path="/home" authed={this.state.authed} redirectTo="/login" component={Home} unauth={this.unauth}/>
 					   	<PrivateRoute path="/communities/:communityId" authed={this.state.authed} redirectTo="/login" component={Community} unauth={this.unauth}/>
 					   	<PrivateRoute path="/users/:userId" authed={this.state.authed} redirectTo="/login" component={User} unauth={this.unauth}/>
+					   	<PrivateRoute path="/posts/:postId" authed={this.state.authed} redirectTo ="/login" component={Post} unauth={this.unauth} />
 					   	<PropsRoute component={NotFound} />
 				   	</Switch>
 				  </div>
