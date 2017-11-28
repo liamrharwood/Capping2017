@@ -11,6 +11,7 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface UserDAO {
@@ -50,6 +51,16 @@ public interface UserDAO {
 
     @SqlQuery("SELECT password_hash FROM Users WHERE username = :username")
     String getPasswordForUsername(@Bind("username") String username);
+
+    @SqlQuery("SELECT access_token FROM Users WHERE username = :username")
+    String getAccessTokenForUsername(@Bind("username") String username);
+
+    @SqlQuery("SELECT access_token_timestamp FROM Users WHERE username = :username")
+    Timestamp getAccessTokenTimestampForUsername(@Bind("username") String username);
+
+    @SqlUpdate("UPDATE Users SET access_token = :accessToken, access_token_timestamp = :timestamp " +
+            "WHERE user_id = :id")
+    void updateAccessTokenForUser(@Bind("id") int id, @Bind("accessToken") String accessToken, @Bind("timestamp") Timestamp timestamp);
 
     @SqlUpdate("INSERT INTO Users (username, password_hash, first_name, last_name, email, birth_date)" +
             "VALUES (:username, :password_hash, :first_name, :last_name, :email, :birth_date)")

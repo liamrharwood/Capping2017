@@ -27,3 +27,9 @@ GRANT DELETE ON Votes TO app;
 
 --changeset liamrharwood:5
 ALTER TABLE Comments ADD COLUMN create_date TIMESTAMP NOT NULL DEFAULT now();
+
+--changeset liamrharwood:6
+ALTER TABLE Users ADD COLUMN access_token TEXT;
+
+--changeset liamrharwood:7
+ALTER TABLE Users ADD COLUMN access_token_timestamp TIMESTAMP;

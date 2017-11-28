@@ -1,8 +1,7 @@
 package com.helpinghands;
 
-import com.helpinghands.auth.HelpingHandsAuthenticator;
-import com.helpinghands.auth.HelpingHandsAuthorizer;
-import com.helpinghands.auth.UserPrincipal;
+import com.google.common.collect.Lists;
+import com.helpinghands.auth.*;
 import com.helpinghands.dao.CommentDAO;
 import com.helpinghands.dao.CommunityDAO;
 import com.helpinghands.dao.PostDAO;
@@ -12,8 +11,10 @@ import com.helpinghands.resources.PostResource;
 import com.helpinghands.resources.UserResource;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthFilter;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
+import io.dropwizard.auth.chained.ChainedAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.migrations.MigrationsBundle;
@@ -25,8 +26,8 @@ import org.skife.jdbi.v2.DBI;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
-import java.security.Principal;
 import java.util.EnumSet;
+import java.util.List;
 
 public class HelpingHandsApplication extends Application<HelpingHandsConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -68,13 +69,24 @@ public class HelpingHandsApplication extends Application<HelpingHandsConfigurati
         environment.jersey().register(new UserResource(userDAO));
         environment.jersey().register(new PostResource(postDAO, userDAO, commentDAO));
         environment.jersey().register(new CommunityResource(communityDAO, userDAO));
-        environment.jersey().register(new AuthDynamicFeature(
-                new BasicCredentialAuthFilter.Builder<UserPrincipal>()
-                    .setAuthenticator(new HelpingHandsAuthenticator(userDAO))
-                    .setAuthorizer(new HelpingHandsAuthorizer())
-                    .setRealm("SECRET")
-                    .buildAuthFilter()
-        ));
+
+        BasicCredentialAuthFilter basicCredentialAuthFilter = new BasicCredentialAuthFilter.Builder<UserPrincipal>()
+                .setPrefix("Basic")
+                .setAuthenticator(new HelpingHandsBasicAuthenticator(userDAO))
+                .setAuthorizer(new HelpingHandsAuthorizer())
+                .setRealm("SECRET")
+                .buildAuthFilter();
+
+        HelpingHandsAuthFilter helpingHandsAuthFilter = new HelpingHandsAuthFilter.Builder<UserPrincipal>()
+                .setPrefix("HelpingHands")
+                .setAuthenticator(new HelpingHandsTokenAuthenticator(userDAO))
+                .setAuthorizer(new HelpingHandsAuthorizer())
+                .setRealm("SECRET")
+                .buildAuthFilter();
+
+        List<AuthFilter> filters = Lists.newArrayList(basicCredentialAuthFilter, helpingHandsAuthFilter);
+        environment.jersey().register(new AuthDynamicFeature(new ChainedAuthFilter(filters)));
+
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(UserPrincipal.class));
     }

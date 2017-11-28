@@ -10,8 +10,10 @@ import io.dropwizard.auth.Auth;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -88,6 +90,21 @@ public class UserResource {
         } catch (Exception ex) {
             return ex.toString();
         }
+    }
+
+    @POST
+    @Path("login")
+    public String login(@Auth UserPrincipal userPrincipal) {
+        UUID uuid = UUID.randomUUID();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+        PasswordEncryption passwordEncryption = new PasswordEncryption();
+        String unencryptedToken = uuid.toString() + "|" + timestamp.toString();
+        String accessToken = passwordEncryption.hash(unencryptedToken.toCharArray());
+
+        userDAO.updateAccessTokenForUser(userPrincipal.getId(), accessToken, timestamp);
+
+        return accessToken;
     }
 
 }
