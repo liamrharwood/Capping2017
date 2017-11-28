@@ -74,9 +74,9 @@ class PostSubmitter extends React.Component {
 		return (
 			<div className= "card mb-4">
 	      		<div className="input-group" style={{zIndex: 0}}>
-				  	<input type="text" ref="title" className="form-control" onChange={this.handleTitleChange} placeholder="Submit a new post" aria-label="Submit a new post" />
+				  	<input type="text" ref="title" className="form-control" onChange={this.handleTitleChange} placeholder="Submit a new prayer! Type your title here then click next..." aria-label="New Post Title" />
 				  	<span className="input-group-btn">
-			          <button className="btn btn-secondary" type="button" onClick={this.showSubmitter}>Create Post</button>
+			          <button className="btn btn-secondary" type="button" onClick={this.showSubmitter}>Next</button>
 			        </span>
 		        </div>
 		        <div className={`card-body submitter ${this.state.submitterClass}`}>

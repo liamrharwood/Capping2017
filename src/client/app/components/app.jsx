@@ -24,7 +24,7 @@ class App extends React.Component {
 	constructor(props) {
     	super(props);
     	this.state = {
-      		authed: false,
+      		authed: true,
       		wrongCreds: false,
     	};
 
@@ -65,7 +65,7 @@ class App extends React.Component {
   	}
 
   	unauth(){
-  		this.setState({ auther: false})
+  		this.setState({ authed: false })
   	}
 
   	render () {

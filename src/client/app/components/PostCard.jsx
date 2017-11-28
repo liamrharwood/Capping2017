@@ -121,7 +121,7 @@ class PostCard extends React.Component {
 	  					{this.renderVoter()}
 	  				
 	  				<div className="col-sm-10 p-0">
-	   					<h6 className="card-title title-link" href="#">{this.props.title}</h6>
+	   					<h6 className="card-title"><Link to={`/posts/${this.props.id}`} className="post-title">{this.props.title}</Link></h6>
 	   					<h6 className="card-subtitle text-muted"><Link to={`/users/${this.props.userId}`}  className="text-muted" >@{this.props.user}</Link> {this.props.createDate}</h6>
               <h6 className="post-body mt-2">{this.props.bodyText}</h6>
 	   				</div>
