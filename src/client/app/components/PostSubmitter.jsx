@@ -83,7 +83,7 @@ class PostSubmitter extends React.Component {
 		        	<form className="postForm">
 		        		<div className="form-group">
 		        			<label htmlFor="postBodyText">Post Text</label>
-							<input type="text" ref="body" className="form-control" id="postBodyText" onChange = {this.handleBodyTextChange} placeholder = "Enter your post's body text" aria-label="Enter your post's body text" />
+							<textarea ref="body" className="form-control" id="postBodyText" onChange = {this.handleBodyTextChange} style={{ height: 150 }} placeholder = "Enter your post's body text" aria-label="Enter your post's body text" />
 						</div>
 						<button type="button" className="btn btn-secondary" onClick = {this.hideSubmitter} >Close</button>
 						<button type="button" className="btn btn-primary ml-4" onClick = {this.submitPost} >Submit New Post</button>
