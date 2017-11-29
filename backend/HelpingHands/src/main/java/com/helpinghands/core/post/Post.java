@@ -14,14 +14,6 @@ public class Post {
     @JsonProperty
     private Integer userId;
 
-    @NotNull
-    @JsonProperty
-    private Integer upvotes;
-
-    @NotNull
-    @JsonProperty
-    private Integer downvotes;
-
     @JsonProperty
     private String bodyText;
 
@@ -42,8 +34,6 @@ public class Post {
 
     public Post(Integer id,
                 Integer userId,
-                Integer upvotes,
-                Integer downvotes,
                 String bodyText,
                 String title,
                 String imagePath,
@@ -51,8 +41,6 @@ public class Post {
                 boolean complete) {
         this.id = id;
         this.userId = userId;
-        this.upvotes = upvotes;
-        this.downvotes = downvotes;
         this.bodyText = bodyText;
         this.title = title;
         this.imagePath = imagePath;
@@ -66,14 +54,6 @@ public class Post {
 
     public Integer getUserId() {
         return userId;
-    }
-
-    public Integer getUpvotes() {
-        return upvotes;
-    }
-
-    public Integer getDownvotes() {
-        return downvotes;
     }
 
     public String getBodyText() {

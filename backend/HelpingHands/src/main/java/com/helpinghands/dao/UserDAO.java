@@ -62,6 +62,9 @@ public interface UserDAO {
             "WHERE user_id = :id")
     void updateAccessTokenForUser(@Bind("id") int id, @Bind("accessToken") String accessToken, @Bind("timestamp") Timestamp timestamp);
 
+    @SqlUpdate("UPDATE Users SET profile_image_path = :imagePath WHERE user_id = :id")
+    void updateImagePathForUser(@Bind("id") int id, @Bind("imagePath") String imagePath);
+
     @SqlUpdate("INSERT INTO Users (username, password_hash, first_name, last_name, email, birth_date)" +
             "VALUES (:username, :password_hash, :first_name, :last_name, :email, :birth_date)")
     void insertNewUser(@Bind("username") String username,

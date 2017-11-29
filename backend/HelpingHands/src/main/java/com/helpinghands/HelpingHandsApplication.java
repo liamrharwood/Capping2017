@@ -21,6 +21,7 @@ import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.skife.jdbi.v2.DBI;
 
@@ -66,6 +67,7 @@ public class HelpingHandsApplication extends Application<HelpingHandsConfigurati
         final CommentDAO commentDAO = jdbi.onDemand(CommentDAO.class);
         final CommunityDAO communityDAO = jdbi.onDemand(CommunityDAO.class);
 
+        environment.jersey().register(MultiPartFeature.class);
         environment.jersey().register(new UserResource(userDAO));
         environment.jersey().register(new PostResource(postDAO, userDAO, commentDAO));
         environment.jersey().register(new CommunityResource(communityDAO, userDAO));
