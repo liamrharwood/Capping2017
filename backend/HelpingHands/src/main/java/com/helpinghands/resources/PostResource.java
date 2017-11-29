@@ -92,8 +92,9 @@ public class PostResource {
     @Path("vote")
     public void voteOnPost(@Auth UserPrincipal userPrincipal,
                            VoteRequest voteRequest) {
-        int userId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        int userId = userPrincipal.getId();
         postDAO.voteOnPost(userId, voteRequest.getPostId(), voteRequest.getDirection());
+        userDAO.onVoteUpdatePoints(userId, voteRequest.getPostId());
     }
 
 }

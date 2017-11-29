@@ -114,6 +114,11 @@ optional parameters: user_id
 	profileImagePath:
 	postCount:
 	following:
+	prayPoints:
+	answeredPoints:
+	reportPoints:
+	upvotePoints:
+	overallReputationPoints:
 }
 
 -------------------------------

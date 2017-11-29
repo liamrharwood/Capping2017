@@ -47,7 +47,27 @@ public class UserProfile {
     @JsonProperty
     private boolean following;
 
-    public UserProfile(Integer userId, String username, String firstName, String lastName, Integer followersCount, Integer followedCommunitiesCount, Integer followedUsersCount, String bio, String profileImagePath, Integer postCount, boolean following) {
+    @NotNull
+    @JsonProperty
+    private Integer prayPoints;
+
+    @NotNull
+    @JsonProperty
+    private Integer answeredPoints;
+
+    @NotNull
+    @JsonProperty
+    private Integer reportPoints;
+
+    @NotNull
+    @JsonProperty
+    private Integer upvotePoints;
+
+    @NotNull
+    @JsonProperty
+    private Integer overallReputationPoints;
+
+    public UserProfile(Integer userId, String username, String firstName, String lastName, Integer followersCount, Integer followedCommunitiesCount, Integer followedUsersCount, String bio, String profileImagePath, Integer postCount, boolean following, Integer prayPoints, Integer answeredPoints, Integer reportPoints, Integer upvotePoints, Integer overallReputationPoints) {
         this.userId = userId;
         this.username = username;
         this.firstName = firstName;
@@ -59,6 +79,11 @@ public class UserProfile {
         this.profileImagePath = profileImagePath;
         this.postCount = postCount;
         this.following = following;
+        this.prayPoints = prayPoints;
+        this.answeredPoints = answeredPoints;
+        this.reportPoints = reportPoints;
+        this.upvotePoints = upvotePoints;
+        this.overallReputationPoints = overallReputationPoints;
     }
 
     public Integer getUserId() {
@@ -103,5 +128,25 @@ public class UserProfile {
 
     public boolean isFollowing() {
         return following;
+    }
+
+    public Integer getPrayPoints() {
+        return prayPoints;
+    }
+
+    public Integer getAnsweredPoints() {
+        return answeredPoints;
+    }
+
+    public Integer getReportPoints() {
+        return reportPoints;
+    }
+
+    public Integer getUpvotePoints() {
+        return upvotePoints;
+    }
+
+    public Integer getOverallReputationPoints() {
+        return overallReputationPoints;
     }
 }

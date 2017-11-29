@@ -32,7 +32,8 @@ public interface UserDAO {
             "(SELECT COUNT(*) FROM Follows WHERE follower_id = :id) AS followed_users_count, " +
             "bio, profile_image_path, " +
             "(SELECT COUNT(*) FROM Posts WHERE user_id = :id) AS post_count, " +
-            "FALSE AS is_following " +
+            "FALSE AS is_following, " +
+            "pray_points, answered_points, report_points, upvote_points, reputation_points " +
             "FROM Users WHERE user_id = :id")
     @Mapper(UserProfileMapper.class)
     UserProfile getUserProfile(@Bind("id") int id);
@@ -43,7 +44,8 @@ public interface UserDAO {
             "(SELECT COUNT(*) FROM Follows WHERE follower_id = :userId) AS followed_users_count, " +
             "bio, profile_image_path, " +
             "(SELECT COUNT(*) FROM Posts WHERE user_id = :userId) AS post_count, " +
-            "EXISTS(SELECT 1 FROM Follows WHERE followee_id = :userId AND follower_id = :authId) AS is_following " +
+            "EXISTS(SELECT 1 FROM Follows WHERE followee_id = :userId AND follower_id = :authId) AS , " +
+            "pray_points, answered_points, report_points, upvote_points, reputation_points " +
             "FROM Users WHERE user_id = :userId")
     @Mapper(UserProfileMapper.class)
     UserProfile getUserProfileWithAuth(@Bind("authId") int authId, @Bind("userId") int userId);
@@ -81,4 +83,13 @@ public interface UserDAO {
 
     @SqlUpdate("DELETE FROM Follows WHERE follower_id = :followerId AND followee_id = :followeeId")
     void unfollowUser(@Bind("followerId") int followerId, @Bind("followeeId") int followeeId);
+
+    @SqlUpdate("UPDATE Users SET pray_points = (SELECT COUNT(*) FROM Votes WHERE direction = 1 AND user_id = :voterId) " +
+            "WHERE user_id = :voterId; " +
+            "UPDATE Users SET upvote_points = (SELECT COUNT(*) FROM Votes WHERE direction = 1 AND post_id = :postId) " +
+            "WHERE user_id = (SELECT user_id FROM Posts WHERE post_id = :postId);" +
+            "UPDATE Users SET reputation_points = (pray_points + 5 * answered_points + 3 * report_points + upvote_points) " +
+            "WHERE user_id = :voterId OR " +
+            "user_id = (SELECT user_id FROM Posts WHERE post_id = :postId)")
+    void onVoteUpdatePoints(@Bind("voterId") int voterId, @Bind("postId") int postId);
 }

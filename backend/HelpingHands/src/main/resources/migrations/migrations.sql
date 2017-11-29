@@ -37,3 +37,9 @@ ALTER TABLE Users ADD COLUMN access_token_timestamp TIMESTAMP;
 --changeset liamrharwood:8
 ALTER TABLE Posts DROP COLUMN upvotes;
 ALTER TABLE Posts DROP COLUMN downvotes;
+
+--changeset liamrharwood:9
+ALTER TABLE Users ADD COLUMN pray_points INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE Users ADD COLUMN answered_points INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE Users ADD COLUMN report_points INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE Users ADD COLUMN upvote_points INTEGER NOT NULL DEFAULT 0;
