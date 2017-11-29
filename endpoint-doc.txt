@@ -134,6 +134,35 @@ Request Body:
 
 -------------------------------
 
+POST /users/login
+
+# Logs a user in by giving them an access token
+# Hit the endpoint with Basic Auth and it will return a token if valid
+
+Response:
+[string access token]
+
+-------------------------------
+
+POST /users/login
+
+# Logs a user out by nullifying their access token
+# Hit the endpoint with Basic Auth and it will invalidate their token
+
+-------------------------------
+
+POST /users/images
+
+# Upload a profile image for auth'd user
+# DOES NOT TAKE JSON! Takes multipart form data with file and filename
+
+Request ("multipart/form-data"):
+file : [file to be uploaded]
+fileName : [name of the file (will be made unique server-side)]
+
+
+-------------------------------
+
 PUT /users/follow
 PUT /users/unfollow
 
