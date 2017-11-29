@@ -19,6 +19,11 @@ public class UserProfileMapper implements ResultSetMapper<UserProfile> {
                 resultSet.getString("bio"),
                 resultSet.getString("profile_image_path"),
                 resultSet.getInt("post_count"),
-                resultSet.getBoolean("is_following"));
+                resultSet.getBoolean("is_following"),
+                resultSet.getInt("pray_points"),
+                resultSet.getInt("answered_points"),
+                resultSet.getInt("report_points"),
+                resultSet.getInt("upvote_points"),
+                resultSet.getInt("reputation_points"));
     }
 }
