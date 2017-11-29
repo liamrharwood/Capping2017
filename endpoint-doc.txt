@@ -56,6 +56,27 @@ Query Param: post_id
 
 -------------------------------
 
+GET /posts/updates
+
+Query Param: post_id
+
+# Get list of updates for specified post
+
+[
+	{
+		id:
+		postId:
+		bodyText:
+	},
+	{
+		...
+	}
+]
+
+
+
+-------------------------------
+
 POST /posts/comments
 
 # Create new comment
