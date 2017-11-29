@@ -2,11 +2,8 @@ package com.helpinghands.resources;
 
 import com.helpinghands.core.comment.Comment;
 import com.helpinghands.core.comment.CommentRequest;
-import com.helpinghands.core.post.PostCard;
+import com.helpinghands.core.post.*;
 import com.helpinghands.auth.UserPrincipal;
-import com.helpinghands.core.post.PostRequest;
-import com.helpinghands.core.post.PostUpdateRequest;
-import com.helpinghands.core.post.VoteRequest;
 import com.helpinghands.core.report.ReportRequest;
 import com.helpinghands.dao.CommentDAO;
 import com.helpinghands.dao.PostDAO;
@@ -99,6 +96,12 @@ public class PostResource {
         } else {
             throw new WebApplicationException(401);
         }
+    }
+
+    @GET
+    @Path("updates")
+    public List<PostUpdate> getUpdates(@QueryParam("post_id") int postId) {
+        return postDAO.getUpdatesForPost(postId);
     }
 
     @GET

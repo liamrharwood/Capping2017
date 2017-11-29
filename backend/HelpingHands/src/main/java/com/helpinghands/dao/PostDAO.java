@@ -1,7 +1,9 @@
 package com.helpinghands.dao;
 
 import com.helpinghands.core.mapper.post.PostCardMapper;
+import com.helpinghands.core.mapper.post.PostUpdateMapper;
 import com.helpinghands.core.post.PostCard;
+import com.helpinghands.core.post.PostUpdate;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
@@ -115,6 +117,10 @@ public interface PostDAO {
             "ORDER BY p.create_date DESC")
     @Mapper(PostCardMapper.class)
     List<PostCard> getPostsForUserInCommunityWithVoteHistory(@Bind("authId") int authId, @Bind("userId") int userId, @Bind("communityId") int communityId);
+
+    @SqlQuery("SELECT post_update_id, post_id, body_text FROM PostUpdates WHERE post_id = :postId")
+    @Mapper(PostUpdateMapper.class)
+    List<PostUpdate> getUpdatesForPost(@Bind("postId") int postId);
 
     @SqlUpdate("INSERT INTO Posts (user_id, body_text, post_title, post_image_path) " +
             "VALUES (:userId, :bodyText, :postTitle, :postImagePath)")
