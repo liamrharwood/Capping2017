@@ -94,4 +94,12 @@ public interface UserDAO {
             "WHERE user_id = :voterId OR " +
             "user_id = (SELECT user_id FROM Posts WHERE post_id = :postId)")
     void onVoteUpdatePoints(@Bind("voterId") int voterId, @Bind("postId") int postId);
+
+    @SqlUpdate("UPDATE Users SET report_points = " +
+            "(SELECT COUNT(*) FROM Reports AS r WHERE r.user_id = users.user_id " +
+            "AND (SELECT COUNT(*) FROM Reports WHERE post_id = :postId) > 1) " +
+            "WHERE user_id IN (SELECT user_id FROM Reports WHERE post_id = :postId);" +
+            "UPDATE Users SET reputation_points = (pray_points + 5 * answered_points + 3 * report_points + upvote_points) " +
+            "WHERE user_id IN (SELECT user_id FROM Reports WHERE post_id = :postId);")
+    void onReportUpdatePoints(@Bind("reporterId") int reporterId, @Bind("postId") int postId);
 }

@@ -97,6 +97,7 @@ public class PostResource {
     public void reportPost(@Auth UserPrincipal userPrincipal,
                            ReportRequest reportRequest) {
         reportDAO.insertReport(reportRequest.getPostId(), userPrincipal.getId(), reportRequest.getReportReason());
+        userDAO.onReportUpdatePoints(userPrincipal.getId(), reportRequest.getPostId());
     }
 
     @POST
