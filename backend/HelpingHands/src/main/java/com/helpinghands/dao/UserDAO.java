@@ -50,6 +50,8 @@ public interface UserDAO {
     @Mapper(UserProfileMapper.class)
     UserProfile getUserProfileWithAuth(@Bind("authId") int authId, @Bind("userId") int userId);
 
+    @SqlQuery("SELECT is_moderator FROM Members WHERE user_id = :userId AND community_id = :communityId")
+    boolean isModeratorForCommunity(@Bind("userId") int userId, @Bind("communityId") int communityId);
 
     @SqlQuery("SELECT password_hash FROM Users WHERE username = :username")
     String getPasswordForUsername(@Bind("username") String username);

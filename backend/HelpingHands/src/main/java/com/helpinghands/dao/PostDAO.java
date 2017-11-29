@@ -127,7 +127,4 @@ public interface PostDAO {
     @SqlUpdate("INSERT INTO Votes (user_id, post_id, direction) VALUES (:userId, :postId, :direction) " +
             "ON CONFLICT ON CONSTRAINT votes_pkey DO UPDATE SET direction = :direction")
     void voteOnPost(@Bind("userId") int userId, @Bind("postId") int postId, @Bind("direction") int direction);
-
-    @SqlUpdate("INSERT INTO Reports (post_id, user_id, report_reason) VALUES (:postId, :userId, :reportReason)")
-    void reportPost(@Bind("postId") int postId, @Bind("userId") int userId, @Bind("reportReason") String reportReason);
 }

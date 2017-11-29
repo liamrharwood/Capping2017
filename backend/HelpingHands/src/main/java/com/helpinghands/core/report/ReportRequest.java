@@ -1,8 +1,17 @@
 package com.helpinghands.core.report;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.NotNull;
+
 public class ReportRequest {
+
+    @NotNull
+    @JsonProperty
     private Integer postId;
 
+    @NotNull
+    @JsonProperty
     private String reportReason;
 
     public ReportRequest() {

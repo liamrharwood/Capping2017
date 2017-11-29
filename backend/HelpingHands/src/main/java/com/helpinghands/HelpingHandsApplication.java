@@ -2,11 +2,9 @@ package com.helpinghands;
 
 import com.google.common.collect.Lists;
 import com.helpinghands.auth.*;
-import com.helpinghands.dao.CommentDAO;
-import com.helpinghands.dao.CommunityDAO;
-import com.helpinghands.dao.PostDAO;
-import com.helpinghands.dao.UserDAO;
+import com.helpinghands.dao.*;
 import com.helpinghands.resources.CommunityResource;
+import com.helpinghands.resources.ModeratorResource;
 import com.helpinghands.resources.PostResource;
 import com.helpinghands.resources.UserResource;
 import io.dropwizard.Application;
@@ -65,12 +63,14 @@ public class HelpingHandsApplication extends Application<HelpingHandsConfigurati
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
         final PostDAO postDAO = jdbi.onDemand(PostDAO.class);
         final CommentDAO commentDAO = jdbi.onDemand(CommentDAO.class);
+        final ReportDAO reportDAO = jdbi.onDemand(ReportDAO.class);
         final CommunityDAO communityDAO = jdbi.onDemand(CommunityDAO.class);
 
         environment.jersey().register(MultiPartFeature.class);
         environment.jersey().register(new UserResource(userDAO));
-        environment.jersey().register(new PostResource(postDAO, userDAO, commentDAO));
+        environment.jersey().register(new PostResource(postDAO, userDAO, commentDAO, reportDAO));
         environment.jersey().register(new CommunityResource(communityDAO, userDAO));
+        environment.jersey().register(new ModeratorResource(userDAO, reportDAO));
 
         BasicCredentialAuthFilter basicCredentialAuthFilter = new BasicCredentialAuthFilter.Builder<UserPrincipal>()
                 .setPrefix("Basic")

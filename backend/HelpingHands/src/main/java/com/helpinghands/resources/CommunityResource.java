@@ -3,10 +3,13 @@ package com.helpinghands.resources;
 import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.community.Community;
 import com.helpinghands.core.community.CommunityProfile;
+import com.helpinghands.core.report.Report;
 import com.helpinghands.core.user.User;
 import com.helpinghands.dao.CommunityDAO;
+import com.helpinghands.dao.ReportDAO;
 import com.helpinghands.dao.UserDAO;
 import io.dropwizard.auth.Auth;
+import io.dropwizard.auth.AuthenticationException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -57,4 +60,6 @@ public class CommunityResource {
         int userId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
         communityDAO.unfollowCommunity(userId, communityId);
     }
+
+
 }

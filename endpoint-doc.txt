@@ -235,3 +235,9 @@ Query Param: community_id
 # Follow or unfollow the specified community for the auth'd user
 
 --------------------------------
+
+GET /moderators/reports
+
+Query Param: community_id
+
+# Get list of reports for specified community (must be auth'd as a moderator for that community)

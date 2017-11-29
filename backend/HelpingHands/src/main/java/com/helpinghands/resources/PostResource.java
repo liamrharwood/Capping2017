@@ -9,12 +9,12 @@ import com.helpinghands.core.post.VoteRequest;
 import com.helpinghands.core.report.ReportRequest;
 import com.helpinghands.dao.CommentDAO;
 import com.helpinghands.dao.PostDAO;
+import com.helpinghands.dao.ReportDAO;
 import com.helpinghands.dao.UserDAO;
 import io.dropwizard.auth.Auth;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,13 +25,16 @@ public class PostResource {
     private PostDAO postDAO;
     private UserDAO userDAO;
     private CommentDAO commentDAO;
+    private ReportDAO reportDAO;
 
     public PostResource(PostDAO postDAO,
                         UserDAO userDAO,
-                        CommentDAO commentDAO) {
+                        CommentDAO commentDAO,
+                        ReportDAO reportDAO) {
         this.postDAO = postDAO;
         this.userDAO = userDAO;
         this.commentDAO = commentDAO;
+        this.reportDAO = reportDAO;
     }
 
     @GET
@@ -93,7 +96,7 @@ public class PostResource {
     @Path("reports")
     public void reportPost(@Auth UserPrincipal userPrincipal,
                            ReportRequest reportRequest) {
-        postDAO.reportPost(reportRequest.getPostId(), userPrincipal.getId(), reportRequest.getReportReason());
+        reportDAO.insertReport(reportRequest.getPostId(), userPrincipal.getId(), reportRequest.getReportReason());
     }
 
     @POST
