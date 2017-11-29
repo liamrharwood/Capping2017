@@ -43,3 +43,27 @@ ALTER TABLE Users ADD COLUMN pray_points INTEGER NOT NULL DEFAULT 0;
 ALTER TABLE Users ADD COLUMN answered_points INTEGER NOT NULL DEFAULT 0;
 ALTER TABLE Users ADD COLUMN report_points INTEGER NOT NULL DEFAULT 0;
 ALTER TABLE Users ADD COLUMN upvote_points INTEGER NOT NULL DEFAULT 0;
+
+--changeset liamrharwood:10
+DROP TABLE Reports;
+CREATE TABLE Reports (
+    post_id       INTEGER NOT NULL REFERENCES Posts(post_id),
+    user_id       INTEGER NOT NULL REFERENCES Users(user_id),
+    report_reason TEXT    NOT NULL,
+  PRIMARY KEY(post_id, user_id)
+);
+
+GRANT ALL ON Reports TO admin;
+
+REVOKE ALL ON Reports FROM app;
+GRANT SELECT ON Reports TO app;
+GRANT INSERT ON Reports TO app;
+GRANT UPDATE ON Reports TO app;
+GRANT DELETE ON Reports TO app;
+
+REVOKE ALL ON Reports FROM reporting;
+GRANT SELECT ON Reports TO reporting;
+
+--changeset liamrharwood:11
+DROP SEQUENCE reports_report_id_seq;
+

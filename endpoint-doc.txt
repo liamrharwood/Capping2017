@@ -68,6 +68,18 @@ Request Body:
 
 -------------------------------
 
+POST /posts/reports
+
+# Report a post, requires authentication
+
+Request Body:
+{
+	postId:
+	reportReason:
+}
+
+-------------------------------
+
 POST /posts/vote
 
 # submit or remove a vote from a given post

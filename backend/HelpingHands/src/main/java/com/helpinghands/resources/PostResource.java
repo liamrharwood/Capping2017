@@ -6,6 +6,7 @@ import com.helpinghands.core.post.PostCard;
 import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.post.PostRequest;
 import com.helpinghands.core.post.VoteRequest;
+import com.helpinghands.core.report.ReportRequest;
 import com.helpinghands.dao.CommentDAO;
 import com.helpinghands.dao.PostDAO;
 import com.helpinghands.dao.UserDAO;
@@ -86,6 +87,13 @@ public class PostResource {
                                     CommentRequest commentRequest) {
         int userId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
         commentDAO.insertComment(userId, commentRequest.getPostId(), commentRequest.getBodyText());
+    }
+
+    @POST
+    @Path("reports")
+    public void reportPost(@Auth UserPrincipal userPrincipal,
+                           ReportRequest reportRequest) {
+        postDAO.reportPost(reportRequest.getPostId(), userPrincipal.getId(), reportRequest.getReportReason());
     }
 
     @POST
