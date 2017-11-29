@@ -5,6 +5,7 @@ import com.helpinghands.core.comment.CommentRequest;
 import com.helpinghands.core.post.PostCard;
 import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.post.PostRequest;
+import com.helpinghands.core.post.PostUpdateRequest;
 import com.helpinghands.core.post.VoteRequest;
 import com.helpinghands.core.report.ReportRequest;
 import com.helpinghands.dao.CommentDAO;
@@ -75,6 +76,28 @@ public class PostResource {
         int postId = postDAO.insertNewPost(postRequest.getUserId(), postRequest.getBodyText(), postRequest.getTitle(), postRequest.getImgPath());
         for (int communityId : postRequest.getCommunityIds()) {
             postDAO.associatePostWithCommunity(postId, communityId);
+        }
+    }
+
+    @POST
+    @Path("updates")
+    public void createNewPostUpdate(@Auth UserPrincipal userPrincipal,
+                                    PostUpdateRequest postUpdateRequest) {
+        PostCard post = postDAO.getPostById(postUpdateRequest.getPostId()).get(0);
+        if (post.isComplete()) {
+            throw new WebApplicationException(400);
+        }
+
+        int userId = post.getUserId();
+        if (userPrincipal.getId() == userId) {
+            postDAO.insertNewPostUpdate(postUpdateRequest.getPostId(),
+                    postUpdateRequest.getBodyText(),
+                    postUpdateRequest.isComplete());
+            if (postUpdateRequest.isComplete()) {
+                userDAO.onCompletePostUpdatePoints(postUpdateRequest.getPostId());
+            }
+        } else {
+            throw new WebApplicationException(401);
         }
     }
 

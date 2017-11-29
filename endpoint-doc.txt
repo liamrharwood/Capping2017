@@ -107,6 +107,19 @@ Request Body:
 
 -------------------------------
 
+POST /posts/updates
+
+# Create a post update, specifying whether the post should be marked as complete (true or false)
+
+Request Body:
+{
+	postId:
+	reportReason:
+	complete:
+}
+
+-------------------------------
+
 GET /users/profile
 
 optional parameters: user_id

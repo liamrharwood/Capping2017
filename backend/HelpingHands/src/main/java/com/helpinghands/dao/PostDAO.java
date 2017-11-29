@@ -121,6 +121,10 @@ public interface PostDAO {
     @GetGeneratedKeys
     int insertNewPost(@Bind("userId") int userId, @Bind("bodyText") String bodyText, @Bind("postTitle") String postTitle, @Bind("postImagePath") String postImagePath);
 
+    @SqlUpdate("INSERT INTO PostUpdates (post_id, body_text) VALUES (:postId, :bodyText); " +
+            "UPDATE Posts SET is_complete = :complete WHERE post_id = :postId")
+    void insertNewPostUpdate(@Bind("postId") int postId, @Bind("bodyText") String bodyText, @Bind("complete") boolean complete);
+
     @SqlUpdate("INSERT INTO PostsToCommunities (post_id, community_id) VALUES (:postId, :communityId)")
     void associatePostWithCommunity(@Bind("postId") int postId, @Bind("communityId") int communityId);
 
