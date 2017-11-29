@@ -83,7 +83,7 @@ class PostCard extends React.Component {
 
     if(this.state.vote == 1){
       return (
-        <div className="col-sm-1 container m-0 pl-0"> 
+        <div className="col-1 container m-0 pl-0"> 
           <div className="row mx-auto"><i className="fa fa-thumbs-up voter" style={{color: "green"}} aria-hidden="true" onClick={this.upvote}/></div> 
           <div className="row mt-1 mx-auto">{this.state.score}</div>  
           <div className="row mt-1 mx-auto"><i className="fa fa-thumbs-o-down voter" aria-hidden="true" onClick={this.downvote}/></div> 
@@ -92,7 +92,7 @@ class PostCard extends React.Component {
       );
     } else if(this.state.vote == 0){
       return (
-        <div className="col-sm-1 container m-0 pl-0"> 
+        <div className="col-1 container m-0 pl-0"> 
           <div className="row mx-auto"><i className="fa fa-thumbs-o-up voter" aria-hidden="true" onClick={this.upvote}/></div> 
           <div className="row mt-1 mx-auto">{this.state.score}</div>  
           <div className="row mt-1 mx-auto"><i className="fa fa-thumbs-o-down voter" aria-hidden="true" onClick={this.downvote}/></div> 
@@ -101,7 +101,7 @@ class PostCard extends React.Component {
       );
     } else if(this.state.vote == -1){
       return (
-        <div className="col-sm-1 container m-0 pl-0"> 
+        <div className="col-1 container m-0 pl-0"> 
           <div className="row mx-auto"><i className="fa fa-thumbs-o-up voter" aria-hidden="true" onClick={this.upvote}/></div> 
           <div className="row mt-1 mx-auto">{this.state.score}</div>  
           <div className="row mt-1 mx-auto"><i className="fa fa-thumbs-down voter" style={{color: "red"}} aria-hidden="true" onClick={this.downvote}/></div> 
@@ -120,8 +120,8 @@ class PostCard extends React.Component {
 	  				 			
 	  					{this.renderVoter()}
 	  				
-	  				<div className="col-sm-10 p-0">
-	   					<h6 className="card-title"><Link to={`/posts/${this.props.id}`} className="post-title">{this.props.title}</Link></h6>
+	  				<div className="col-sm-10 col-8 p-0">
+	   					<h6 className="card-title"><Link to={`/posts/${this.props.postId}`} className="post-title">{this.props.title}</Link></h6>
 	   					<h6 className="card-subtitle text-muted"><Link to={`/users/${this.props.userId}`}  className="text-muted" >@{this.props.user}</Link> {this.props.createDate}</h6>
               <h6 className="post-body mt-2">{this.props.bodyText}</h6>
 	   				</div>

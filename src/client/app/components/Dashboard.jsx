@@ -32,10 +32,10 @@ class Dashboard extends React.Component {
   	 <div className="container dashboard">
      <h1 className="pl-3 pb-4">What's New</h1>
      <div className="row">
-      <div className="col-8">
+      <div className="col-md-8 col-12">
         <PostsContainer queryUri = {this.props.postsQueryUri}/>
       </div>
-      <div className="col-4">
+      <div className="col-md-4 d-none d-md-block">
         {this.renderInfoCard()}
       </div>
       </div>
