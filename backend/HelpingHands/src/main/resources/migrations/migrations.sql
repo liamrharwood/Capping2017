@@ -33,3 +33,7 @@ ALTER TABLE Users ADD COLUMN access_token TEXT;
 
 --changeset liamrharwood:7
 ALTER TABLE Users ADD COLUMN access_token_timestamp TIMESTAMP;
+
+--changeset liamrharwood:8
+ALTER TABLE Posts DROP COLUMN upvotes;
+ALTER TABLE Posts DROP COLUMN downvotes;

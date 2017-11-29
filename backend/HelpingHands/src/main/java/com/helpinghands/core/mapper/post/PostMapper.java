@@ -11,8 +11,6 @@ public class PostMapper implements ResultSetMapper<Post> {
     public Post map(int index, ResultSet resultSet, StatementContext statementContext) throws SQLException {
         return new Post(resultSet.getInt("post_id"),
                 resultSet.getInt("user_id"),
-                resultSet.getInt("upvotes"),
-                resultSet.getInt("downvotes"),
                 resultSet.getString("body_text"),
                 resultSet.getString("post_title"),
                 resultSet.getString("post_image_path"),
