@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import PostCard from '../components/PostCard.jsx';
 import PostSubmitter from '../components/PostSubmitter.jsx';
-
+import { PulseLoader } from 'react-spinners';
 
 class PostsContainer extends React.Component {
 	constructor(props) {
@@ -15,6 +15,7 @@ class PostsContainer extends React.Component {
     };
     this.renderPostCards = this.renderPostCards.bind(this);
     this.fetchPostCards = this.fetchPostCards.bind(this);
+    this.generatePostCard = this.generatePostCard.bind(this);
   }
 
   componentDidMount() {
@@ -36,9 +37,8 @@ class PostsContainer extends React.Component {
     axios({
       method:'get',
       url: this.props.queryUri,
-      auth: {
-        username: 'user1',
-        password: 'password'
+      headers:{
+        'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
       },
       responseType: 'json',
     })  
@@ -54,36 +54,47 @@ class PostsContainer extends React.Component {
       });
   }
 
-  renderPostCards(posts){
+  renderPostCards(posts, props){
     if(posts && posts.length != 0){
       return(
-        posts.map(this.generatePostCard)
+        posts.map((x) => this.generatePostCard(x, props) )
+      );
+    } else if (posts && posts.length == 0){
+      return(
+         <div className = "text-center mt-5" style={{ color: 'grey' }}><h4>No posts to show. Follow someone!</h4></div>
       );
     } else {
       return (
-        <p>Nothing right now</p>
+        <div className="text-center" style={{ paddingTop: "100px" }}>
+          <PulseLoader loading={true} size={15} margin={"2px"} color={"#633d91"} />
+        </div>
       );
     }
   }
 
-  generatePostCard(post){
+  generatePostCard(post, props){
 
     var date = new Date(post.createDate);
     var formattedDate = (date.getUTCMonth() + 1) + '/' + date.getUTCDate() + '/' + date.getUTCFullYear()
 
-    return <PostCard key={post.id} postId={post.id} score = {post.score} vote={post.vote} title = {post.title} complete = {post.complete} createDate = {formattedDate} user = {post.username} userId = {post.userId} bodyText={post.bodyText} />;
+    return <PostCard key={post.id} postId={post.id} token={props.token} username={props.username} score = {post.score} vote={post.vote} title = {post.title} complete = {post.complete} createDate = {formattedDate} user = {post.username} userId = {post.userId} bodyText={post.bodyText} />;
   }
 
   render() {
   	return (
   	 	<div className="container posts-container">
       
-        <PostSubmitter fetchFunction = {this.fetchPostCards}/>
+        <PostSubmitter fetchFunction = {this.fetchPostCards} token={this.props.token} username={this.props.username}/>
 
-  	 		{this.renderPostCards(this.state.posts)}
+  	 		{this.renderPostCards(this.state.posts, this.props)}
   	 	</div>
   	);
   }
 }
+
+PostsContainer.propTypes = {
+    username: PropTypes.string.isRequired,
+    token: PropTypes.string.isRequired,
+  }
 
 export default PostsContainer;

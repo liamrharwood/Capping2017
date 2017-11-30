@@ -15,14 +15,15 @@ class Home extends React.Component {
   }
 
   render () {
-    console.log(this.props);
     return(
     	<div id="home">
-    		<Navbar home="active"/>
+    		<Navbar home="active" token={this.props.token} username={this.props.username} unauth={this.props.unauth}/>
     		<Dashboard 
                 profileQueryUri ="http://10.10.7.191:8080/users"
                 postsQueryUri = "http://10.10.7.191:8080/posts"
                 infoCard = "home"
+                token={this.props.token}
+                username={this.props.username}  
             />
     	</div>
     	);

@@ -18,17 +18,16 @@ class Navbar extends React.Component {
   }
 
   componentDidMount(){
-    this.fetchCommunities();
+    this.fetchCommunities(this.props);
   }
 
-  fetchCommunities(){
+  fetchCommunities(props){
 
     axios({
       method:'get',
       url: 'http://10.10.7.191:8080/communities',
-      auth: {
-        username: 'user1',
-        password: 'password'
+      headers:{
+        'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
       },
       responseType: 'json',
     })  
@@ -37,6 +36,9 @@ class Navbar extends React.Component {
         this.setState({ data });
       }).catch(function (error) {
         if (error.response) {
+          if(error.response.status == 401){
+              props.unauth();
+          }
           console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);

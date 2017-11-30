@@ -24,12 +24,11 @@ class PostCard extends React.Component {
     axios({
       method:'post',
       url: 'http://10.10.7.191:8080/posts/vote',
-      auth: {
-        username: 'user1',
-        password: 'password'
-      },
+      headers:{
+          'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+        },
       data:{
-        postId: this.props.id,
+        postId: this.props.postId,
         direction: vote,
       }
     }).catch(function (error) {

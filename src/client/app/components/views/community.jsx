@@ -22,13 +22,15 @@ class Community extends React.Component {
   	
     return(
     	<div id="community">
-    		<Navbar communities="active" location={this.props.location.pathname}/>
+    		<Navbar communities="active" location={this.props.location.pathname} token={this.props.token} username={this.props.username} unauth={this.props.unauth}/>
     		<Dashboard 
     		location = {this.props.location.pathname}
     		postsQueryUri = {`http://10.10.7.191:8080/posts?community_id=${this.props.match.params.communityId}`}
     		profileQueryUri = {`http://10.10.7.191:8080/communities/`}
         id={this.props.match.params.communityId}
-    		infoCard="community-profile"/>
+    		infoCard="community-profile"
+        token={this.props.token} 
+        username={this.props.username}/>
     	</div>
     	);
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router,
   Route,
@@ -25,8 +26,10 @@ class App extends React.Component {
 	constructor(props) {
     	super(props);
     	this.state = {
-      		authed: true,
+      		authed: false,
       		wrongCreds: false,
+      		username: PropTypes.String,
+      		token: PropTypes.String,
     	};
 
     	this.auth = this.auth.bind(this);
@@ -34,11 +37,16 @@ class App extends React.Component {
 
   	}
 
+  	componentWillMount(){
+  		if(window.sessionStorage.getItem("username") != null && window.sessionStorage.getItem("token") != null){
+  			this.setState({username: window.sessionStorage.getItem("username"), token: window.sessionStorage.getItem("token"), authed: true });
+  		}
+  	}
+
   	auth(username, password, redirect){
-  		
   		axios({
 	      method:'post',
-	      url: 'http://10.10.7.191:8080/posts/vote',
+	      url: 'http://10.10.7.191:8080/users/login',
 	      auth: {
 	        username: username,
 	        password: password,
@@ -49,24 +57,24 @@ class App extends React.Component {
 	      },
 	  })
   		.then(res => {
-  			this.setState({ authed: true });
+  			window.sessionStorage.setItem("username", username);
+  			window.sessionStorage.setItem("token", res.data);
+  			this.setState({ authed: true, token: res.data, username: username });
   			redirect();
 	    }).catch((error) => {
 	        if (error.response) {
 	          console.log(error.response.data);
 	          console.log(error.response.status);
 	          console.log(error.response.headers);
-	          console.log("WrongCreds");
 	          this.setState({wrongCreds:true});
 	          return;
 	        }
       });
-
-  		
   	}
 
   	unauth(){
-  		this.setState({ authed: false })
+  		window.sessionStorage.clear();
+  		this.setState({ authed: false, username: null, token: null, wrongCreds: false });
   	}
 
   	render () {
@@ -75,13 +83,13 @@ class App extends React.Component {
 	    		<Router>
 				  <div>
 				  	<Switch>
-				  		<PublicRoute exact path="/login" component={Login} auth={this.auth} redirectTo="/home" wrongCreds={this.state.wrongCreds}/>
-					  	<PrivateRoute exact path="/" authed={this.state.authed} redirectTo="/login" component={Home} unauth={this.unauth}/>
-					   	<PrivateRoute exact path="/home" authed={this.state.authed} redirectTo="/login" component={Home} unauth={this.unauth}/>
-					   	<PrivateRoute path="/communities/:communityId" authed={this.state.authed} redirectTo="/login" component={Community} unauth={this.unauth}/>
-					   	<PrivateRoute path="/users/:userId" authed={this.state.authed} redirectTo="/login" component={User} unauth={this.unauth}/>
-					   	<PrivateRoute path="/posts/:postId" authed={this.state.authed} redirectTo ="/login" component={Post} unauth={this.unauth} />
-					   	<PrivateRoute path="/settings" authed={this.state.authed} redirectTo="/login" component={Settings} unauth={this.unauth} />
+				  		<PublicRoute exact path="/login" component={Login} authed={this.state.authed} auth={this.auth} redirectTo="/home" wrongCreds={this.state.wrongCreds}/>
+					  	<PrivateRoute exact path="/" authed={this.state.authed} redirectTo="/login" component={Home} token={this.state.token} username={this.state.username} unauth={this.unauth}/>
+					   	<PrivateRoute exact path="/home" authed={this.state.authed} redirectTo="/login" component={Home} token={this.state.token} username={this.state.username} unauth={this.unauth}/>
+					   	<PrivateRoute path="/communities/:communityId" authed={this.state.authed} redirectTo="/login" component={Community} token={this.state.token} username={this.state.username} unauth={this.unauth}/>
+					   	<PrivateRoute path="/users/:userId" authed={this.state.authed} redirectTo="/login" component={User} token={this.state.token} username={this.state.username} unauth={this.unauth}/>
+					   	<PrivateRoute path="/posts/:postId" authed={this.state.authed} redirectTo ="/login" component={Post} token={this.state.token} username={this.state.username} unauth={this.unauth} />
+					   	<PrivateRoute path="/settings" authed={this.state.authed} redirectTo="/login" component={Settings} token={this.state.token} username={this.state.username} unauth={this.unauth} />
 					   	<PropsRoute component={NotFound} />
 				   	</Switch>
 				  </div>

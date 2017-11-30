@@ -41,9 +41,8 @@ class PostSubmitter extends React.Component {
 		axios({
 	      method:'post',
 	      url: 'http://10.10.7.191:8080/posts',
-	      auth: {
-	        username: 'user1',
-	        password: 'password'
+	      headers:{
+	        'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
 	      },
 	      data: {
 	      	title: this.state.titleText,
@@ -74,7 +73,7 @@ class PostSubmitter extends React.Component {
 		return (
 			<div className= "card mb-4">
 	      		<div className="input-group" style={{zIndex: 0}}>
-				  	<input type="text" ref="title" className="form-control" onChange={this.handleTitleChange} placeholder="Submit a new prayer! Type your title here then click next..." aria-label="New Post Title" />
+				  	<input type="text" ref="title" className="form-control" onChange={this.handleTitleChange} maxLength="140" placeholder="Submit a new prayer! Type your title here then click next..." aria-label="New Post Title" />
 				  	<span className="input-group-btn">
 			          <button className="btn btn-secondary" type="button" onClick={this.showSubmitter}>Next</button>
 			        </span>
@@ -83,7 +82,7 @@ class PostSubmitter extends React.Component {
 		        	<form className="postForm">
 		        		<div className="form-group">
 		        			<label htmlFor="postBodyText">Post Text</label>
-							<textarea ref="body" className="form-control" id="postBodyText" onChange = {this.handleBodyTextChange} style={{ height: 150 }} placeholder = "Enter your post's body text" aria-label="Enter your post's body text" />
+							<textarea ref="body" className="form-control" id="postBodyText" onChange = {this.handleBodyTextChange} style={{ height: 150 }} maxLength="5000" placeholder = "Enter your post's body text" aria-label="Enter your post's body text" />
 						</div>
 						<button type="button" className="btn btn-secondary" onClick = {this.hideSubmitter} >Close</button>
 						<button type="button" className="btn btn-primary ml-4" onClick = {this.submitPost} >Submit New Post</button>

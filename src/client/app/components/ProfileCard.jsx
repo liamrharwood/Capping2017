@@ -6,6 +6,7 @@ import {
   Route,
   Link }
 from 'react-router-dom';
+import { PulseLoader } from 'react-spinners';
 
 class ProfileCard extends React.Component {
 	constructor(props) {
@@ -33,10 +34,9 @@ class ProfileCard extends React.Component {
     	axios({
     		method:'get',
       		url: `${this.props.queryUri}/profile?user_id=${this.props.id}`,
-      		auth: {
-      			username: 'user1',
-      			password: 'password'
-      		},
+      		headers:{
+            'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+          },
       		responseType: 'json'
     	})
           .then(res => {
@@ -53,9 +53,8 @@ class ProfileCard extends React.Component {
       axios({
         method:'get',
           url: `${this.props.queryUri}/profile`,
-          auth: {
-            username: 'user1',
-            password: 'password'
+          headers:{
+            'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
           },
           responseType: 'json'
       })
@@ -99,9 +98,8 @@ class ProfileCard extends React.Component {
     axios({
       method:'put',
         url: `${this.props.queryUri}/follow?user_id=${this.props.id}`,
-        auth: {
-          username: 'user1',
-          password: 'password'
+        headers:{
+        'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
         },
     }).then(res => {
       this.fetchUserProfile();
@@ -118,10 +116,9 @@ class ProfileCard extends React.Component {
     axios({
       method:'put',
         url: `${this.props.queryUri}/unfollow?user_id=${this.props.id}`,
-        auth: {
-          username: 'user1',
-          password: 'password'
-        },
+        headers:{
+        'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+      },
     }).then(res => {
         this.fetchUserProfile();
       }).catch(function (error) {
@@ -154,13 +151,28 @@ class ProfileCard extends React.Component {
   	 				<div className="col-4"><a className="follower-count" href="#">Followers <br />{this.state.profileData.followersCount} </a></div>
   	 				<div className="col-4"><a className="follower-count" href="#">Following<br />{this.state.profileData.followedUsersCount}</a></div>
   	 			</div>
+          <div className="row mt-4">
+            <div className="col-4 text-center offset-1 score-box p-1">{this.state.profileData.prayPoints}<i className="em em-pray ml-4"></i></div>
+            <div className="col-4 text-center offset-2 score-box p-1">{this.state.profileData.answeredPoints}<i className="em em-angel ml-4"></i></div>
+          </div>
+          <div className="row mt-2">
+            <div className="col-4 text-center offset-1 score-box p-1">{this.state.profileData.reportPoints}<i className="em em-hammer_and_pick ml-4"></i></div>
+            <div className="col-4 text-center offset-2 score-box p-1">{this.state.profileData.upvotePoints}<i className="em em---1 ml-4"></i></div>
+          </div>
+          <div className="row mt-2">
+            <div className="col-10 offset-1 text-center score-box p-1">Reputation: {this.state.profileData.overallReputationPoints}</div>
+          </div>
   	 			<div className="row mt-4">
   	 				<div className="col-12">{this.state.profileData.bio}</div>
   	 			</div>
   	 		</div>
   		);
   	} else {
-  		return (<p>Loading</p>);
+  		return (
+        <div className="text-center" style={{ paddingTop: "100px", paddingBottom: "100px" }}>
+          <PulseLoader loading={true} size={15} margin={"2px"} color={"#633d91"} />
+        </div>
+      );
   	}
   }
 
