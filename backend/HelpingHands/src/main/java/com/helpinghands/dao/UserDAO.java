@@ -88,12 +88,15 @@ public interface UserDAO {
 
     @SqlUpdate("UPDATE Users SET pray_points = (SELECT COUNT(*) FROM Votes WHERE direction = 1 AND user_id = :voterId) " +
             "WHERE user_id = :voterId; " +
-            "UPDATE Users SET upvote_points = (SELECT COUNT(*) FROM Votes WHERE direction = 1 AND post_id = :postId) " +
+            "UPDATE Users SET upvote_points = " +
+            "(SELECT COUNT(*) FROM Votes AS v " +
+            "JOIN Posts AS p ON v.post_id = p.post_id " +
+            "WHERE v.direction = 1 AND p.user_id = :voteeId) " +
             "WHERE user_id = (SELECT user_id FROM Posts WHERE post_id = :postId);" +
             "UPDATE Users SET reputation_points = (pray_points + 5 * answered_points + 3 * report_points + upvote_points) " +
             "WHERE user_id = :voterId OR " +
             "user_id = (SELECT user_id FROM Posts WHERE post_id = :postId)")
-    void onVoteUpdatePoints(@Bind("voterId") int voterId, @Bind("postId") int postId);
+    void onVoteUpdatePoints(@Bind("voterId") int voterId, @Bind("voteeId") int voteeId, @Bind("postId") int postId);
 
     @SqlUpdate("UPDATE Users SET report_points = " +
             "(SELECT COUNT(*) FROM Reports AS r WHERE r.user_id = users.user_id " +
