@@ -4,7 +4,6 @@ import com.helpinghands.core.user.User;
 import com.helpinghands.dao.UserDAO;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
-import io.dropwizard.auth.basic.BasicCredentials;
 
 import java.sql.Timestamp;
 import java.util.Optional;
