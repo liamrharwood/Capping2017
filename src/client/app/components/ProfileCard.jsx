@@ -6,6 +6,7 @@ import {
   Route,
   Link }
 from 'react-router-dom';
+import { PulseLoader } from 'react-spinners';
 
 class ProfileCard extends React.Component {
 	constructor(props) {
@@ -33,10 +34,9 @@ class ProfileCard extends React.Component {
     	axios({
     		method:'get',
       		url: `${this.props.queryUri}/profile?user_id=${this.props.id}`,
-      		auth: {
-      			username: 'user1',
-      			password: 'password'
-      		},
+      		headers:{
+            'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+          },
       		responseType: 'json'
     	})
           .then(res => {
@@ -53,9 +53,8 @@ class ProfileCard extends React.Component {
       axios({
         method:'get',
           url: `${this.props.queryUri}/profile`,
-          auth: {
-            username: 'user1',
-            password: 'password'
+          headers:{
+            'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
           },
           responseType: 'json'
       })
@@ -99,9 +98,8 @@ class ProfileCard extends React.Component {
     axios({
       method:'put',
         url: `${this.props.queryUri}/follow?user_id=${this.props.id}`,
-        auth: {
-          username: 'user1',
-          password: 'password'
+        headers:{
+        'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
         },
     }).then(res => {
       this.fetchUserProfile();
@@ -118,10 +116,9 @@ class ProfileCard extends React.Component {
     axios({
       method:'put',
         url: `${this.props.queryUri}/unfollow?user_id=${this.props.id}`,
-        auth: {
-          username: 'user1',
-          password: 'password'
-        },
+        headers:{
+        'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+      },
     }).then(res => {
         this.fetchUserProfile();
       }).catch(function (error) {
@@ -160,7 +157,11 @@ class ProfileCard extends React.Component {
   	 		</div>
   		);
   	} else {
-  		return (<p>Loading</p>);
+  		return (
+        <div className="text-center" style={{ paddingTop: "100px", paddingBottom: "100px" }}>
+          <PulseLoader loading={true} size={15} margin={"2px"} color={"#633d91"} />
+        </div>
+      );
   	}
   }
 

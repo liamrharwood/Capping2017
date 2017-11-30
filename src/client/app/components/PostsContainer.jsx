@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import PostCard from '../components/PostCard.jsx';
 import PostSubmitter from '../components/PostSubmitter.jsx';
-
+import { PulseLoader } from 'react-spinners';
 
 class PostsContainer extends React.Component {
 	constructor(props) {
@@ -36,9 +36,8 @@ class PostsContainer extends React.Component {
     axios({
       method:'get',
       url: this.props.queryUri,
-      auth: {
-        username: 'user1',
-        password: 'password'
+      headers:{
+        'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
       },
       responseType: 'json',
     })  
@@ -59,9 +58,15 @@ class PostsContainer extends React.Component {
       return(
         posts.map(this.generatePostCard)
       );
+    } else if (posts && posts.length == 0){
+      return(
+         <div className = "text-center mt-5" style={{ color: 'grey' }}><h4>No posts to show. Follow someone!</h4></div>
+      );
     } else {
       return (
-        <p>Nothing right now</p>
+        <div className="text-center" style={{ paddingTop: "100px" }}>
+          <PulseLoader loading={true} size={15} margin={"2px"} color={"#633d91"} />
+        </div>
       );
     }
   }
@@ -78,12 +83,17 @@ class PostsContainer extends React.Component {
   	return (
   	 	<div className="container posts-container">
       
-        <PostSubmitter fetchFunction = {this.fetchPostCards}/>
+        <PostSubmitter fetchFunction = {this.fetchPostCards} token={this.props.token} username={this.props.username}/>
 
   	 		{this.renderPostCards(this.state.posts)}
   	 	</div>
   	);
   }
 }
+
+PostsContainer.propTypes = {
+    username: PropTypes.string.isRequired,
+    token: PropTypes.string.isRequired,
+  }
 
 export default PostsContainer;

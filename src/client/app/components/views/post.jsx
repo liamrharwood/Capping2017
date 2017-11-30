@@ -1,7 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {render} from 'react-dom';
 import { browserHistory } from 'react-router';
 import Navbar from '../Navbar.jsx';
+import CommentCard from '../CommentCard.jsx';
 import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router,
@@ -24,10 +26,12 @@ class Post extends React.Component {
 		this.upvote = this.upvote.bind(this);
 		this.downvote = this.downvote.bind(this);
 		this.formatDate = this.formatDate.bind(this);
+		this.submitComment = this.submitComment.bind(this);
 	}
 
 	componentDidMount(){
 		this.fetchPostData(this.props);
+		this.fetchComments();
 	}
 
 	fetchPostData(){
@@ -65,6 +69,31 @@ class Post extends React.Component {
 	      .then(res => {
 	        const data = res.data;
 	        this.setState({ comments: data });
+	      }).catch(function (error) {
+	        if (error.response) {
+	          console.log(error.response.data);
+	          console.log(error.response.status);
+	          console.log(error.response.headers);
+	        }
+      });
+	}
+
+	submitComment(){
+		axios({
+	      method:'post',
+	      url: 'http://10.10.7.191:8080/posts/comments',
+	      auth: {
+	        username: 'user1',
+	        password: 'password'
+	      },
+	      data: {
+	      	postId: this.props.match.params.postId,
+			bodyText: ReactDOM.findDOMNode(this.refs.comment).value,
+	      }
+	    })  
+	      .then(res => {
+	        ReactDOM.findDOMNode(this.refs.comment).value = ""
+	        this.fetchComments();
 	      }).catch(function (error) {
 	        if (error.response) {
 	          console.log(error.response.data);
@@ -145,7 +174,7 @@ class Post extends React.Component {
 
     if(this.state.vote == 1){
       return (
-        <div className="col-sm-1 container m-0 pl-0"> 
+        <div className="col-1 container m-0 pl-0"> 
           <div className="row mx-auto"><i className="fa fa-thumbs-up voter" style={{color: "green"}} aria-hidden="true" onClick={this.upvote}/></div> 
           <div className="row mt-1 mx-auto">{this.state.score}</div>  
           <div className="row mt-1 mx-auto"><i className="fa fa-thumbs-o-down voter" aria-hidden="true" onClick={this.downvote}/></div> 
@@ -154,7 +183,7 @@ class Post extends React.Component {
       );
     } else if(this.state.vote == 0){
       return (
-        <div className="col-sm-1 container m-0 pl-0"> 
+        <div className="col-1 container m-0 pl-0"> 
           <div className="row mx-auto"><i className="fa fa-thumbs-o-up voter" aria-hidden="true" onClick={this.upvote}/></div> 
           <div className="row mt-1 mx-auto">{this.state.score}</div>  
           <div className="row mt-1 mx-auto"><i className="fa fa-thumbs-o-down voter" aria-hidden="true" onClick={this.downvote}/></div> 
@@ -163,7 +192,7 @@ class Post extends React.Component {
       );
     } else if(this.state.vote == -1){
       return (
-        <div className="col-sm-1 container m-0 pl-0"> 
+        <div className="col-1 container m-0 pl-0"> 
           <div className="row mx-auto"><i className="fa fa-thumbs-o-up voter" aria-hidden="true" onClick={this.upvote}/></div> 
           <div className="row mt-1 mx-auto">{this.state.score}</div>  
           <div className="row mt-1 mx-auto"><i className="fa fa-thumbs-down voter" style={{color: "red"}} aria-hidden="true" onClick={this.downvote}/></div> 
@@ -187,7 +216,11 @@ class Post extends React.Component {
   }
 
   generateCommentCard(comment){
-  	return 
+
+  	var date = new Date (comment.createDate);
+  	var createDate = (date.getUTCMonth() + 1) + '/' + date.getUTCDate() + '/' + date.getUTCFullYear()
+
+  	return <CommentCard key={comment.id} id={comment.id} userId={comment.userId} username={comment.username} postId={comment.postId} bodyText={comment.bodyText} createDate = {createDate}/>
   }
 
 	render(){
@@ -219,9 +252,9 @@ class Post extends React.Component {
 							<div className = "card-body pb-1 container-fluid">
 								<div className="form-group">
 				        			<label htmlFor="commentText">Leave a Comment</label>
-									<textarea ref="comment" className="form-control" id="commentText" style={{ height: 75 }} placeholder = "Leave a comment for this prayer" aria-label="Leave a comment for this prayer" />
+									<textarea ref="comment" className="form-control" id="commentText" style={{ height: 75 }} maxLength="140" placeholder = "Leave a comment for this prayer" aria-label="Leave a comment for this prayer" />
 									<div className ="col-2 offset-lg-9 offset-sm-6 offset-xs-4 mt-4">
-									<button className = "btn btn-primary">Submit Comment</button>
+									<button className = "btn btn-primary" onClick={this.submitComment}>Submit Comment</button>
 									</div>
 								</div>
 							</div>
@@ -231,7 +264,7 @@ class Post extends React.Component {
 				<div className = "row">
 					<div className = "col-10 offset-1">
 
-					{this.renderCommentCards()}
+					{this.renderCommentCards(this.state.comments)}
 
 					</div>
 				</div>
@@ -240,7 +273,7 @@ class Post extends React.Component {
 		} else {
 			return (
 			<div id="post">
-				<Navbar />
+				<Navbar token={this.props.token} username={this.props.username} />
 				<h4>Loading Post...</h4>
 			</div>
 			);

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { PulseLoader } from 'react-spinners';
 
 class CommunityCard extends React.Component {
 	constructor(props) {
@@ -29,10 +30,9 @@ class CommunityCard extends React.Component {
   	axios({
   		method:'get',
     		url: `${this.props.queryUri}profile?id=${this.props.id}`,
-    		auth: {
-    			username: 'user1',
-    			password: 'password'
-    		},
+    		headers:{
+          'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+        },
     		responseType: 'json'
   	}).then(res => {
         const data = res.data;
@@ -58,9 +58,8 @@ class CommunityCard extends React.Component {
     axios({
       method:'put',
         url: `${this.props.queryUri}follow?community_id=${this.props.id}`,
-        auth: {
-          username: 'user1',
-          password: 'password'
+        headers:{
+          'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
         },
     }).then(res => {
       this.fetchCommunityProfile();
@@ -77,9 +76,8 @@ class CommunityCard extends React.Component {
     axios({
       method:'put',
         url: `${this.props.queryUri}unfollow?community_id=${this.props.id}`,
-        auth: {
-          username: 'user1',
-          password: 'password'
+        headers:{
+          'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
         },
     }).then(res => {
         this.fetchCommunityProfile();
@@ -116,7 +114,11 @@ class CommunityCard extends React.Component {
   	 		</div>
   		);
   	} else {
-  		return (<p>Loading</p>);
+  		return (
+        <div className="text-center" style={{ paddingTop: "100px", paddingBottom: "100px" }}>
+          <PulseLoader loading={true} size={15} margin={"2px"} color={"#633d91"} />
+        </div>
+        );
   	}
   }
 

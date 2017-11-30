@@ -17,12 +17,14 @@ class User extends React.Component {
   render () {
     return(
     	<div id="user">
-    		<Navbar />
+    		<Navbar token={this.props.token} username={this.props.username}/>
     		<Dashboard 
         profileQueryUri = {`http://10.10.7.191:8080/users`} 
         postsQueryUri = {`http://10.10.7.191:8080/posts?user_id=${this.props.match.params.userId}`}
         id={this.props.match.params.userId}
-        infoCard = "user-profile"/>
+        infoCard = "user-profile"
+        token={this.props.token} 
+        username={this.props.username}/>
     	</div>
     	);
   }

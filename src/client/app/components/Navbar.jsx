@@ -26,9 +26,8 @@ class Navbar extends React.Component {
     axios({
       method:'get',
       url: 'http://10.10.7.191:8080/communities',
-      auth: {
-        username: 'user1',
-        password: 'password'
+      headers:{
+        'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
       },
       responseType: 'json',
     })  
