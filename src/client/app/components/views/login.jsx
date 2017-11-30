@@ -65,6 +65,12 @@ class Login extends React.Component {
         },
     })
       .then(res => {
+        ReactDOM.findDOMNode(this.refs.registerUsername).value = "",
+        ReactDOM.findDOMNode(this.refs.registerPassword).value = "",
+        ReactDOM.findDOMNode(this.refs.registerFirstName).value = "",
+        ReactDOM.findDOMNode(this.refs.registerLastName).value = "",
+        ReactDOM.findDOMNode(this.refs.registerEmail).value = "",
+        ReactDOM.findDOMNode(this.refs.registerBirth).value = "",
         this.setState({ registerError: 0} )
       }).catch((error) => {
           if (error.response) {
