@@ -28,7 +28,7 @@ class PostCard extends React.Component {
           'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
         },
       data:{
-        postId: this.props.id,
+        postId: this.props.postId,
         direction: vote,
       }
     }).catch(function (error) {

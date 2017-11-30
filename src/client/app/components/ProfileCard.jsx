@@ -151,6 +151,17 @@ class ProfileCard extends React.Component {
   	 				<div className="col-4"><a className="follower-count" href="#">Followers <br />{this.state.profileData.followersCount} </a></div>
   	 				<div className="col-4"><a className="follower-count" href="#">Following<br />{this.state.profileData.followedUsersCount}</a></div>
   	 			</div>
+          <div className="row mt-4">
+            <div className="col-4 text-center offset-1 score-box p-1">{this.state.profileData.prayPoints}<i className="em em-pray ml-4"></i></div>
+            <div className="col-4 text-center offset-2 score-box p-1">{this.state.profileData.answeredPoints}<i className="em em-angel ml-4"></i></div>
+          </div>
+          <div className="row mt-2">
+            <div className="col-4 text-center offset-1 score-box p-1">{this.state.profileData.reportPoints}<i className="em em-hammer_and_pick ml-4"></i></div>
+            <div className="col-4 text-center offset-2 score-box p-1">{this.state.profileData.upvotePoints}<i className="em em---1 ml-4"></i></div>
+          </div>
+          <div className="row mt-2">
+            <div className="col-10 offset-1 text-center score-box p-1">Reputation: {this.state.profileData.overallReputationPoints}</div>
+          </div>
   	 			<div className="row mt-4">
   	 				<div className="col-12">{this.state.profileData.bio}</div>
   	 			</div>

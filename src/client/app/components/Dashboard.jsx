@@ -28,10 +28,10 @@ class Dashboard extends React.Component {
   	 <div className="container dashboard">
      <h1 className="pl-3 pb-4">What's New</h1>
      <div className="row">
-      <div className="col-md-8 col-12">
+      <div className="col-lg-8 col-12">
         <PostsContainer queryUri = {this.props.postsQueryUri} token={this.props.token} username={this.props.username} />
       </div>
-      <div className="col-md-4 d-none d-md-block">
+      <div className="col-md-4 d-none d-lg-block">
         {this.renderInfoCard()}
       </div>
       </div>

@@ -16,6 +16,16 @@
 	z-index: 1;
 }
 
+.score-box{
+	border-style: solid;
+	border-color: #bbbac0;
+	border-width: 1px;
+	border-radius: 5px;
+	font-size: 18px;
+    color: goldenrod;
+    font-weight: bold;
+}
+
 .dashboard{
 	padding-top:80px;
 	padding-left: 0px;

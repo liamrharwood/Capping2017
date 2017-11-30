@@ -70,14 +70,11 @@ class App extends React.Component {
 	          return;
 	        }
       });
-
-  		
   	}
 
   	unauth(){
-  		console.log("unauthed");
   		window.sessionStorage.clear();
-  		this.setState({ authed: false, username: null, token: null, wrongCreds: false })
+  		this.setState({ authed: false, username: null, token: null, wrongCreds: false });
   	}
 
   	render () {
