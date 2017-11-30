@@ -44,7 +44,7 @@ public interface UserDAO {
             "(SELECT COUNT(*) FROM Follows WHERE follower_id = :userId) AS followed_users_count, " +
             "bio, profile_image_path, " +
             "(SELECT COUNT(*) FROM Posts WHERE user_id = :userId) AS post_count, " +
-            "EXISTS(SELECT 1 FROM Follows WHERE followee_id = :userId AND follower_id = :authId) AS , " +
+            "EXISTS(SELECT 1 FROM Follows WHERE followee_id = :userId AND follower_id = :authId) AS is_following, " +
             "pray_points, answered_points, report_points, upvote_points, reputation_points " +
             "FROM Users WHERE user_id = :userId")
     @Mapper(UserProfileMapper.class)
