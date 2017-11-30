@@ -227,7 +227,7 @@ class Post extends React.Component {
 		if(this.state.data){
 		return (
 		<div id="post">
-			<Navbar />
+			<Navbar token={this.props.token} username={this.props.username} unauth={this.props.unauth}/>
 			<div className="container dashboard" >
 				<div className = "row">
 					<div className = "col-10 offset-1">

@@ -14,10 +14,6 @@ class Dashboard extends React.Component {
 
   }
 
-  componentDidUpdate(){
-
-  }
-
   renderInfoCard(){
     switch(this.props.infoCard){
       case ("home"): return (<ProfileCard token={this.props.token} username={this.props.username} location = {this.props.location} queryUri={this.props.profileQueryUri} type="home"/>);

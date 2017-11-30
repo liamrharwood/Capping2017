@@ -37,6 +37,12 @@ class App extends React.Component {
 
   	}
 
+  	componentWillMount(){
+  		if(window.sessionStorage.getItem("username") != null && window.sessionStorage.getItem("token") != null){
+  			this.setState({username: window.sessionStorage.getItem("username"), token: window.sessionStorage.getItem("token"), authed: true });
+  		}
+  	}
+
   	auth(username, password, redirect){
   		axios({
 	      method:'post',
@@ -51,6 +57,8 @@ class App extends React.Component {
 	      },
 	  })
   		.then(res => {
+  			window.sessionStorage.setItem("username", username);
+  			window.sessionStorage.setItem("token", res.data);
   			this.setState({ authed: true, token: res.data, username: username });
   			redirect();
 	    }).catch((error) => {
@@ -67,7 +75,9 @@ class App extends React.Component {
   	}
 
   	unauth(){
-  		this.setState({ authed: false })
+  		console.log("unauthed");
+  		window.sessionStorage.clear();
+  		this.setState({ authed: false, username: null, token: null, wrongCreds: false })
   	}
 
   	render () {
@@ -76,7 +86,7 @@ class App extends React.Component {
 	    		<Router>
 				  <div>
 				  	<Switch>
-				  		<PublicRoute exact path="/login" component={Login} auth={this.auth} redirectTo="/home" wrongCreds={this.state.wrongCreds}/>
+				  		<PublicRoute exact path="/login" component={Login} authed={this.state.authed} auth={this.auth} redirectTo="/home" wrongCreds={this.state.wrongCreds}/>
 					  	<PrivateRoute exact path="/" authed={this.state.authed} redirectTo="/login" component={Home} token={this.state.token} username={this.state.username} unauth={this.unauth}/>
 					   	<PrivateRoute exact path="/home" authed={this.state.authed} redirectTo="/login" component={Home} token={this.state.token} username={this.state.username} unauth={this.unauth}/>
 					   	<PrivateRoute path="/communities/:communityId" authed={this.state.authed} redirectTo="/login" component={Community} token={this.state.token} username={this.state.username} unauth={this.unauth}/>
