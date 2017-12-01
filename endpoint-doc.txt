@@ -120,7 +120,6 @@ POST /posts
 Request Body:
 {
 	title:
-	userId:
 	bodyText:
 	imgPath:
 	communityIds: [communityId]

@@ -10,10 +10,6 @@ public class PostRequest {
     @JsonProperty
     private String title;
 
-    @NotNull
-    @JsonProperty
-    private Integer userId;
-
     @JsonProperty
     private String bodyText;
 
@@ -28,9 +24,8 @@ public class PostRequest {
         // Jackson deserialization
     }
 
-    public PostRequest(String title, Integer userId, String bodyText, String imgPath, List<Integer> communityIds) {
+    public PostRequest(String title, String bodyText, String imgPath, List<Integer> communityIds) {
         this.title = title;
-        this.userId = userId;
         this.bodyText = bodyText;
         this.imgPath = imgPath;
         this.communityIds = communityIds;
@@ -38,10 +33,6 @@ public class PostRequest {
 
     public String getTitle() {
         return title;
-    }
-
-    public Integer getUserId() {
-        return userId;
     }
 
     public String getBodyText() {

@@ -70,7 +70,7 @@ public class PostResource {
     @POST
     public void createNewPost(PostRequest postRequest,
                               @Auth UserPrincipal userPrincipal) {
-        int postId = postDAO.insertNewPost(postRequest.getUserId(), postRequest.getBodyText(), postRequest.getTitle(), postRequest.getImgPath());
+        int postId = postDAO.insertNewPost(userPrincipal.getId(), postRequest.getBodyText(), postRequest.getTitle(), postRequest.getImgPath());
         for (int communityId : postRequest.getCommunityIds()) {
             postDAO.associatePostWithCommunity(postId, communityId);
         }
