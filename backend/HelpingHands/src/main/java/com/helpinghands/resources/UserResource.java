@@ -1,5 +1,6 @@
 package com.helpinghands.resources;
 
+import com.helpinghands.auth.LoginObject;
 import com.helpinghands.auth.PasswordEncryption;
 import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.user.User;
@@ -117,7 +118,7 @@ public class UserResource {
 
     @POST
     @Path("login")
-    public String login(@Auth UserPrincipal userPrincipal) {
+    public LoginObject login(@Auth UserPrincipal userPrincipal) {
         UUID uuid = UUID.randomUUID();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
@@ -127,7 +128,7 @@ public class UserResource {
 
         userDAO.updateAccessTokenForUser(userPrincipal.getId(), accessToken, timestamp);
 
-        return accessToken;
+        return new LoginObject(userPrincipal.getName(), accessToken, userPrincipal.getId());
     }
 
     @POST
