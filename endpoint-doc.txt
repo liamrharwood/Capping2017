@@ -120,7 +120,6 @@ POST /posts
 Request Body:
 {
 	title:
-	userId:
 	bodyText:
 	imgPath:
 	communityIds: [communityId]
@@ -191,8 +190,11 @@ POST /users/login
 # Hit the endpoint with Basic Auth and it will return a token if valid
 
 Response:
-[string access token]
-
+{
+	username:
+	token:
+	id:
+}
 -------------------------------
 
 POST /users/login

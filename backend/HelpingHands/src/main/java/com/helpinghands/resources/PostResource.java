@@ -70,7 +70,7 @@ public class PostResource {
     @POST
     public void createNewPost(PostRequest postRequest,
                               @Auth UserPrincipal userPrincipal) {
-        int postId = postDAO.insertNewPost(postRequest.getUserId(), postRequest.getBodyText(), postRequest.getTitle(), postRequest.getImgPath());
+        int postId = postDAO.insertNewPost(userPrincipal.getId(), postRequest.getBodyText(), postRequest.getTitle(), postRequest.getImgPath());
         for (int communityId : postRequest.getCommunityIds()) {
             postDAO.associatePostWithCommunity(postId, communityId);
         }
@@ -131,8 +131,9 @@ public class PostResource {
     public void voteOnPost(@Auth UserPrincipal userPrincipal,
                            VoteRequest voteRequest) {
         int userId = userPrincipal.getId();
+        int voteeId = postDAO.getPostById(voteRequest.getPostId()).get(0).getUserId();
         postDAO.voteOnPost(userId, voteRequest.getPostId(), voteRequest.getDirection());
-        userDAO.onVoteUpdatePoints(userId, voteRequest.getPostId());
+        userDAO.onVoteUpdatePoints(userId, voteeId, voteRequest.getPostId());
     }
 
 }
