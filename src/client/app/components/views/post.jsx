@@ -37,7 +37,7 @@ class Post extends React.Component {
 	fetchPostData(){
 		axios({
 	      method:'get',
-	      url: `http://10.10.7.191:8080/posts?post_id=${this.props.match.params.postId}`,
+	      url: `${this.props.uri}/posts?post_id=${this.props.match.params.postId}`,
 	      auth: {
 	        username: 'user1',
 	        password: 'password'
@@ -59,7 +59,7 @@ class Post extends React.Component {
 	fetchComments(){
 		axios({
 	      method:'get',
-	      url: `http://10.10.7.191:8080/posts/comments?post_id=${this.props.match.params.postId}`,
+	      url: `${this.props.uri}/posts/comments?post_id=${this.props.match.params.postId}`,
 	      auth: {
 	        username: 'user1',
 	        password: 'password',
@@ -81,7 +81,7 @@ class Post extends React.Component {
 	submitComment(){
 		axios({
 	      method:'post',
-	      url: 'http://10.10.7.191:8080/posts/comments',
+	      url: `${this.props.uri}/posts/comments`,
 	      auth: {
 	        username: 'user1',
 	        password: 'password'
@@ -106,7 +106,7 @@ class Post extends React.Component {
 	vote(vote){
     axios({
       method:'post',
-      url: 'http://10.10.7.191:8080/posts/vote',
+      url: `${this.props.uri}/posts/vote`,
       auth: {
         username: 'user1',
         password: 'password'
@@ -227,7 +227,7 @@ class Post extends React.Component {
 		if(this.state.data){
 		return (
 		<div id="post">
-			<Navbar token={this.props.token} username={this.props.username} unauth={this.props.unauth}/>
+			<Navbar token={this.props.token} username={this.props.username} unauth={this.props.unauth} uri={this.props.uri}/>
 			<div className="container dashboard" >
 				<div className = "row">
 					<div className = "col-10 offset-1">

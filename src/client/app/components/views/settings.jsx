@@ -16,7 +16,7 @@ class Settings extends React.Component {
 
 	render(){
 		return (
-			<Navbar settings="active" token={this.props.token} username={this.props.username} unauth={this.props.unauth}/>
+			<Navbar settings="active" token={this.props.token} username={this.props.username} unauth={this.props.unauth} uri={this.props.uri}/>
 		);
 	}
 }

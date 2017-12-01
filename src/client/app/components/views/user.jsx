@@ -17,14 +17,17 @@ class User extends React.Component {
   render () {
     return(
     	<div id="user">
-    		<Navbar token={this.props.token} username={this.props.username} unauth={this.props.unauth}/>
+    		<Navbar token={this.props.token} username={this.props.username} unauth={this.props.unauth} uri={this.props.uri}/>
     		<Dashboard 
-        profileQueryUri = {`http://10.10.7.191:8080/users`} 
-        postsQueryUri = {`http://10.10.7.191:8080/posts?user_id=${this.props.match.params.userId}`}
+        profileQueryUri = {`${this.props.uri}/users`} 
+        postsQueryUri = {`${this.props.uri}/posts?user_id=${this.props.match.params.userId}`}
         id={this.props.match.params.userId}
         infoCard = "user-profile"
         token={this.props.token} 
-        username={this.props.username}/>
+        username={this.props.username}
+        uri={this.props.uri}
+        />
+
     	</div>
     	);
   }

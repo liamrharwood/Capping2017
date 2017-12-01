@@ -54,7 +54,7 @@ class Login extends React.Component {
 
     axios({
         method:'post',
-        url: 'http://10.10.7.191:8080/users/register',
+        url: `${this.props.uri}/users/register`,
         data:{
           username: ReactDOM.findDOMNode(this.refs.registerUsername).value,
           password: ReactDOM.findDOMNode(this.refs.registerPassword).value,
@@ -67,6 +67,7 @@ class Login extends React.Component {
       .then(res => {
         ReactDOM.findDOMNode(this.refs.registerUsername).value = "",
         ReactDOM.findDOMNode(this.refs.registerPassword).value = "",
+        ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value = "",
         ReactDOM.findDOMNode(this.refs.registerFirstName).value = "",
         ReactDOM.findDOMNode(this.refs.registerLastName).value = "",
         ReactDOM.findDOMNode(this.refs.registerEmail).value = "",

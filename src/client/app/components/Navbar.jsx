@@ -25,7 +25,7 @@ class Navbar extends React.Component {
 
     axios({
       method:'get',
-      url: 'http://10.10.7.191:8080/communities',
+      url: `${this.props.uri}/communities`,
       headers:{
         'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
       },
@@ -95,7 +95,7 @@ class Navbar extends React.Component {
           <button className="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
          </form>
          <ul className = "navbar-nav my-1 my-lg-0 ml-lg-4">
-          <li className = {`nav-item ${this.props.profile}`}><Link to="/users/4" className="nav-link"><i className="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp; Profile</Link></li>
+          <li className = {`nav-item ${this.props.profile}`}><Link to={`/profile`} className="nav-link"><i className="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp; Profile</Link></li>
         </ul>
          <ul className = "navbar-nav my-1 my-lg-0">
           <li className = {`nav-item ${this.props.settings}`}><Link to="/settings" className="nav-link"><i className="fa fa-cog" aria-hidden="true"></i>&nbsp; Settings</Link></li>

@@ -84,7 +84,7 @@ class PostsContainer extends React.Component {
   	return (
   	 	<div className="container posts-container">
       
-        <PostSubmitter fetchFunction = {this.fetchPostCards} token={this.props.token} username={this.props.username}/>
+        <PostSubmitter fetchFunction = {this.fetchPostCards} token={this.props.token} username={this.props.username} uri={this.props.uri}/>
 
   	 		{this.renderPostCards(this.state.posts, this.props)}
   	 	</div>

@@ -17,7 +17,7 @@ class NotFound extends React.Component {
   render () {
     return(
     	<div id="home">
-    		<Navbar token={this.props.token} username={this.props.username} unauth={this.props.unauth}/>
+    		<Navbar token={this.props.token} username={this.props.username} unauth={this.props.unauth} uri={this.props.uri}/>
     		<div className="jumbotron jumbotron-fluid">
               <div className="container">
                 <h1 className="display-3">404 - Page not found.</h1>

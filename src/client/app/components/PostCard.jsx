@@ -23,7 +23,7 @@ class PostCard extends React.Component {
   vote(vote){
     axios({
       method:'post',
-      url: 'http://10.10.7.191:8080/posts/vote',
+      url: `${this.props.uri}/posts/vote`,
       headers:{
           'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
         },
