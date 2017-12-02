@@ -38,9 +38,8 @@ class Post extends React.Component {
 		axios({
 	      method:'get',
 	      url: `${this.props.uri}/posts?post_id=${this.props.match.params.postId}`,
-	      auth: {
-	        username: 'user1',
-	        password: 'password'
+	      headers:{
+	        'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
 	      },
 	      responseType: 'json',
 	    })  
@@ -60,10 +59,10 @@ class Post extends React.Component {
 		axios({
 	      method:'get',
 	      url: `${this.props.uri}/posts/comments?post_id=${this.props.match.params.postId}`,
-	      auth: {
-	        username: 'user1',
-	        password: 'password',
+	      headers:{
+	        'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
 	      },
+
 	      responseType: 'json',
 	    })  
 	      .then(res => {
@@ -82,10 +81,10 @@ class Post extends React.Component {
 		axios({
 	      method:'post',
 	      url: `${this.props.uri}/posts/comments`,
-	      auth: {
-	        username: 'user1',
-	        password: 'password'
+	      headers:{
+	        'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
 	      },
+
 	      data: {
 	      	postId: this.props.match.params.postId,
 			bodyText: ReactDOM.findDOMNode(this.refs.comment).value,
@@ -107,10 +106,10 @@ class Post extends React.Component {
     axios({
       method:'post',
       url: `${this.props.uri}/posts/vote`,
-      auth: {
-        username: 'user1',
-        password: 'password'
-      },
+      headers:{
+	        'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+	      },
+
       data:{
         postId: this.props.match.params.postId,
         direction: vote,

@@ -20,6 +20,7 @@ import Post from './views/post.jsx';
 import NotFound from './views/404.jsx';
 import Settings from './views/settings.jsx';
 import Profile from './views/profile.jsx';
+import Report from './views/report.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -94,6 +95,7 @@ class App extends React.Component {
 					   	<PrivateRoute path="/users/:userId" authed={this.state.authed} redirectTo="/login" component={User} token={this.state.token} username={this.state.username} unauth={this.unauth} uri={this.state.uri}/>
 					   	<PrivateRoute path="/posts/:postId" authed={this.state.authed} redirectTo ="/login" component={Post} token={this.state.token} username={this.state.username} unauth={this.unauth}  uri={this.state.uri}/>
 					   	<PrivateRoute path="/settings" authed={this.state.authed} redirectTo="/login" component={Settings} token={this.state.token} username={this.state.username} unauth={this.unauth} uri={this.state.uri} />
+					   	<PrivateRoute path="/report/:postId" authed={this.state.authed} redirectTo="/login" component={Report} token={this.state.token} username={this.state.username} unauth={this.unauth} uri={this.state.uri} />
 					   	<PrivateRoute path="/profile" authed={this.state.authed} redirectTo="/login" userId={this.state.userId} component={Profile} token={this.state.token} username={this.state.username} unauth={this.unauth}  uri={this.state.uri}/>
 					   	<PropsRoute component={NotFound} />
 				   	</Switch>
