@@ -75,10 +75,6 @@ class Login extends React.Component {
         this.setState({ registerError: 0} )
       }).catch((error) => {
           if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-            
             return;
           }
       });
@@ -110,12 +106,12 @@ class Login extends React.Component {
 
   render () {
     return(
-      <div id="home">
+      <div id="login">
         {/* Basic Non-authed Navbar */}
         <nav className="navbar navbar-expand-lg navbar-dark nav-purple">
           <ul className="navbar-nav mr-auto">
            <li className= "nav-item">
-            <Link to="/home" className="nav-link">Helping Hands</Link>
+            <Link to="/login" className="nav-link">Helping Hands</Link>
            </li>
           </ul>
         </nav>

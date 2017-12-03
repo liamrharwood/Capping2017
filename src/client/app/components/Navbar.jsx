@@ -39,9 +39,6 @@ class Navbar extends React.Component {
           if(error.response.status == 401){
               props.unauth();
           }
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
         }
       });
 
@@ -77,9 +74,6 @@ class Navbar extends React.Component {
           <ul className="navbar-nav mr-auto">
            <li className= {`nav-item ${this.props.home}`}>
             <Link to="/home" className="nav-link"><i className="fa fa-home" aria-hidden="true"></i>&nbsp;&nbsp;Home</Link>
-           </li>
-           <li className={`nav-item ${this.props.notifications}`}>
-            <Link to="/notifications" className="nav-link"><i className="fa fa-exclamation" aria-hidden="true"></i>&nbsp;&nbsp;Notifications</Link>
            </li>
            <li className={`nav-item dropdown ${this.props.communities}`}>
              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

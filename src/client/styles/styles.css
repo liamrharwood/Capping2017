@@ -10,6 +10,10 @@
 	border-radius: 0px 0px 5px 5px;
 }
 
+button:focus {
+	outline:0;
+}
+
 .nav-purple{
 	background: #633d91;
 	width: 100%;
@@ -30,6 +34,15 @@
 	padding-top:80px;
 	padding-left: 0px;
 	padding-right: 0px;
+}
+
+.communityBox {
+	max-height:150px;
+	overflow:scroll;
+	border-style: solid;
+	border-color: #ced4da;
+	border-width: 1px;
+	border-radius:7px;
 }
 
 .post-card {
@@ -131,7 +144,7 @@
 }
 
 .showSubmitter{
-	max-height: 400px;
+	max-height: 450px;
 }
 
 .hideSubmitter{
