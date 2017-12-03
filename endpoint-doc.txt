@@ -149,7 +149,7 @@ optional parameters: user_id
 
 {
 	userId:
-	userName:
+	username:
 	firstName:
 	lastName:
 	followersCount:

@@ -111,20 +111,21 @@ class Login extends React.Component {
   render () {
     return(
       <div id="home">
-      <nav className="navbar navbar-expand-lg navbar-dark nav-purple">
-        <ul className="navbar-nav mr-auto">
-         <li className= "nav-item">
-          <Link to="/home" className="nav-link">Helping Hands</Link>
-         </li>
-        </ul>
-     </nav>
+        {/* Basic Non-authed Navbar */}
+        <nav className="navbar navbar-expand-lg navbar-dark nav-purple">
+          <ul className="navbar-nav mr-auto">
+           <li className= "nav-item">
+            <Link to="/home" className="nav-link">Helping Hands</Link>
+           </li>
+          </ul>
+        </nav>
 
-    	<div className ="container mb-4">
-    		<div className = "row mt-5">
-          <div className = "offset-1 col-4">
-          <h2>Register a New Account</h2>
+      	<div className ="container mb-4">
+      		<div className = "row mt-5">
+            <div className = "offset-1 col-4">
+              <h2>Register a New Account</h2>
 
-          {this.renderRegisterErrors()}
+              {this.renderRegisterErrors()}
 
               <div className="form-group">
                 <label htmlFor="inputFirstName">First Name</label>
@@ -159,8 +160,9 @@ class Login extends React.Component {
                 <input type="date" className="form-control" ref="registerBirth" id="inputBirth" />
               </div>
               <button className="btn btn-primary" onClick={this.registerButtonClick} >Register</button>
-          </div>
-          <div className = "offset-2 col-4">
+            </div>
+          
+            <div className = "offset-2 col-4">
             <h2>Log In with an Existing Account</h2>
 
             {this.renderLoginErrors()}
@@ -184,9 +186,9 @@ class Login extends React.Component {
             */}
 
               <button className="btn btn-primary" onClick={this.authLogin}>Log In</button>
+            </div>
           </div>
-        </div>
-    	</div>
+    	  </div>
       </div>
     	);
   }
