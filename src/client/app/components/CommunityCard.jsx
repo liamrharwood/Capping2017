@@ -40,8 +40,7 @@ class CommunityCard extends React.Component {
       }).catch(function (error) {
         if (error.response) {
           console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+
         }
       });
   }
@@ -65,9 +64,7 @@ class CommunityCard extends React.Component {
       this.fetchCommunityProfile();
       }).catch(function (error) {
         if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+
         }
       });
   }
@@ -83,9 +80,7 @@ class CommunityCard extends React.Component {
         this.fetchCommunityProfile();
       }).catch(function (error) {
         if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+
         }
       });
   }

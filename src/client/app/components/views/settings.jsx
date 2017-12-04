@@ -40,9 +40,7 @@ class Settings extends React.Component {
             this.setState({ profileData });
           }).catch(function (error) {
             if (error.response) {
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
+
             }
       });
 	}
@@ -57,10 +55,15 @@ class Settings extends React.Component {
 					uri={this.props.uri}
 				/>
 				<div className ="container dashboard">
+					<div className ="row">
+						<div className= "offset-1 col-10">
+							<h2>Change Your Settings</h2>
+						</div>
+					</div>
       				<div className = "row">
-           				<div className = "offset-1 col-10">
+           				<div className = "offset-1 col-sm-4 col-10">
            					
-           					<h2>Change Your Settings</h2>
+           					
 							
 							<div className="form-group">
 								<label htmlFor="settingsFirstName">First Name</label>
@@ -84,6 +87,8 @@ class Settings extends React.Component {
 									placeholder="Last Name"
 								/>
 							</div>
+						</div>
+						<div className = "offset-1 col-sm-4 col-10">
 							<div className="form-group">
 								<label htmlFor="settingsUserName">Username</label>
 								<input 
@@ -106,6 +111,10 @@ class Settings extends React.Component {
 									placeholder="Email"
 								/>
 							</div>
+						</div>
+					</div>
+					<div className = "row">
+						<div className = "offset-1 col-9">
 							<div className="form-group">
 								<label htmlFor="settingsBio">Bio</label>
 								<textarea 
@@ -120,9 +129,15 @@ class Settings extends React.Component {
 									placeholder="Bio"
 								/>
 							</div>
-
-							<button className="btn btn-primary" /*onClick={this.registerButtonClick}*/ >Save Changes</button>
-
+						</div>
+					</div>
+					<div className = "row">
+						<div className = "offset-1 col-3">
+							<button className="btn btn-primary" /*onClick={this.saveAccountChanges}*/ >Save Changes</button>
+						</div>
+					</div>
+					<div className = "row mb-5">
+						<div className = "offset-1 col-9">
 							<h2 className= "mt-5">Change Your Password</h2>
 
 							<div className="form-group">
@@ -148,10 +163,10 @@ class Settings extends React.Component {
 								/>
 							</div>
 
-							<button className="btn btn-primary" /*onClick={this.registerButtonClick}*/ >Change Password</button>
-
+							<button className="btn btn-primary" /*onClick={this.savePasswordChanges}*/ >Change Password</button>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		);
