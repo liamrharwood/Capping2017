@@ -45,7 +45,9 @@ class Login extends React.Component {
   }
 
   registerButtonClick(){
-    if(ReactDOM.findDOMNode(this.refs.registerPassword).value == ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value){
+    if(ReactDOM.findDOMNode(this.refs.registerPassword).value != ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value){
+      this.setState({ registerError: 1 });
+    } else {
       this.registerNewUser();
     }
   }
