@@ -89,18 +89,18 @@ class PostSubmitter extends React.Component {
 				bodyText: this.state.bodyText,
 				imgPath: '',
 				communityIds: this.state.selectedCommunities,
-	    	}
-	    }).then(res => {	        
-	        this.hideSubmitter();
-	        this.props.fetchFunction();
-	        ReactDOM.findDOMNode(this.refs.title).value = ""
-	        ReactDOM.findDOMNode(this.refs.body).value = ""
-	        this.setState({ selectedCommunities: [] });   
-	    }).catch(function (error) {
-	        if (error.response) {
+			}
+		}).then(res => {	        
+			this.hideSubmitter();
+			this.props.fetchFunction();
+			ReactDOM.findDOMNode(this.refs.title).value = ""
+			ReactDOM.findDOMNode(this.refs.body).value = ""
+			this.setState({ selectedCommunities: [] });   
+		}).catch(function (error) {
+			if (error.response) {
 
-	        }
-      	});
+			}
+		});
 	}
 
 	/**
@@ -114,17 +114,17 @@ class PostSubmitter extends React.Component {
 			headers:{
 				'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
 			},
-	      	responseType: 'json',
-	    }).then(res => {
-	        const data = res.data;
-	        this.setState({ communities: data });
-	    }).catch(function (error) {
-	        if (error.response) {
-	          	if(error.response.status == 401){
-	             	props.unauth();
-	          	}
-	        }
-	    });
+			responseType: 'json',
+		}).then(res => {
+			const data = res.data;
+			this.setState({ communities: data });
+		}).catch(function (error) {
+			if (error.response) {
+				if(error.response.status == 401){
+					props.unauth();
+				}
+			}
+		});
 	}
 
 	/**
@@ -223,33 +223,33 @@ class PostSubmitter extends React.Component {
 	render () {
 		return (
 			<div className= "card mb-4">
-	      		<div className="input-group" style={{zIndex: 0}}>
-				  	<input 
-				  		type="text" 
-				  		ref="title" 
-				  		className="form-control" 
-				  		onChange={this.handleTitleChange} 
-				  		maxLength="140" 
-				  		placeholder="New Post Title" 
-				  		aria-label="New Post Title" 
-				  	/>
-				  	<span className="input-group-btn">
-			        	<button 
-			        		className="btn btn-secondary" 
-			        		type="button" 
-			        		onClick={this.showSubmitter}>
-			        		Next
-			        	</button>
-			        </span>
-		        </div>
-		        <div className={`card-body submitter ${this.state.submitterClass}`}>
-		        	<form className="postForm container">
-			        	<div className="row">
-			        		<div className="form-group col-sm-6 col-12">
-			        			<label 
-			        				htmlFor="postBodyText">
-			        				Post Text
-			        			</label>
+				<div className="input-group" style={{zIndex: 0}}>
+					<input 
+						type="text" 
+						ref="title" 
+						className="form-control" 
+						onChange={this.handleTitleChange} 
+						maxLength="140" 
+						placeholder="New Post Title" 
+						aria-label="New Post Title" 
+					/>
+					<span className="input-group-btn">
+						<button 
+							className="btn btn-secondary" 
+							type="button" 
+							onClick={this.showSubmitter}>
+							Next
+						</button>
+					</span>
+				</div>
+				<div className={`card-body submitter ${this.state.submitterClass}`}>
+					<form className="postForm container">
+						<div className="row">
+							<div className="form-group col-sm-6 col-12">
+								<label 
+									htmlFor="postBodyText">
+									Post Text
+								</label>
 								<textarea 
 									ref="body" 
 									className="form-control" 
@@ -288,8 +288,8 @@ class PostSubmitter extends React.Component {
 							</div>
 						</div>
 					</form>
-		        </div>
-	        </div>	 
+				</div>
+			</div>	 
 		);
 	}
 }

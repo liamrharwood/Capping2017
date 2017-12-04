@@ -26,7 +26,8 @@ class Profile extends React.Component {
                 />
         		<Dashboard 
                     profileQueryUri ={`${this.props.uri}/users`}
-                    postsQueryUri = {`${this.props.uri}/posts?user_id=${this.props.userId}`}
+                    postsQueryUri = {`${this.props.uri}/posts`}
+                    userId = {this.props.userId}
                     infoCard = "user-profile"
                     token={this.props.token}
                     username={this.props.username} 

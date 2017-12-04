@@ -28,7 +28,6 @@ class Search extends React.Component {
 		return (
 			<div id="search">
 				<Navbar 
-					communities = "active"
 					token={this.props.token} 
 					username={this.props.username} 
 					unauth={this.props.unauth} 
