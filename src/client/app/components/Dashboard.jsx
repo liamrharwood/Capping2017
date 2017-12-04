@@ -26,7 +26,7 @@ class Dashboard extends React.Component {
   renderMessage(){
     switch(this.props.infoCard){
       case ("home"): return "What's New: Timeline";
-      case ("user-profile"): return "What's New: Your Posts";
+      case ("user-profile"): return "Profile";
       case ("community-profile"): return "What's New: Community";
       default: return "What's New";
     }
