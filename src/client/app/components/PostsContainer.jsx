@@ -20,7 +20,7 @@ class PostsContainer extends React.Component {
 		this.renderPostCards = this.renderPostCards.bind(this);
 		this.fetchPostCards = this.fetchPostCards.bind(this);
 		this.generatePostCard = this.generatePostCard.bind(this);
-   	}
+	}
 
 	/**
 	*TODO
@@ -52,12 +52,12 @@ class PostsContainer extends React.Component {
 		var endNum = (this.state.pageNum) * this.state.numPostsPerPage;
 
 		axios({
-		  	method:'get',
-		  	url: this.props.queryUri,
-		  	headers:{
+			method:'get',
+			url: this.props.queryUri,
+			headers:{
 				'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
-		  	},
-		  	responseType: 'json',
+			},
+			responseType: 'json',
 		}).then(res => {
 			const posts = res.data;
 			this.setState({ posts });
@@ -77,21 +77,21 @@ class PostsContainer extends React.Component {
 	*/
 	renderPostCards(posts, props){
 		if(posts && posts.length != 0){
-		  	return(
+			return(
 				posts.map((x) => this.generatePostCard(x, props) )
-		  	);
+			);
 		} else if (posts && posts.length == 0){
-		  	return(
-			 	<div className = "text-center mt-5" style={{ color: 'grey' }}>
-			 		<h4>No posts to show. Follow someone!</h4>
-			 	</div>
-		  	);
-		} else {
-		  	return (
-				<div className="text-center" style={{ paddingTop: "100px" }}>
-			  		<PulseLoader loading={true} size={15} margin={"2px"} color={"#633d91"}/>
+			return(
+				<div className = "text-center mt-5" style={{ color: 'grey' }}>
+					<h4>No posts to show. Follow someone!</h4>
 				</div>
-		  	);
+			);
+		} else {
+			return (
+				<div className="text-center" style={{ paddingTop: "100px" }}>
+					<PulseLoader loading={true} size={15} margin={"2px"} color={"#633d91"}/>
+				</div>
+			);
 		}
 	}
 

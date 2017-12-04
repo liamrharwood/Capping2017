@@ -1,22 +1,31 @@
 import React from 'react';
 import 'react-bootstrap'
 
+/**
+*TODO
+*
+*/
 class Logo extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-    //this.onLike = this.onLike.bind(this);
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
 
-  render() {
-    return (
-      <div className =  "logo">
-        <img src= "../images/large-logo.png" />
-      </div>
-    );
-  }
+		};
+	}
 
+	/**
+	*TODO
+	*
+	*@return {} -
+	*/
+	render() {
+		return (
+			<div className =  "logo">
+				<img src= "../images/large-logo.png"/>
+			</div>
+		);
+	}
 }
 
 export default Logo;

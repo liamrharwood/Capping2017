@@ -16,11 +16,11 @@ class ProfileCard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-    		profileData: PropTypes.Object,      //TODO
-    	};
+			profileData: PropTypes.Object,      //TODO
+		};
 
-    this.follow = this.follow.bind(this);
-    this.unFollow = this.unFollow.bind(this);
+	this.follow = this.follow.bind(this);
+	this.unFollow = this.unFollow.bind(this);
 }
 
 	/**
