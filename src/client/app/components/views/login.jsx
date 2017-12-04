@@ -172,14 +172,7 @@ class Login extends React.Component {
                 <input type="password" ref="loginPassword"className="form-control" id="inputLoginPassword" onKeyDown={this.keyPress} placeholder="Password" />
               </div>
 
-              {/*
-              <div className="form-check">
-                <label className="form-check-label">
-                  <input type="checkbox" className="form-check-input" />
-                  Remember Me
-                </label>
-              </div>
-            */}
+              
 
               <button className="btn btn-primary" onClick={this.authLogin}>Log In</button>
             </div>
