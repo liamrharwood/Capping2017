@@ -17,7 +17,7 @@ class User extends React.Component {
   render () {
     return(
     	<div id="user">
-    		<Navbar token={this.props.token} username={this.props.username} unauth={this.props.unauth} uri={this.props.uri}/>
+    		<Navbar token={this.props.token} username={this.props.username} unauth={this.props.unauth} uri={this.props.uri} history={this.props.history}/>
     		<Dashboard 
                 profileQueryUri = {`${this.props.uri}/users`} 
                 postsQueryUri = {`${this.props.uri}/posts?user_id=${this.props.match.params.userId}`}

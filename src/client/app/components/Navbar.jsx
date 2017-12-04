@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Logo from '../components/Logo.jsx';
 import {
@@ -15,6 +16,8 @@ class Navbar extends React.Component {
     this.state = {
       data: PropTypes.Array,
     };
+
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount(){
@@ -61,7 +64,12 @@ class Navbar extends React.Component {
     return(<Link to={`/communities/${data.communityId}`} key={data.communityId} className="dropdown-item">{data.name}</Link>)
   }
 
+  handleSearch(){
+    var search = ReactDOM.findDOMNode(this.refs.search).value;
+    var encodedSearch = encodeURIComponent(search);
 
+    this.props.history.push(`/search/${encodedSearch}`);
+  }
 
   render() {
     return (
@@ -81,12 +89,17 @@ class Navbar extends React.Component {
              </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 {this.renderCommunitiesDropdown()}
+
+                <div className="dropdown-divider"></div>
+                <Link to={`/communities/create`} className="dropdown-item">Create your own community!</Link>
+
+
                 </div>
            </li>
          </ul>
          <form className="form-inline my-2 my-lg-0">
-          <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-          <button className="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+          <input className="form-control mr-sm-2" ref="search" type="search" placeholder="Search" aria-label="Search" />
+          <button className="btn btn-outline-light my-2 my-sm-0" type="button" onClick={this.handleSearch}>Search</button>
          </form>
          <ul className = "navbar-nav my-1 my-lg-0 ml-lg-4">
           <li className = {`nav-item ${this.props.profile}`}><Link to={`/profile`} className="nav-link"><i className="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp; Profile</Link></li>

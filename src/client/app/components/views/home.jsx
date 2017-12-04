@@ -22,6 +22,7 @@ class Home extends React.Component {
                     username={this.props.username} 
                     unauth={this.props.unauth} 
                     uri={this.props.uri}
+                    history={this.props.history}
                 />
         		<Dashboard 
                     profileQueryUri ={`${this.props.uri}/users`}

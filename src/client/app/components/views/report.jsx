@@ -121,7 +121,7 @@ class Report extends React.Component {
 		if(this.state.data){
 		return (
 		<div id="post">
-			<Navbar token={this.props.token} username={this.props.username} unauth={this.props.unauth} uri={this.props.uri}/>
+			<Navbar token={this.props.token} username={this.props.username} unauth={this.props.unauth} uri={this.props.uri} history={this.props.history}/>
 			<div className="container dashboard" >
 				<div className = "row">
 					<div className = "col-10 offset-1">

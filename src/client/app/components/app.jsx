@@ -20,6 +20,8 @@ import NotFound from './views/404.jsx';
 import Settings from './views/settings.jsx';
 import Profile from './views/profile.jsx';
 import Report from './views/report.jsx';
+import CommunityCreator from './views/communityCreator.jsx';
+import Search from './views/search.jsx';
 import axios from 'axios';
 
 /**
@@ -151,6 +153,17 @@ class App extends React.Component {
 					   		uri={this.state.uri}
 					   	/>
 					   	<PrivateRoute 
+					   		exact path="/communities/create" 
+					   		authed={this.state.authed} 
+					   		redirectTo="/login" 
+					   		userId={this.state.userId} 
+					   		component={CommunityCreator} 
+					   		token={this.state.token} 
+					   		username={this.state.username} 
+					   		unauth={this.unauth}  
+					   		uri={this.state.uri}
+					   	/>
+					   	<PrivateRoute 
 					   		path="/communities/:communityId" 
 					   		authed={this.state.authed} 
 					   		redirectTo="/login" 
@@ -199,6 +212,17 @@ class App extends React.Component {
 					   		username={this.state.username} 
 					   		unauth={this.unauth} 
 					   		uri={this.state.uri} 
+					   	/>
+					   	<PrivateRoute 
+					   		path="/search/:search" 
+					   		authed={this.state.authed} 
+					   		redirectTo="/login" 
+					   		userId={this.state.userId} 
+					   		component={Search} 
+					   		token={this.state.token} 
+					   		username={this.state.username} 
+					   		unauth={this.unauth}  
+					   		uri={this.state.uri}
 					   	/>
 					   	<PrivateRoute 
 					   		path="/profile" 

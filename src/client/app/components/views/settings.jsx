@@ -53,6 +53,7 @@ class Settings extends React.Component {
 					username={this.props.username} 
 					unauth={this.props.unauth} 
 					uri={this.props.uri}
+					history={this.props.history}
 				/>
 				<div className ="container dashboard">
 					<div className ="row">
