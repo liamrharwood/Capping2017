@@ -18,6 +18,7 @@ class Navbar extends React.Component {
     };
 
     this.handleSearch = this.handleSearch.bind(this);
+    this.keyPress = this.keyPress.bind(this);
   }
 
   componentDidMount(){
@@ -71,6 +72,12 @@ class Navbar extends React.Component {
     this.props.history.push(`/search/${encodedSearch}`);
   }
 
+  keyPress(e){
+    if(e.keyCode == 13){
+         this.handleSearch();
+      }
+  }
+
   render() {
     return (
      <nav className="navbar navbar-expand-lg navbar-dark nav-purple position-fixed">
@@ -98,7 +105,7 @@ class Navbar extends React.Component {
            </li>
          </ul>
          <form className="form-inline my-2 my-lg-0">
-          <input className="form-control mr-sm-2" ref="search" type="search" placeholder="Search" aria-label="Search" />
+          <input className="form-control mr-sm-2" ref="search" type="search" placeholder="Search" aria-label="Search" onKeyDown={this.keyPress} />
           <button className="btn btn-outline-light my-2 my-sm-0" type="button" onClick={this.handleSearch}>Search</button>
          </form>
          <ul className = "navbar-nav my-1 my-lg-0 ml-lg-4">

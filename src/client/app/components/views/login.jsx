@@ -165,7 +165,7 @@ class Login extends React.Component {
 
               <div className="form-group">
                 <label htmlFor="loginUsername">Username</label>
-                <input type="text" ref="loginUsername" className="form-control" id="inputLoginUsername" aria-describedby="emailUsername" placeholder="Username" />
+                <input type="text" ref="loginUsername" className="form-control" id="inputLoginUsername" aria-describedby="emailUsername" onKeyDown={this.keyPress} placeholder="Username" />
               </div>
               <div className="form-group">
                 <label htmlFor="exampleInputPassword1">Password</label>

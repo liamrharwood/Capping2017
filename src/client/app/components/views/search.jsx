@@ -12,11 +12,12 @@ class Search extends React.Component {
 		super(props);
 		this.state = {
 			data: PropTypes.Object,
+			search: PropTypes.String
 		};
 	}
 
 	componentDidMount(){
-		
+		this.setState({ search: this.decodedSearch() })
 	}
 
 	decodedSearch(){
