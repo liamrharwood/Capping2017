@@ -20,7 +20,8 @@ class User extends React.Component {
     		<Navbar token={this.props.token} username={this.props.username} unauth={this.props.unauth} uri={this.props.uri} history={this.props.history}/>
     		<Dashboard 
                 profileQueryUri = {`${this.props.uri}/users`} 
-                postsQueryUri = {`${this.props.uri}/posts?user_id=${this.props.match.params.userId}`}
+                postsQueryUri = {`${this.props.uri}/posts`}
+                userId = {this.props.match.params.userId}
                 id={this.props.match.params.userId}
                 infoCard = "user-profile"
                 token={this.props.token} 

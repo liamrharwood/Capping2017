@@ -53,7 +53,7 @@ class PostsContainer extends React.Component {
 
 		axios({
 		  	method:'get',
-		  	url: this.props.queryUri,
+		  	url: `${this.props.queryUri}?${this.props.communityId ? 'community_id=' + this.props.communityId + '&' : ''}${this.props.userId ? 'user_id=' + this.props.userId + '&' : ''}callDate=${callDate}&startNum=${startNum}&endNum=${endNum}`,
 		  	headers:{
 				'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
 		  	},

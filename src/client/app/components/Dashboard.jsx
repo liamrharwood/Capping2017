@@ -17,8 +17,8 @@ class Dashboard extends React.Component {
   renderInfoCard(){
     switch(this.props.infoCard){
       case ("home"): return (<ProfileCard token={this.props.token} username={this.props.username} location = {this.props.location} queryUri={this.props.profileQueryUri} type="home" uri={this.props.uri} />);
-      case ("user-profile"): return (<ProfileCard token={this.props.token} username={this.props.username} location = {this.props.location} queryUri={this.props.profileQueryUri} id={this.props.id} type="user-profile" uri={this.props.uri}/>);
-      case ("community-profile"): return (<CommunityCard token={this.props.token} username={this.props.username} location = {this.props.location} queryUri = {this.props.profileQueryUri} id={this.props.id} type = "community-profile" uri={this.props.uri}/>);
+      case ("user-profile"): return (<ProfileCard token={this.props.token} userId={this.props.userId} username={this.props.username} location = {this.props.location} queryUri={this.props.profileQueryUri} id={this.props.id} type="user-profile" uri={this.props.uri}/>);
+      case ("community-profile"): return (<CommunityCard token={this.props.token} communtityId={this.props.communityId} username={this.props.username} location = {this.props.location} queryUri = {this.props.profileQueryUri} id={this.props.id} type = "community-profile" uri={this.props.uri}/>);
       default: return(<p>Bad Profile Prop</p>);
     }
   }

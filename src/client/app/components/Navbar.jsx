@@ -67,6 +67,10 @@ class Navbar extends React.Component {
 
   handleSearch(){
     var search = ReactDOM.findDOMNode(this.refs.search).value;
+
+    if(search == ""){
+      return;
+    }
     var encodedSearch = encodeURIComponent(search);
 
     this.props.history.push(`/search/${encodedSearch}`);
