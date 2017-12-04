@@ -23,10 +23,19 @@ class Dashboard extends React.Component {
     }
   }
 
+  renderMessage(){
+    switch(this.props.infoCard){
+      case ("home"): return "What's New: Timeline";
+      case ("user-profile"): return "What's New: Your Posts";
+      case ("community-profile"): return "What's New: Community";
+      default: return "What's New";
+    }
+  }
+
   render() {
   	return (
   	 <div className="container dashboard">
-     <h1 className="pl-3 pb-4">What's New</h1>
+     <h1 className="pl-3 pb-4">{this.renderMessage()}</h1>
      <div className="row">
       <div className="col-lg-8 col-12">
         <PostsContainer queryUri = {this.props.postsQueryUri} token={this.props.token} username={this.props.username} uri={this.props.uri}/>
