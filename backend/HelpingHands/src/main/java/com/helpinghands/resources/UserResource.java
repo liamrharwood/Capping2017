@@ -93,7 +93,7 @@ public class UserResource {
         try {
             Files.copy(fileInputStream, outputPath);
         } catch (IOException ex) {
-            throw new WebApplicationException("Unable to save image file.", 500);
+            throw new WebApplicationException(ex.getMessage(), 500);
         }
 
         userDAO.updateImagePathForUser(userPrincipal.getId(), newFileName);
