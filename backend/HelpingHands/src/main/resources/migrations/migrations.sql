@@ -67,3 +67,6 @@ GRANT SELECT ON Reports TO reporting;
 --changeset liamrharwood:11
 DROP SEQUENCE reports_report_id_seq;
 
+--changeset liamrharwood:12
+ALTER TABLE Communities ADD UNIQUE (name);
+

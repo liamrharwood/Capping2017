@@ -6,6 +6,7 @@ import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.user.User;
 import com.helpinghands.core.user.UserProfile;
 import com.helpinghands.core.user.UserRegistration;
+import com.helpinghands.core.user.UserSettings;
 import com.helpinghands.dao.UserDAO;
 import io.dropwizard.auth.Auth;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -116,6 +117,25 @@ public class UserResource {
                 userRegistration.getLastName(),
                 userRegistration.getEmail(),
                 userRegistration.getBirthDate());
+    }
+
+    @PUT
+    @Path("settings")
+    public void updateUserSettings(@Auth UserPrincipal userPrincipal,
+                                   UserSettings userSettings) {
+        if (!userPrincipal.getName().equals(userSettings.getUsername())) {
+            Optional<User> user = Optional.ofNullable(userDAO.getUserByUsername(userSettings.getUsername()));
+            if (user.isPresent()) {
+                throw new WebApplicationException("Username taken.", 400);
+            }
+        }
+
+        userDAO.updateUserSettings(userPrincipal.getId(),
+                userSettings.getUsername(),
+                userSettings.getFirstName(),
+                userSettings.getLastName(),
+                userSettings.getEmail(),
+                userSettings.getBio());
     }
 
     @POST

@@ -13,6 +13,7 @@ import io.dropwizard.auth.Auth;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,32 +40,47 @@ public class PostResource {
     public List<PostCard> getPosts(@Auth Optional<UserPrincipal> userPrincipal,
                                    @QueryParam("post_id") Optional<Integer> postId,
                                    @QueryParam("community_id") Optional<Integer> communityId,
-                                   @QueryParam("user_id") Optional<Integer> userId) {
+                                   @QueryParam("user_id") Optional<Integer> userId,
+                                   @QueryParam("callDate") long callDate,
+                                   @QueryParam("startNum") int startNum,
+                                   @QueryParam("endNum") int endNum) {
+        Timestamp callTimestamp = new Timestamp(callDate);
+        int limit = endNum - startNum + 1;
+        if (limit < 0) {
+            throw new WebApplicationException("Invalid range of posts.", 400);
+        }
         if (userPrincipal.isPresent()) {
-            int authId  = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
+            int authId  = userPrincipal.get().getId();
             if (postId.isPresent()) {
                 return postDAO.getPostByIdWithVoteHistory(authId, postId.get());
             }
             if (communityId.isPresent() && !userId.isPresent()) {
-                return postDAO.getPostsForCommunityWithVoteHistory(authId, communityId.get());
+                return postDAO.getPostsForCommunityWithVoteHistory(authId, communityId.get(),
+                        callTimestamp, startNum, limit);
             }
             if (!communityId.isPresent() && userId.isPresent()) {
-                return postDAO.getPostsForUserWithVoteHistory(authId, userId.get());
+                return postDAO.getPostsForUserWithVoteHistory(authId, userId.get(),
+                        callTimestamp, startNum, limit);
             }
             if (communityId.isPresent() && userId.isPresent()) {
-                return postDAO.getPostsForUserInCommunityWithVoteHistory(authId, userId.get(), communityId.get());
+                return postDAO.getPostsForUserInCommunityWithVoteHistory(authId, userId.get(), communityId.get(),
+                        callTimestamp, startNum, limit);
             }
-            return postDAO.getFollowedPosts(authId);
+            return postDAO.getFollowedPosts(authId,
+                    callTimestamp, startNum, limit);
         } else if (postId.isPresent()) {
             return postDAO.getPostById(postId.get());
         } else if (communityId.isPresent() && !userId.isPresent()) {
-            return postDAO.getPostsForCommunity(communityId.get());
+            return postDAO.getPostsForCommunity(communityId.get(),
+                    callTimestamp, startNum, limit);
         } else if (!communityId.isPresent() && userId.isPresent()) {
-            return postDAO.getPostsForUser(userId.get());
+            return postDAO.getPostsForUser(userId.get(),
+                    callTimestamp, startNum, limit);
         } else if (communityId.isPresent() && userId.isPresent()) {
-            return postDAO.getPostsForUserInCommunity(userId.get(), communityId.get());
+            return postDAO.getPostsForUserInCommunity(userId.get(), communityId.get(),
+                    callTimestamp, startNum, limit);
         }
-        return postDAO.getAllPosts();
+        return postDAO.getAllPosts(callTimestamp, startNum, limit);
     }
 
     @POST

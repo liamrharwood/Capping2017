@@ -11,6 +11,7 @@ import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface PostDAO {
@@ -38,16 +39,19 @@ public interface PostDAO {
             "NULL AS vote " +
             "FROM Posts AS p " +
             "JOIN Users AS u ON p.user_id = u.user_id " +
-            "ORDER BY p.create_date DESC")
+            "WHERE p.create_date < :callDate " +
+            "ORDER BY p.create_date DESC " +
+            "LIMIT :limit " +
+            "OFFSET :startNum ")
     @Mapper(PostCardMapper.class)
-    List<PostCard> getAllPosts();
+    List<PostCard> getAllPosts(@Bind("callDate") Timestamp callDate, @Bind("startNum") int startNum, @Bind("limit") int limit);
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
             "(SELECT direction FROM Votes AS v WHERE v.user_id = :userId AND v.post_id = p.post_id) AS vote " +
             "FROM Posts AS p " +
             "JOIN Follows AS f ON f.followee_id = p.user_id " +
             "JOIN Users   AS u ON u.user_id     = f.followee_id " +
-            "WHERE f.follower_id = :userId " +
+            "WHERE f.follower_id = :userId AND p.create_date < :callDate " +
             "UNION " +
             "SELECT " + CARD_SELECT_FIELDS + ", " +
             "(SELECT direction FROM Votes AS v WHERE v.user_id = :userId AND v.post_id = p.post_id) AS vote " +
@@ -55,68 +59,89 @@ public interface PostDAO {
             "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
             "JOIN Members AS m ON m.community_id = pc.community_id " +
             "JOIN Users AS u ON u.user_id = p.user_id " +
-            "WHERE m.user_id = :userId " +
-            "ORDER BY create_date DESC")
+            "WHERE m.user_id = :userId AND p.create_date < :callDate " +
+            "ORDER BY create_date DESC " +
+            "LIMIT :limit " +
+            "OFFSET :startNum ")
     @Mapper(PostCardMapper.class)
-    List<PostCard> getFollowedPosts(@Bind("userId") int userId);
+    List<PostCard> getFollowedPosts(@Bind("userId") int userId,
+                                    @Bind("callDate") Timestamp callDate,@Bind("startNum") int startNum, @Bind("limit") int limit);
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
             "NULL AS vote " +
             "FROM Posts AS p " +
             "JOIN Users AS u ON p.user_id = u.user_id " +
-            "WHERE p.user_id = :userId " +
-            "ORDER BY p.create_date DESC")
+            "WHERE p.user_id = :userId AND p.create_date < :callDate " +
+            "ORDER BY p.create_date DESC " +
+            "LIMIT :limit " +
+            "OFFSET :startNum ")
     @Mapper(PostCardMapper.class)
-    List<PostCard> getPostsForUser(@Bind("userId") int userId);
+    List<PostCard> getPostsForUser(@Bind("userId") int userId,
+                                   @Bind("callDate") Timestamp callDate,@Bind("startNum") int startNum, @Bind("limit") int limit);
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
             "(SELECT direction FROM Votes AS v WHERE v.user_id = :authId AND v.post_id = p.post_id) AS vote " +
             "FROM Posts AS p " +
             "JOIN Users AS u ON p.user_id = u.user_id " +
-            "WHERE p.user_id = :userId " +
-            "ORDER BY p.create_date DESC")
+            "WHERE p.user_id = :userId AND p.create_date < :callDate " +
+            "ORDER BY p.create_date DESC " +
+            "LIMIT :limit " +
+            "OFFSET :startNum ")
     @Mapper(PostCardMapper.class)
-    List<PostCard> getPostsForUserWithVoteHistory(@Bind("authId") int authId, @Bind("userId") int userId);
+    List<PostCard> getPostsForUserWithVoteHistory(@Bind("authId") int authId, @Bind("userId") int userId,
+                                                  @Bind("callDate") Timestamp callDate, @Bind("startNum") int startNum, @Bind("limit") int limit);
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
             "NULL AS vote " +
             "FROM Posts AS p " +
             "JOIN Users AS u ON p.user_id = u.user_id " +
             "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
-            "WHERE pc.community_id = :communityId " +
-            "ORDER BY p.create_date DESC")
+            "WHERE pc.community_id = :communityId AND p.create_date < :callDate " +
+            "ORDER BY p.create_date DESC " +
+            "LIMIT :limit " +
+            "OFFSET :startNum ")
     @Mapper(PostCardMapper.class)
-    List<PostCard> getPostsForCommunity(@Bind("communityId") int communityId);
+    List<PostCard> getPostsForCommunity(@Bind("communityId") int communityId,
+                                        @Bind("callDate") Timestamp callDate, @Bind("startNum") int startNum, @Bind("limit") int limit);
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + "," +
             "(SELECT direction FROM Votes AS v WHERE v.user_id = :userId AND v.post_id = p.post_id) AS vote " +
             "FROM Posts AS p " +
             "JOIN Users AS u ON p.user_id = u.user_id " +
             "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
-            "WHERE pc.community_id = :communityId " +
-            "ORDER BY p.create_date DESC")
+            "WHERE pc.community_id = :communityId AND p.create_date < :callDate " +
+            "ORDER BY p.create_date DESC " +
+            "LIMIT :limit " +
+            "OFFSET :startNum ")
     @Mapper(PostCardMapper.class)
-    List<PostCard> getPostsForCommunityWithVoteHistory(@Bind("userId") int userId, @Bind("communityId") int communityId);
+    List<PostCard> getPostsForCommunityWithVoteHistory(@Bind("userId") int userId, @Bind("communityId") int communityId,
+                                                       @Bind("callDate") Timestamp callDate, @Bind("startNum") int startNum, @Bind("limit") int limit);
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
             "NULL AS vote " +
             "FROM Posts AS p " +
             "JOIN Users AS u ON p.user_id = u.user_id " +
             "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
-            "WHERE pc.community_id = :communityId AND p.user_id = :userId " +
-            "ORDER BY p.create_date DESC")
+            "WHERE pc.community_id = :communityId AND p.user_id = :userId AND p.create_date < :callDate " +
+            "ORDER BY p.create_date DESC " +
+            "LIMIT :limit " +
+            "OFFSET :startNum ")
     @Mapper(PostCardMapper.class)
-    List<PostCard> getPostsForUserInCommunity(@Bind("userId") int userId, @Bind("communityId") int communityId);
+    List<PostCard> getPostsForUserInCommunity(@Bind("userId") int userId, @Bind("communityId") int communityId,
+                                              @Bind("callDate") Timestamp callDate, @Bind("startNum") int startNum, @Bind("limit") int limit);
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + "," +
             "(SELECT direction FROM Votes AS v WHERE v.user_id = :authId AND v.post_id = p.post_id) AS vote " +
             "FROM Posts AS p " +
             "JOIN Users AS u ON p.user_id = u.user_id " +
             "JOIN PostsToCommunities AS pc ON p.post_id = pc.post_id " +
-            "WHERE pc.community_id = :communityId AND p.user_id = :userId " +
-            "ORDER BY p.create_date DESC")
+            "WHERE pc.community_id = :communityId AND p.user_id = :userId AND p.create_date < :callDate " +
+            "ORDER BY p.create_date DESC " +
+            "LIMIT :limit " +
+            "OFFSET :startNum ")
     @Mapper(PostCardMapper.class)
-    List<PostCard> getPostsForUserInCommunityWithVoteHistory(@Bind("authId") int authId, @Bind("userId") int userId, @Bind("communityId") int communityId);
+    List<PostCard> getPostsForUserInCommunityWithVoteHistory(@Bind("authId") int authId, @Bind("userId") int userId, @Bind("communityId") int communityId,
+                                                             @Bind("callDate") Timestamp callDate, @Bind("startNum") int startNum, @Bind("limit") int limit);
 
     @SqlQuery("SELECT post_update_id, post_id, body_text FROM PostUpdates WHERE post_id = :postId")
     @Mapper(PostUpdateMapper.class)

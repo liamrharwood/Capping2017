@@ -29,6 +29,8 @@ Optional Query Params: post_id, user_id, community_id, callDate, startNum, endNu
 # If a community id is specified, it returns all posts from that community.
 # If not, but basic auth is used, it returns all followed posts for the auth'd user.
 # If no basic auth is used, it returns all posts.
+# callDate is the time of the first call on the page
+# startNum is the index of the first result to get, while endNum is index of the last result to get (for pagination)
 
 [
 	{
@@ -239,6 +241,21 @@ Query Param: user_id
 
 -------------------------------
 
+PUT /users/settings
+
+# Update settings for auth'd user
+
+Request Body:
+{
+	username:
+	firstName:
+	lastName:
+	email:
+	bio:
+}
+
+-------------------------------
+
 GET /communities
 
 # fetch communities followed by the auth'd user
@@ -257,6 +274,18 @@ Response Body:
 		...
 	}
 ]
+
+-------------------------------
+
+POST /communities
+
+# Create new community with auth'd user as moderator
+
+Request Body:
+{
+	name:
+	description
+}
 
 -------------------------------
 

@@ -5,6 +5,7 @@ import com.helpinghands.core.community.CommunityProfile;
 import com.helpinghands.core.mapper.community.CommunityMapper;
 import com.helpinghands.core.mapper.community.CommunityProfileMapper;
 import org.skife.jdbi.v2.sqlobject.Bind;
+import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
@@ -12,6 +13,12 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 import java.util.List;
 
 public interface CommunityDAO {
+    @SqlQuery("SELECT c.community_id, c.name, c.description, c.is_verified, c.create_date, c.ban_status " +
+            "FROM Communities AS c " +
+            "WHERE c.name = :name")
+    @Mapper(CommunityMapper.class)
+    Community getCommunityByName(@Bind("name") String name);
+
     @SqlQuery("SELECT c.community_id, c.name, c.description, c.is_verified, c.create_date, c.ban_status " +
             "FROM Communities AS c " +
             "JOIN Members AS m ON c.community_id = m.community_id " +
@@ -50,4 +57,12 @@ public interface CommunityDAO {
             "WHERE lower(c.name) LIKE :query OR lower(c.description) LIKE :query")
     @Mapper(CommunityMapper.class)
     List<Community> searchCommunities(@Bind("query") String query);
+
+    @SqlUpdate("INSERT INTO Communities (name, description) VALUES (:name, :description)")
+    @GetGeneratedKeys
+    int insertCommunity(@Bind("name") String name, @Bind("description") String description);
+
+    @SqlUpdate("INSERT INTO Members (user_id, community_id, is_moderator) VALUES " +
+            "(:userId, :communityId, TRUE)")
+    void addModerator(@Bind("userId") int userId, @Bind("communityId") int communityId);
 }
