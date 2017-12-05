@@ -25,6 +25,7 @@ class PostSubmitter extends React.Component {
 		this.handleBodyTextChange = this.handleBodyTextChange.bind(this);
 		this.handleTitleChange = this.handleTitleChange.bind(this);
 		this.selectCommunity = this.selectCommunity.bind(this);
+		this.selectAll = this.selectAll.bind(this);
 	}
 
 	/**
@@ -174,11 +175,11 @@ class PostSubmitter extends React.Component {
 					type="button" 
 					key={ id }
 					id={`communityButton-${id}`}
-					className="list-group-item list-group-item-action active" 
+					className="list-group-item list-group-item-action active community-selector-button" 
 					ref={`communityButton-${id}`}
 					onClick={ () => this.selectCommunity(id)}
 				>
-				{community.name}
+				{community.name.length > 25 ? community.name.substring(0,24) + "..." : community.name}
 				</button>
 			);
 		} else {
@@ -187,11 +188,11 @@ class PostSubmitter extends React.Component {
 					type="button" 
 					key={ id }
 					id={`communityButton-${id}`}
-					className="list-group-item list-group-item-action" 
+					className="list-group-item list-group-item-action community-selector-button" 
 					ref={`communityButton-${id}`}
 					onClick={() => this.selectCommunity(id)}
 				>
-				{community.name}
+				{community.name.length > 25 ? community.name.substring(0,24) + "..." : community.name}
 				</button>
 			);
 		}
@@ -222,6 +223,18 @@ class PostSubmitter extends React.Component {
 			this.setState({ selectedCommunities });
 
 		}
+	}
+
+	selectAll(){
+
+
+		var allCommunities = [];
+
+		for(var i = 0; i < this.state.communities.length; i++){
+			allCommunities.push(this.state.communities[i].communityId);
+		}
+
+		this.setState({ selectedCommunities: allCommunities })
 	}
 
 	/**
@@ -275,6 +288,7 @@ class PostSubmitter extends React.Component {
 									htmlFor="postBodyText">
 									Select Communities
 								</label>
+								<button type="button" className="btn btn-outline-primary select-all-button ml-2" onClick={this.selectAll} >Select All</button>
 								<div className="communityBox list-group">
 									{this.renderCommunitySelect(this.state.communities, this.state.selectedCommunities)}
 								</div>
