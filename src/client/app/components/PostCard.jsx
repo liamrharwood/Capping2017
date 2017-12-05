@@ -226,9 +226,10 @@ class PostCard extends React.Component {
 							<h6 className="card-subtitle text-muted">
 								<Link 
 									to={`/users/${this.props.userId}`}  
-									className="text-muted" >
+									className="text-muted">
 									@{this.props.user}
-								</Link> {this.props.createDate}
+								</Link>
+								{this.props.createDate}
 							</h6>
 							<h6 className="post-body mt-2">
 								{this.props.bodyText}

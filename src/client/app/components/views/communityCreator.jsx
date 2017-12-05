@@ -6,20 +6,23 @@ import Navbar from '../Navbar.jsx';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
+/**
+*TODO
+*
+*/
 class CommunityCreator extends React.Component {
-
 	constructor(props){
 		super(props);
 		this.state = {
-			
-			
+				
 		};
 	}
-
-	componentDidMount(){
-		
-	}
-
+	
+	/**
+	*TODO
+	*
+	*@return {} -
+	*/
 	render(){
 		return (
 			<div id="creator">

@@ -4,8 +4,8 @@ import Logo from '../components/Logo.jsx';
 import {
 	BrowserRouter as Router,
 	Route,
-	Link
-} from 'react-router-dom'
+	Link } 
+	from 'react-router-dom'
 import axios from 'axios';
 
 /**
