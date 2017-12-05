@@ -175,15 +175,15 @@ class Navbar extends React.Component {
 						<input 
 							className="form-control mr-sm-2" 
 							type="search" 
-              ref = "search"
-              onKeyDown={this.keyPress}
+              				ref = "search"
+              				onKeyDown={this.keyPress}
 							placeholder="Search" 
 							aria-label="Search"
 						/>
 						<button 
 							className="btn btn-outline-light my-2 my-sm-0" 
 							type="button"
-              onClick={this.handleSearch}>
+              				onClick={this.handleSearch}>
 							Search
 						</button>
 					</form>

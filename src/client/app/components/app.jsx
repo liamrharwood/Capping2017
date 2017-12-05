@@ -37,6 +37,7 @@ class App extends React.Component {
 			username: PropTypes.string,     //TODO
 			token: PropTypes.string,        //TODO
 			uri: "http://10.10.7.191:8080", //TODO
+		//    uri: "https://35.190.132.190:22",
 			userId: PropTypes.number,       //TODO
 		};
 		this.auth = this.auth.bind(this);
