@@ -260,6 +260,18 @@ Response Body:
 
 -------------------------------
 
+POST /communities
+
+# Create new community with auth'd user as moderator
+
+Request Body:
+{
+	name:
+	description
+}
+
+-------------------------------
+
 GET /communities/profile?id=[communityId]
 
 # fetch profile data for a given community
