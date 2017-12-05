@@ -256,6 +256,16 @@ Request Body:
 
 -------------------------------
 
+PUT /users/settings/password
+
+# Change the auth'd user's password
+
+Request Body (plaintext, not JSON):
+
+[new password]
+
+-------------------------------
+
 GET /communities
 
 # fetch communities followed by the auth'd user

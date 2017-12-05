@@ -88,6 +88,10 @@ public interface UserDAO {
                             @Bind("email") String email,
                             @Bind("bio") String bio);
 
+    @SqlUpdate("UPDATE Users SET password_hash = :newPassword " +
+            "WHERE user_id = :id")
+    void changePassword(@Bind("id") int id, @Bind("newPassword") String newPassword);
+
     @SqlUpdate("INSERT INTO Follows (follower_id, followee_id) " +
             "VALUES (:followerId, :followeeId) " +
             "ON CONFLICT DO NOTHING")

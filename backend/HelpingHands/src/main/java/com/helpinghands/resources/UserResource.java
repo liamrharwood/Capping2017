@@ -138,6 +138,17 @@ public class UserResource {
                 userSettings.getBio());
     }
 
+    @PUT
+    @Path("settings/password")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void updateUserSettings(@Auth UserPrincipal userPrincipal,
+                                   String newPassword) {
+        PasswordEncryption passwordEncryption = new PasswordEncryption();
+        String passwordHash = passwordEncryption.hash(newPassword.toCharArray());
+
+        userDAO.changePassword(userPrincipal.getId(), passwordHash);
+    }
+
     @POST
     @Path("login")
     public LoginObject login(@Auth UserPrincipal userPrincipal) {
