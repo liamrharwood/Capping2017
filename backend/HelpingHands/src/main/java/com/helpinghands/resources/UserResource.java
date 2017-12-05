@@ -98,22 +98,22 @@ public class UserResource {
 
     @POST
     @Path("register")
-    public String registerNewUser(UserRegistration userRegistration) {
+    public void registerNewUser(UserRegistration userRegistration) {
         PasswordEncryption passwordEncryption = new PasswordEncryption();
         String passwordHash = passwordEncryption.hash(userRegistration.getPassword().toCharArray());
 
-        try {
-            userDAO.insertNewUser(
-                    userRegistration.getUsername(),
-                    passwordHash,
-                    userRegistration.getFirstName(),
-                    userRegistration.getLastName(),
-                    userRegistration.getEmail(),
-                    userRegistration.getBirthDate());
-            return "SUCCESS";
-        } catch (Exception ex) {
-            return ex.toString();
+        Optional<User> user = Optional.ofNullable(userDAO.getUserByUsername(userRegistration.getUsername()));
+        if (user.isPresent()) {
+            throw new WebApplicationException("Username taken.", 400);
         }
+
+        userDAO.insertNewUser(
+                userRegistration.getUsername(),
+                passwordHash,
+                userRegistration.getFirstName(),
+                userRegistration.getLastName(),
+                userRegistration.getEmail(),
+                userRegistration.getBirthDate());
     }
 
     @POST
