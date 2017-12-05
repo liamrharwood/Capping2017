@@ -24,7 +24,7 @@ class Search extends React.Component {
 	*
 	*/
 	componentDidMount(){
-		this.setState({ search: this.decodedSearch() });
+		this.setState({ search: this.decodeSearch() });
 	}
 
 	/**
