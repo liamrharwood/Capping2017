@@ -3,6 +3,7 @@ package com.helpinghands.resources;
 import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.community.Community;
 import com.helpinghands.core.community.CommunityProfile;
+import com.helpinghands.core.community.CommunityRequest;
 import com.helpinghands.core.report.Report;
 import com.helpinghands.core.user.User;
 import com.helpinghands.dao.CommunityDAO;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @Path("/communities")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class CommunityResource {
     private CommunityDAO communityDAO;
     private UserDAO userDAO;
@@ -61,5 +63,16 @@ public class CommunityResource {
         communityDAO.unfollowCommunity(userId, communityId);
     }
 
+    @POST
+    public void createCommunity(@Auth UserPrincipal userPrincipal,
+                                CommunityRequest communityRequest) {
+        Optional<Community> community = Optional.ofNullable(communityDAO.getCommunityByName(communityRequest.getName()));
+        if (community.isPresent()) {
+            throw new WebApplicationException("A community with that name already exists.", 400);
+        }
+
+        int communityId = communityDAO.insertCommunity(communityRequest.getName(), communityRequest.getDescription());
+        communityDAO.addModerator(userPrincipal.getId(), communityId);
+    }
 
 }
