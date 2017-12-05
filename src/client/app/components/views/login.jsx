@@ -21,7 +21,6 @@ class Login extends React.Component {
 		this.state = {
 			registerError: -1     //TODO
 		};
-
 		this.authLogin = this.authLogin.bind(this);
 		this.redirect = this.redirect.bind(this);
 		this.keyPress = this.keyPress.bind(this);
@@ -62,9 +61,11 @@ class Login extends React.Component {
 	*
 	*/
 	registerButtonClick(){
-		if(ReactDOM.findDOMNode(this.refs.registerPassword).value == ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value){
-			this.registerNewUser();
-		}
+		if(ReactDOM.findDOMNode(this.refs.registerPassword).value != ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value){
+      		this.setState({ registerError: 1 });
+    	} else {
+      		this.registerNewUser();
+    	}
 	}
 
 	/**
@@ -73,31 +74,30 @@ class Login extends React.Component {
 	*/
 	registerNewUser(){
 		axios({
-			method:'post',
-			url: `${this.props.uri}/users/register`,
-			data:{
-				username: ReactDOM.findDOMNode(this.refs.registerUsername).value,
-				password: ReactDOM.findDOMNode(this.refs.registerPassword).value,
-				firstName: ReactDOM.findDOMNode(this.refs.registerFirstName).value,
-				lastName: ReactDOM.findDOMNode(this.refs.registerLastName).value,
-				email: ReactDOM.findDOMNode(this.refs.registerEmail).value,
-				birthDate: ReactDOM.findDOMNode(this.refs.registerBirth).value,
-			},
-		})
-		.then(res => {
-			ReactDOM.findDOMNode(this.refs.registerUsername).value = "",
-			ReactDOM.findDOMNode(this.refs.registerPassword).value = "",
-			ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value = "",
-			ReactDOM.findDOMNode(this.refs.registerFirstName).value = "",
-			ReactDOM.findDOMNode(this.refs.registerLastName).value = "",
-			ReactDOM.findDOMNode(this.refs.registerEmail).value = "",
-			ReactDOM.findDOMNode(this.refs.registerBirth).value = "",
-			this.setState({ registerError: 0} )
-		}).catch((error) => {
-			if (error.response) {
-			
-			}
-		});
+        	method:'post',
+        	url: `${this.props.uri}/users/register`,
+        	data:{
+          		username: ReactDOM.findDOMNode(this.refs.registerUsername).value,
+          		password: ReactDOM.findDOMNode(this.refs.registerPassword).value,
+          		firstName: ReactDOM.findDOMNode(this.refs.registerFirstName).value,
+          		lastName: ReactDOM.findDOMNode(this.refs.registerLastName).value,
+          		email: ReactDOM.findDOMNode(this.refs.registerEmail).value,
+          		birthDate: ReactDOM.findDOMNode(this.refs.registerBirth).value,
+        	},
+    	}).then(res => {
+	        ReactDOM.findDOMNode(this.refs.registerUsername).value = "",
+	        ReactDOM.findDOMNode(this.refs.registerPassword).value = "",
+	        ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value = "",
+	        ReactDOM.findDOMNode(this.refs.registerFirstName).value = "",
+	        ReactDOM.findDOMNode(this.refs.registerLastName).value = "",
+	        ReactDOM.findDOMNode(this.refs.registerEmail).value = "",
+	        ReactDOM.findDOMNode(this.refs.registerBirth).value = "",
+	        this.setState({ registerError: 0} )
+      	}).catch((error) => {
+        	if (error.response) {
+
+        	}
+      });
 	}
 
 	/**
@@ -108,15 +108,14 @@ class Login extends React.Component {
 	*/
 	renderLoginErrors(props){
 		if(this.props.wrongCreds){
-			return (
-				<div 
-					className="alert alert-danger">
-					Wrong Username or Password
-				</div>
-			);
-		} else {
-			return;
-		}
+      		return (
+      			<div className="alert alert-danger">
+      				Wrong Username or Password
+      			</div>
+      		);
+    	} else {
+      		return;
+    	}
 	}
 
 	/**

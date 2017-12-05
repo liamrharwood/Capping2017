@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Logo from '../components/Logo.jsx';
 import {
@@ -18,6 +19,8 @@ class Navbar extends React.Component {
 		this.state = {
 			data: PropTypes.Array,     //TODO
 		};
+    this.handleSearch = this.handleSearch.bind(this);
+    this.keyPress = this.keyPress.bind(this);
 	}
 
 	/**
@@ -98,6 +101,23 @@ class Navbar extends React.Component {
 		);
 	}
 
+  handleSearch(){
+    var search = ReactDOM.findDOMNode(this.refs.search).value;
+
+    if(search == ""){
+      return;
+    }
+    var encodedSearch = encodeURIComponent(search);
+
+    this.props.history.push(`/search/${encodedSearch}`);
+  }
+
+  keyPress(e){
+    if(e.keyCode == 13){
+         this.handleSearch();
+      }
+  }
+
 
   	/**
 	*TODO
@@ -146,6 +166,8 @@ class Navbar extends React.Component {
 								className="dropdown-menu" 
 								aria-labelledby="navbarDropdown">
 								{this.renderCommunitiesDropdown()}
+                <div className="dropdown-divider"></div>
+                <Link to={`/communities/create`} className="dropdown-item">Create your own community!</Link>
 							</div>
 						</li>
 					</ul>
@@ -153,12 +175,15 @@ class Navbar extends React.Component {
 						<input 
 							className="form-control mr-sm-2" 
 							type="search" 
+              ref = "search"
+              onKeyDown={this.keyPress}
 							placeholder="Search" 
 							aria-label="Search"
 						/>
 						<button 
 							className="btn btn-outline-light my-2 my-sm-0" 
-							type="submit">
+							type="button"
+              onClick={this.handleSearch}>
 							Search
 						</button>
 					</form>

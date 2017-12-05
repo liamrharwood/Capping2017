@@ -40,7 +40,7 @@ class Dashboard extends React.Component {
 						token={this.props.token} 
 						username={this.props.username} 
 						location = {this.props.location} 
-						queryUri={this.props.profileQueryUri} 
+						queryUri={this.props.profileQueryUri}
 						id={this.props.id} 
 						type="user-profile" 
 						uri={this.props.uri}
@@ -83,6 +83,7 @@ class Dashboard extends React.Component {
 		}
 	}
 
+
 	/**
 	*TODO
 	*
@@ -100,6 +101,8 @@ class Dashboard extends React.Component {
 							queryUri = {this.props.postsQueryUri} 
 							token={this.props.token} 
 							username={this.props.username} 
+              communtityId={this.props.communityId}
+              userId={this.props.userId} 
 							uri={this.props.uri}
 						/>
 					</div>

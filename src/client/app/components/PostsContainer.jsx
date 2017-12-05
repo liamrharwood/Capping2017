@@ -52,9 +52,9 @@ class PostsContainer extends React.Component {
 		var endNum = (this.state.pageNum) * this.state.numPostsPerPage;
 
 		axios({
-			method:'get',
-			url: this.props.queryUri,
-			headers:{
+		  	method:'get',
+		  	url: `${this.props.queryUri}?${this.props.communityId ? 'community_id=' + this.props.communityId + '&' : ''}${this.props.userId ? 'user_id=' + this.props.userId + '&' : ''}callDate=${callDate}&startNum=${startNum}&endNum=${endNum}`,
+		  	headers:{
 				'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
 			},
 			responseType: 'json',

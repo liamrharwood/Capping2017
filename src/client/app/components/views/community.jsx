@@ -34,13 +34,14 @@ class Community extends React.Component {
 				/>
 				<Dashboard 
 					location = {this.props.location.pathname}
-					postsQueryUri = {`${this.props.uri}/posts?community_id=${this.props.match.params.communityId}`}
-					profileQueryUri = {`${this.props.uri}/communities/`}
-					id={this.props.match.params.communityId}
-					infoCard="community-profile"
-					token={this.props.token} 
-					username={this.props.username}
-					uri={this.props.uri}
+    				postsQueryUri = {`${this.props.uri}/posts`}
+    				profileQueryUri = {`${this.props.uri}/communities/`}
+            		communityId = {this.props.match.params.communityId}
+		            id={this.props.match.params.communityId}
+		    		infoCard="community-profile"
+		            token={this.props.token} 
+		            username={this.props.username}
+		            uri={this.props.uri}
 				/>
 			</div>
 		);
