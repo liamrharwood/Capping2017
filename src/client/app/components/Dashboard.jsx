@@ -104,6 +104,7 @@ class Dashboard extends React.Component {
 				            communityId={this.props.communityId}
 				            userId={this.props.userId} 
 							uri={this.props.uri}
+							unath={this.props.unath}
 						/>
 					</div>
 					<div className="col-md-4 d-none d-lg-block">

@@ -57,7 +57,9 @@ class Report extends React.Component {
 			this.setState({ data: data[0], score: data[0].score, vote: data[0].vote });
 		}).catch(function (error) {
 			if (error.response) {
-
+				if(error.response.status == 401){
+					props.unauth();
+				}
 			}
 		});
 	}
@@ -85,7 +87,11 @@ class Report extends React.Component {
 			this.setState({ reportStatus: 2 });
 		}).catch(function (error) {
 			if (error.response) {
-				self.setState({ reportStatus: -1});
+				if(error.response.status == 401){
+					props.unauth();
+				} else {
+					self.setState({ reportStatus: -1});
+				}
 			}
 		});
 	}
