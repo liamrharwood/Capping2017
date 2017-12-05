@@ -111,4 +111,12 @@ public interface UserDAO {
             "UPDATE Users SET reputation_points = (pray_points + 5 * answered_points + 3 * report_points + upvote_points) " +
             "WHERE user_id IN (SELECT user_id FROM Votes WHERE post_id = :postId)")
     void onCompletePostUpdatePoints(@Bind("postId") int postId);
+
+    @SqlQuery("SELECT " + SELECT_FIELDS + " FROM Users " +
+            "WHERE lower(username) LIKE :query OR " +
+            "lower(bio) LIKE :query OR " +
+            "lower(first_name) LIKE :query OR " +
+            "lower(last_name) LIKE :query")
+    @Mapper(UserMapper.class)
+    List<User> searchUsers(@Bind("query") String query);
 }

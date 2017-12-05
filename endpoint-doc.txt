@@ -4,7 +4,21 @@
 #							  #
 ###############################
 
+-------------------------------
 
+GET /search
+
+Query Param: q
+
+Returns search results for the given query "q"
+
+{
+	users: []
+	communities: []
+	posts: []
+}
+
+-------------------------------
 
 GET /posts 
 

@@ -137,4 +137,13 @@ public interface PostDAO {
     @SqlUpdate("INSERT INTO Votes (user_id, post_id, direction) VALUES (:userId, :postId, :direction) " +
             "ON CONFLICT ON CONSTRAINT votes_pkey DO UPDATE SET direction = :direction")
     void voteOnPost(@Bind("userId") int userId, @Bind("postId") int postId, @Bind("direction") int direction);
+
+    @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
+            "NULL AS vote " +
+            "FROM Posts AS p " +
+            "JOIN Users AS u ON p.user_id = u.user_id " +
+            "WHERE lower(p.post_title) LIKE :query OR lower(p.body_text) LIKE :query " +
+            "ORDER BY p.create_date DESC")
+    @Mapper(PostCardMapper.class)
+    List<PostCard> searchPosts(@Bind("query") String query);
 }

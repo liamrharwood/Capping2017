@@ -44,4 +44,10 @@ public interface CommunityDAO {
 
     @SqlUpdate("DELETE FROM Members WHERE user_id = :userId AND community_id = :communityId")
     void unfollowCommunity(@Bind("userId") int userId, @Bind("communityId") int communityId);
+
+    @SqlQuery("SELECT c.community_id, c.name, c.description, c.is_verified, c.create_date, c.ban_status " +
+            "FROM Communities AS c " +
+            "WHERE lower(c.name) LIKE :query OR lower(c.description) LIKE :query")
+    @Mapper(CommunityMapper.class)
+    List<Community> searchCommunities(@Bind("query") String query);
 }

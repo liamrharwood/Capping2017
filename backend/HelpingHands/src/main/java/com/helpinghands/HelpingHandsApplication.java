@@ -3,10 +3,7 @@ package com.helpinghands;
 import com.google.common.collect.Lists;
 import com.helpinghands.auth.*;
 import com.helpinghands.dao.*;
-import com.helpinghands.resources.CommunityResource;
-import com.helpinghands.resources.ModeratorResource;
-import com.helpinghands.resources.PostResource;
-import com.helpinghands.resources.UserResource;
+import com.helpinghands.resources.*;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthFilter;
@@ -71,6 +68,7 @@ public class HelpingHandsApplication extends Application<HelpingHandsConfigurati
         environment.jersey().register(new PostResource(postDAO, userDAO, commentDAO, reportDAO));
         environment.jersey().register(new CommunityResource(communityDAO, userDAO));
         environment.jersey().register(new ModeratorResource(userDAO, reportDAO));
+        environment.jersey().register(new SearchResource(communityDAO, postDAO, userDAO));
 
         BasicCredentialAuthFilter basicCredentialAuthFilter = new BasicCredentialAuthFilter.Builder<UserPrincipal>()
                 .setPrefix("Basic")
