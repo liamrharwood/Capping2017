@@ -173,7 +173,7 @@ class ProfileCard extends React.Component {
 					<div className="row">
 						<div className="col-4">
 							<img 
-									src={this.state.profileData.profileImagePath}
+									src={"images/" + this.state.profileData.profileImagePath}
 									className="profile-pic"
 							/>
 						</div>
