@@ -63,7 +63,7 @@ public class UserResource {
                            @QueryParam("user_id") int followeeId) {
         int followerId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
         if (followeeId == followerId) {
-            throw new BadRequestException();
+            throw new WebApplicationException("You cannot follow yourself", 400);
         }
         userDAO.followUser(followerId, followeeId);
     }
@@ -74,7 +74,7 @@ public class UserResource {
                              @QueryParam("user_id") int followeeId) {
         int followerId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
         if (followeeId == followerId) {
-            throw new BadRequestException();
+            throw new WebApplicationException("You cannot unfollow yourself", 400);
         }
         userDAO.unfollowUser(followerId, followeeId);
     }
@@ -82,18 +82,20 @@ public class UserResource {
     @POST
     @Path("images")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadImage(@Auth UserPrincipal userPrincipal,
+    public void uploadImage(@Auth UserPrincipal userPrincipal,
                                 @FormDataParam("file") InputStream fileInputStream,
-                                @FormDataParam("fileName") String fileName) throws IOException {
+                                @FormDataParam("fileName") String fileName) {
         UUID uuid = UUID.randomUUID();
         String newFileName = uuid.toString() + "-" + System.currentTimeMillis() + "-" + fileName;
 
         java.nio.file.Path outputPath = FileSystems.getDefault().getPath("/var/www/html/images", newFileName);
-        Files.copy(fileInputStream, outputPath);
+        try {
+            Files.copy(fileInputStream, outputPath);
+        } catch (IOException ex) {
+            throw new WebApplicationException("Unable to save image file.", 500);
+        }
 
         userDAO.updateImagePathForUser(userPrincipal.getId(), newFileName);
-
-        return Response.ok().build();
     }
 
     @POST
