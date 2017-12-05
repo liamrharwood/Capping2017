@@ -61,11 +61,19 @@ class Login extends React.Component {
 	*
 	*/
 	registerButtonClick(){
-		if(ReactDOM.findDOMNode(this.refs.registerPassword).value != ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value){
-      		this.setState({ registerError: 1 });
-    	} else {
-      		this.registerNewUser();
-    	}
+		if (ReactDOM.findDOMNode(this.refs.registerFirstName).value.trim() == ""
+			|| ReactDOM.findDOMNode(this.refs.registerLastName).value.trim() == ""
+			|| ReactDOM.findDOMNode(this.refs.registerUsername).value.trim() == ""
+			|| ReactDOM.findDOMNode(this.refs.registerPassword).value.trim() == ""
+			|| ReactDOM.findDOMNode(this.refs.registerEmail).value.trim() == ""
+			|| ReactDOM.findDOMNode(this.refs.registerBirth).value.trim() == ""
+			|| ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value.trim() == ""){
+			this.setState({ registerError: 3 })
+		} else if(ReactDOM.findDOMNode(this.refs.registerPassword).value != ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value){
+			this.setState({ registerError: 1 });
+		} else {
+			this.registerNewUser();
+		}
 	}
 
 	/**
@@ -74,30 +82,32 @@ class Login extends React.Component {
 	*/
 	registerNewUser(){
 		axios({
-        	method:'post',
-        	url: `${this.props.uri}/users/register`,
-        	data:{
-          		username: ReactDOM.findDOMNode(this.refs.registerUsername).value,
-          		password: ReactDOM.findDOMNode(this.refs.registerPassword).value,
-          		firstName: ReactDOM.findDOMNode(this.refs.registerFirstName).value,
-          		lastName: ReactDOM.findDOMNode(this.refs.registerLastName).value,
-          		email: ReactDOM.findDOMNode(this.refs.registerEmail).value,
-          		birthDate: ReactDOM.findDOMNode(this.refs.registerBirth).value,
-        	},
-    	}).then(res => {
-	        ReactDOM.findDOMNode(this.refs.registerUsername).value = "",
-	        ReactDOM.findDOMNode(this.refs.registerPassword).value = "",
-	        ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value = "",
-	        ReactDOM.findDOMNode(this.refs.registerFirstName).value = "",
-	        ReactDOM.findDOMNode(this.refs.registerLastName).value = "",
-	        ReactDOM.findDOMNode(this.refs.registerEmail).value = "",
-	        ReactDOM.findDOMNode(this.refs.registerBirth).value = "",
-	        this.setState({ registerError: 0} )
-      	}).catch((error) => {
-        	if (error.response) {
-
-        	}
-      });
+			method:'post',
+			url: `${this.props.uri}/users/register`,
+			data:{
+				username: ReactDOM.findDOMNode(this.refs.registerUsername).value,
+				password: ReactDOM.findDOMNode(this.refs.registerPassword).value,
+				firstName: ReactDOM.findDOMNode(this.refs.registerFirstName).value,
+				lastName: ReactDOM.findDOMNode(this.refs.registerLastName).value,
+				email: ReactDOM.findDOMNode(this.refs.registerEmail).value,
+				birthDate: ReactDOM.findDOMNode(this.refs.registerBirth).value,
+			},
+		}).then(res => {
+			ReactDOM.findDOMNode(this.refs.registerUsername).value = "",
+			ReactDOM.findDOMNode(this.refs.registerPassword).value = "",
+			ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value = "",
+			ReactDOM.findDOMNode(this.refs.registerFirstName).value = "",
+			ReactDOM.findDOMNode(this.refs.registerLastName).value = "",
+			ReactDOM.findDOMNode(this.refs.registerEmail).value = "",
+			ReactDOM.findDOMNode(this.refs.registerBirth).value = "",
+			this.setState({ registerError: 0} )
+		}).catch((error) => {
+			if (error.response) {
+				if(error.response.status == 205){
+					this.setState({ registerError: 2 })
+				}
+			}
+		});
 	}
 
 	/**
@@ -108,14 +118,14 @@ class Login extends React.Component {
 	*/
 	renderLoginErrors(props){
 		if(this.props.wrongCreds){
-      		return (
-      			<div className="alert alert-danger">
-      				Wrong Username or Password
-      			</div>
-      		);
-    	} else {
-      		return;
-    	}
+			return (
+				<div className="alert alert-danger">
+					Wrong Username or Password
+				</div>
+			);
+		} else {
+			return;
+		}
 	}
 
 	/**
@@ -127,19 +137,33 @@ class Login extends React.Component {
 		var re = this.state.registerError;
 		switch(re){
 			case(-1): 
-				return; 
+				return;
 				break;
-			case(0): 
-				return (
+			case(0):
+				return( 
 					<div className="alert alert-success">
 						Account created successfully! Please log in to the right.
 					</div>
 				);
 				break;
 			case(1): 
-				return (
+				return( 
 					<div className="alert alert-danger">
 						Entered passwords don't match
+					</div>
+				);
+				break;
+			case(2): 
+				return( 
+					<div className="alert alert-danger">
+						Sorry, that username is already taken.
+					</div>
+				);
+				break;
+			case(3): 
+				return( 
+					<div className="alert alert-danger">
+						Please fill in all required fields.
 					</div>
 				);
 				break;
@@ -176,6 +200,9 @@ class Login extends React.Component {
 							<div className="form-group">
 								<label htmlFor="inputFirstName">
 									First Name
+									<span style={{ color: 'red' }}>
+										*
+									</span>
 								</label>
 								<input 
 									type="text" 
@@ -188,6 +215,9 @@ class Login extends React.Component {
 							<div className="form-group">
 								<label htmlFor="inputLastName">
 									Last Name
+									<span style={{ color: 'red' }}>
+										*
+									</span>
 								</label>
 								<input 
 									type="text" 
@@ -200,6 +230,9 @@ class Login extends React.Component {
 							<div className="form-group">
 								<label htmlFor="inputUsername">
 									Your Personal Username
+									<span style={{ color: 'red' }}>
+										*
+									</span>
 								</label>
 								<div 
 									className="input-group" 
@@ -222,6 +255,9 @@ class Login extends React.Component {
 							<div className="form-group">
 								<label htmlFor="exampleInputEmail1">
 									Email address
+									<span style={{ color: 'red' }}>
+										*
+									</span>
 								</label>
 								<input 
 									type="text" 
@@ -240,6 +276,9 @@ class Login extends React.Component {
 							<div className="form-group">
 								<label htmlFor="inputPassword">
 									Password
+									<span style={{ color: 'red' }}>
+										*
+									</span>
 								</label>
 								<input 
 									type="password" 
@@ -252,6 +291,9 @@ class Login extends React.Component {
 							<div className="form-group">
 								<label htmlFor="inputConfirmPassword">
 									Confirm Password
+									<span style={{ color: 'red' }}>
+										*
+									</span>
 								</label>
 								<input 
 									type="password" 
@@ -264,6 +306,9 @@ class Login extends React.Component {
 							<div className="form-group">
 								<label htmlFor="inputBirth">
 									Birth Date
+									<span style={{ color: 'red' }}>
+										*
+									</span>
 								</label>
 								<input 
 									type="date" 
