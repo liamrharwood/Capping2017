@@ -115,8 +115,7 @@ public interface UserDAO {
     @SqlQuery("SELECT " + SELECT_FIELDS + " FROM Users " +
             "WHERE lower(username) LIKE :query OR " +
             "lower(bio) LIKE :query OR " +
-            "lower(first_name) LIKE :query OR " +
-            "lower(last_name) LIKE :query")
+            "lower(first_name) || ' ' || lower(last_name) LIKE :query")
     @Mapper(UserMapper.class)
     List<User> searchUsers(@Bind("query") String query);
 }
