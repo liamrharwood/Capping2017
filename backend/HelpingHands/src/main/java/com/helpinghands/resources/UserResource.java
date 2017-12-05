@@ -93,7 +93,7 @@ public class UserResource {
         try {
             Files.copy(fileInputStream, outputPath);
         } catch (IOException ex) {
-            throw new WebApplicationException(ex.getMessage(), 500);
+            throw new WebApplicationException(ex.getCause() + ex.getMessage(), 500);
         }
 
         userDAO.updateImagePathForUser(userPrincipal.getId(), newFileName);
