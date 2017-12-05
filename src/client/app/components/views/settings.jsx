@@ -213,7 +213,7 @@ class Settings extends React.Component {
 						<img 
 							src=""
 							ref="settingProfilePic"
-							class="profilePic"
+							class="profile-pic"
 						/>
 						<div className="form-group">
      							<input 
