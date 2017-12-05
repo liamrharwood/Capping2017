@@ -85,16 +85,16 @@ public class UserResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public void uploadImage(@Auth UserPrincipal userPrincipal,
                                 @FormDataParam("file") InputStream fileInputStream,
-                                @FormDataParam("fileName") String fileName) {
+                                @FormDataParam("fileName") String fileName) throws IOException {
         UUID uuid = UUID.randomUUID();
         String newFileName = uuid.toString() + "-" + System.currentTimeMillis() + "-" + fileName;
 
         java.nio.file.Path outputPath = FileSystems.getDefault().getPath("/var/www/html/images", newFileName);
-        try {
+        //try {
             Files.copy(fileInputStream, outputPath);
-        } catch (IOException ex) {
-            throw new WebApplicationException(ex.getCause() + ex.getMessage(), 500);
-        }
+        //} catch (IOException ex) {
+            //throw new WebApplicationException(ex.getCause() + ex.getMessage(), 500);
+        //}
 
         userDAO.updateImagePathForUser(userPrincipal.getId(), newFileName);
     }
