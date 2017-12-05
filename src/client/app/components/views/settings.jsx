@@ -14,9 +14,16 @@ class Settings extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			profileData : PropTypes.Object      //TODO
-			
+			profileData : PropTypes.Object,      //TODO
 		};
+
+		this.uploadProfilePicture = this.uploadProfilePicture.bind(this);
+		this.fetchData = this.fetchData.bind(this);
+		this.foo = this.foo.bind(this);
+	}
+
+	foo() {
+		console.log(this.state);
 	}
 
 	/**
@@ -25,6 +32,38 @@ class Settings extends React.Component {
 	*/
 	componentDidMount(){
 		this.fetchData();
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if(this.state.profileData == prevState.profileData){
+			this.fetchPostCards();
+		}
+	}
+
+	uploadProfilePicture(){
+		const data = new FormData();
+		const imageData = document.querySelector('#imageFile').files[0];
+		const fileName = document.querySelector('#imageFile').value.replace("C:\\fakepath\\", "");
+
+		data.append('file', imageData);
+		data.append('fileName', fileName);
+
+		axios({
+		method:'post',
+			url: `${this.props.uri}/users/images`,
+			headers:{
+				'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+			},
+			responseType: 'json',
+			data: data
+		}).then(res => {
+			console.log(res);
+			this.fetchData();
+		}).catch(function (error) {
+			if (error.response) {
+				console.log(error);
+			}
+		});
 	}
 
 	/**
@@ -40,13 +79,13 @@ class Settings extends React.Component {
 			},
 			responseType: 'json'
 		}).then(res => {
-			console.log(res)
 			ReactDOM.findDOMNode(this.refs.settingsFirstName).value = res.data.firstName;
 			ReactDOM.findDOMNode(this.refs.settingsLastName).value = res.data.lastName;
 			ReactDOM.findDOMNode(this.refs.settingsUserName).value = res.data.username;
 			ReactDOM.findDOMNode(this.refs.settingsEmail).value = "";
 			ReactDOM.findDOMNode(this.refs.settingsPassword).value = "";
 			ReactDOM.findDOMNode(this.refs.settingsBio).value = res.data.bio;
+			document.querySelector("img").src = "images/" + res.data.profileImagePath;
 			this.setState({ profileData });
 		}).catch(function (error) {
 			if (error.response) {
@@ -161,6 +200,29 @@ class Settings extends React.Component {
 						<div className = "offset-1 col-3">
 							<button className="btn btn-primary" /*onClick={this.saveAccountChanges}*/ >Save Changes</button>
 						</div>
+					</div>
+					<div className = "row mb-5">
+						<div className = "offset-1 col-9">
+							<h2 onClick={this.foo} className= "mt-5">
+								Change Your Profile Picture
+							</h2>
+						</div>
+						<img 
+							src=""
+							ref="settingProfilePic" 
+						/>
+						<div className="form-group">
+     							<input 
+     								id="imageFile"
+     								type="file" 
+     								name="file"
+     							/>
+     							<input 
+     								type="submit" 
+     								value="Upload"
+     								onClick={this.uploadProfilePicture}
+     							/>
+						</div>					
 					</div>
 					<div className = "row mb-5">
 						<div className = "offset-1 col-9">
