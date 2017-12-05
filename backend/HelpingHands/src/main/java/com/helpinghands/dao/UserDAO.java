@@ -78,6 +78,16 @@ public interface UserDAO {
                        @Bind("email") String email,
                        @Bind("birth_date") Date birthDate);
 
+    @SqlUpdate("UPDATE Users SET username = :username, first_name = :firstName, last_name = :lastName, " +
+            "email = :email, bio = :bio " +
+            "WHERE user_id = :id")
+    void updateUserSettings(@Bind("id") int id,
+                            @Bind("username") String username,
+                            @Bind("firstName") String firstName,
+                            @Bind("lastName") String lastName,
+                            @Bind("email") String email,
+                            @Bind("bio") String bio);
+
     @SqlUpdate("INSERT INTO Follows (follower_id, followee_id) " +
             "VALUES (:followerId, :followeeId) " +
             "ON CONFLICT DO NOTHING")

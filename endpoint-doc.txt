@@ -241,6 +241,21 @@ Query Param: user_id
 
 -------------------------------
 
+PUT /users/settings
+
+# Update settings for auth'd user
+
+Request Body:
+{
+	username:
+	firstName:
+	lastName:
+	email:
+	bio:
+}
+
+-------------------------------
+
 GET /communities
 
 # fetch communities followed by the auth'd user
