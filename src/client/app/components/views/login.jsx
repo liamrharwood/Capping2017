@@ -45,10 +45,25 @@ class Login extends React.Component {
   }
 
   registerButtonClick(){
-    if(ReactDOM.findDOMNode(this.refs.registerPassword).value != ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value){
+
+    if(ReactDOM.findDOMNode(this.refs.registerFirstName).value.trim() == ""
+    || ReactDOM.findDOMNode(this.refs.registerLastName).value.trim() == ""
+    || ReactDOM.findDOMNode(this.refs.registerUsername).value.trim() == ""
+    || ReactDOM.findDOMNode(this.refs.registerPassword).value.trim() == ""
+    || ReactDOM.findDOMNode(this.refs.registerEmail).value.trim() == ""
+    || ReactDOM.findDOMNode(this.refs.registerBirth).value.trim() == ""
+    || ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value.trim() == ""){
+
+      this.setState({ registerError: 3 })
+
+    } else if(ReactDOM.findDOMNode(this.refs.registerPassword).value != ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value){
+
       this.setState({ registerError: 1 });
+
     } else {
+
       this.registerNewUser();
+
     }
   }
 
@@ -77,7 +92,9 @@ class Login extends React.Component {
         this.setState({ registerError: 0} )
       }).catch((error) => {
           if (error.response) {
-            return;
+            if(error.response.status == 205){
+              this.setState({ registerError: 2 })
+            }
           }
       });
   }
@@ -103,6 +120,12 @@ class Login extends React.Component {
       case(1): 
         return <div className="alert alert-danger">Entered passwords don't match</div>
         break;
+      case(2): 
+        return <div className="alert alert-danger">Sorry, that username is already taken.</div>
+        break;
+      case(3): 
+        return <div className="alert alert-danger">Please fill in all required fields.</div>
+        break;
     }
   }
 
@@ -125,36 +148,38 @@ class Login extends React.Component {
 
               {this.renderRegisterErrors()}
 
+              <span style={{ color: 'red', fontSize: '11px' }}>* = Required</span>
+
               <div className="form-group">
-                <label htmlFor="inputFirstName">First Name</label>
+                <label htmlFor="inputFirstName">First Name <span style={{ color: 'red' }}>*</span></label>
                 <input type="text" ref="registerFirstName" className="form-control" id="inputFirstName" placeholder="Enter First Name" />
               </div>
               <div className="form-group">
-                <label htmlFor="inputLastName">Last Name</label>
+                <label htmlFor="inputLastName">Last Name <span style={{ color: 'red' }}>*</span></label>
                 <input type="text" ref="registerLastName" className="form-control" id="inputLastName" placeholder="Enter First Name" />
               </div>
               <div className="form-group">
-                <label htmlFor="inputUsername">Your Personal Username</label>
+                <label htmlFor="inputUsername">Your Personal Username <span style={{ color: 'red' }}>*</span></label>
                 <div className="input-group" id="inputUsername">
                   <span className="input-group-addon" id="basic-addon1">@</span>
                   <input type="text" className="form-control" ref="registerUsername" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
                 </div>
               </div>
               <div className="form-group">
-                <label htmlFor="exampleInputEmail1">Email address</label>
+                <label htmlFor="exampleInputEmail1">Email address <span style={{ color: 'red' }}>*</span></label>
                 <input type="text" className="form-control" ref="registerEmail" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" />
                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
               </div>
               <div className="form-group">
-                <label htmlFor="inputPassword">Password</label>
+                <label htmlFor="inputPassword">Password <span style={{ color: 'red' }}>*</span></label>
                 <input type="password" className="form-control" ref="registerPassword" id="inputPassword" placeholder="Password" />
               </div>
               <div className="form-group">
-                <label htmlFor="inputConfirmPassword">Confirm Password</label>
+                <label htmlFor="inputConfirmPassword">Confirm Password <span style={{ color: 'red' }}>*</span></label>
                 <input type="password" className="form-control" ref="registerPasswordConfirm" id="inputConfirmPassword" placeholder="Password" />
               </div>
               <div className="form-group">
-                <label htmlFor="inputBirth">Birth Date</label>
+                <label htmlFor="inputBirth">Birth Date <span style={{ color: 'red' }}>*</span></label>
                 <input type="date" className="form-control" ref="registerBirth" id="inputBirth" />
               </div>
               <button className="btn btn-primary" onClick={this.registerButtonClick} >Register</button>
