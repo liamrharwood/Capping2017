@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import Navbar from '../Navbar.jsx';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { PulseLoader } from 'react-spinners';
 
 /**
 *TODO
@@ -16,12 +17,15 @@ class CommunityCreator extends React.Component {
 		this.state = {
 			status: 0,
 			errorMessage: PropTypes.string,
+			loading: false,
 		};
 
 		this.handleCommunitySubmit = this.handleCommunitySubmit.bind(this);
 	}
 
 	handleCommunitySubmit(){
+
+		this.setState({ loading: true })
 
 		var self = this;
 
@@ -36,13 +40,16 @@ class CommunityCreator extends React.Component {
 				description: ReactDOM.findDOMNode(this.refs.communityDescription).value,
 			}
 		}).then(res => {	        
-			self.setState({ status: 1, errorMessage: null })
+			self.setState({ status: 1, errorMessage: null, loading: false })
 		}).catch(function (error) {
+
+
 			if (error.response) {
 				if(error.response.status == 401){
+					self.setState({  loading: false })
 					props.unauth();
 				} else {
-					self.setState({ status: -1, errorMessage: error.response.data.message });
+					self.setState({ status: -1, errorMessage: error.response.data.message, loading: false });
 				}
 			}
 		});
@@ -123,7 +130,8 @@ class CommunityCreator extends React.Component {
 								type="button" 
 								className = "btn btn-primary" 
 								onClick = {this.handleCommunitySubmit}
-							>Create Community!
+							>
+							{this.state.loading ? <PulseLoader loading={true} size={15} margin={"2px"} color={"white"}/> : "Create Community!"}
 							</button>
 						</div>
 					</div>

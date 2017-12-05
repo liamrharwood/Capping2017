@@ -11,6 +11,7 @@ import {
 	Link }
 	from 'react-router-dom';
 import axios from 'axios';
+import { PulseLoader } from 'react-spinners';
 
 /**
 *TODO
@@ -24,6 +25,7 @@ class Post extends React.Component {
 			score: PropTypes.Integer,    //TODO
 			vote: PropTypes.Integer,     //TODO
 			comments: PropTypes.Array,   //TODO
+			loading: false,
 		};
 
 		this.upvote = this.upvote.bind(this);
@@ -58,7 +60,7 @@ class Post extends React.Component {
 			this.setState({ 
 				data: data[0], 
 				score: data[0].score, 
-				vote: data[0].vote 
+				vote: data[0].vote,
 			});
 		}).catch(function (error) {
 			if (error.response) {
@@ -101,6 +103,10 @@ class Post extends React.Component {
 	*
 	*/
 	submitComment(){
+
+		this.setState({ loading: true });
+		var self = this;
+
 		axios({
 			method:'post',
 			url: `${this.props.uri}/posts/comments`,
@@ -113,11 +119,13 @@ class Post extends React.Component {
 			}
 		})  
 		.then(res => {
-			ReactDOM.findDOMNode(this.refs.comment).value = ""
+			ReactDOM.findDOMNode(this.refs.comment).value = "";
+			this.setState({ loading: false })
 			this.fetchComments();
 		}).catch(function (error) {
 			if (error.response) {
 				if(error.response.status == 401){
+					self.setState({ loading: false })
 					props.unauth();
 				}
 			}
@@ -398,7 +406,7 @@ class Post extends React.Component {
 												<button 
 													className = "btn btn-primary" 
 													onClick={this.submitComment}>
-													Submit Comment
+													{this.state.loading ? <PulseLoader loading={true} size={15} margin={"2px"} color={"white"}/> : "Submit Comment"}
 												</button>
 											</div>
 										</div>
