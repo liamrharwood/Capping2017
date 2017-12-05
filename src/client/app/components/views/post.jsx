@@ -62,7 +62,9 @@ class Post extends React.Component {
 			});
 		}).catch(function (error) {
 			if (error.response) {
-
+				if(error.response.status == 401){
+					props.unauth();
+				}
 			}
 		});
 	}
@@ -87,7 +89,9 @@ class Post extends React.Component {
 			this.setState({ comments: data });
 		}).catch(function (error) {
 			if (error.response) {
-				
+				if(error.response.status == 401){
+					props.unauth();
+				}
 			}
 		});
 	}
@@ -113,7 +117,9 @@ class Post extends React.Component {
 			this.fetchComments();
 		}).catch(function (error) {
 			if (error.response) {
-
+				if(error.response.status == 401){
+					props.unauth();
+				}
 			}
 		});
 	}
@@ -135,7 +141,9 @@ class Post extends React.Component {
 			}
 		}).catch(function (error) {
 			if (error.response) {
-
+				if(error.response.status == 401){
+					props.unauth();
+				}
 			}
 		});
 	}

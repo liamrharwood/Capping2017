@@ -137,6 +137,7 @@ class PostsContainer extends React.Component {
 				token={this.props.token} 
 				username={this.props.username} 
 				uri={this.props.uri}
+				unath = {this.props.unauth}
 			/>
 			{this.renderPostCards(this.state.posts, this.props)}
 			</div>

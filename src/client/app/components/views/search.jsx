@@ -65,7 +65,9 @@ class Search extends React.Component {
 			this.setState({ data: res.data })
 		}).catch(function (error) {
 			if (error.response) {
-				
+				if(error.response.status == 401){
+					props.unauth();
+				}
 			}
 		});
 	}
@@ -100,13 +102,13 @@ class Search extends React.Component {
 	generateCommunityResult(community){
 		return(
 		<div key={community.communityId} className="mt-4">
-			<h6 className="card-title">
+			<h4 className="card-title">
 				<Link 
 					to={`/communities/${community.communityId}`} 
 					className="post-title">
 					{community.name}
 				</Link>
-			</h6>
+			</h4>
 			<h6 className="post-body mt-2">
 				{community.description}
 			</h6>
@@ -135,14 +137,20 @@ class Search extends React.Component {
 	generateUserResult(user){
 		return(
 		<div key={user.id} className="mt-4">
-			<h5>{user.firstName} {user.lastName}</h5>
-			<h5 className="card-subtitle text-muted">
+			<h4>
+				<Link 
+					to={`/users/${user.id}`} 
+					className="post-title">
+					{user.firstName} {user.lastName}
+				</Link>
+			</h4>
+			<h4 className="card-subtitle text-muted">
 				<Link 
 					to={`/users/${user.id}`} 
 					className="text-muted">
 					@{user.username}
 				</Link>
-			</h5>
+			</h4>
 			<h6 className="post-body mt-2">
 				{user.bio}
 			</h6>
@@ -219,6 +227,7 @@ class Search extends React.Component {
 				/>
 
 				<div className = "container dashboard pl-3 pr-3">
+					<h1>Search Communities, Users, and Posts</h1>
 					<div className="row">
 						<form className="form-inline col-10">
 							<input 

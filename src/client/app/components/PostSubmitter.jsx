@@ -105,7 +105,9 @@ class PostSubmitter extends React.Component {
 			this.setState({ selectedCommunities: [] });   
 		}).catch(function (error) {
 			if (error.response) {
-
+				if(error.response.status == 401){
+					props.unauth();
+				}
 			}
 		});
 	}

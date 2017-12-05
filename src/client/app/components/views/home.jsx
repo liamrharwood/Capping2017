@@ -39,6 +39,7 @@ class Home extends React.Component {
 					token={this.props.token}
 					username={this.props.username}
 					uri={this.props.uri}
+					unauth={this.props.unauth} 
 				/>
 			</div>
 		);
