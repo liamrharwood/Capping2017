@@ -210,12 +210,12 @@ class Settings extends React.Component {
 								Image must be square and be less than 5MB.
 							</h3>
 						</div>
-						<img 
-							src=""
-							ref="settingProfilePic"
-							class="profile-pic"
-						/>
 						<div className="form-group">
+								<img 
+									src=""
+									ref="settingProfilePic"
+									class="profile-pic"
+								/>
      							<input 
      								id="imageFile"
      								type="file" 
