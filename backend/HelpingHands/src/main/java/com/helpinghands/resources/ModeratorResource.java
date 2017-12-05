@@ -28,7 +28,7 @@ public class ModeratorResource {
     public List<Report> getReportsForCommunity (@Auth UserPrincipal userPrincipal,
                                                 @QueryParam("community_id") int communityId) throws AuthenticationException {
         if (!userDAO.isModeratorForCommunity(userPrincipal.getId(), communityId)) {
-            throw new WebApplicationException(401);
+            throw new WebApplicationException("You are not a moderator for this community.", 401);
         }
 
         return reportDAO.getReportsForCommunity(communityId);

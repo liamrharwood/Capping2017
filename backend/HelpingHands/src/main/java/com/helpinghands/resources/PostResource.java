@@ -82,7 +82,7 @@ public class PostResource {
                                     PostUpdateRequest postUpdateRequest) {
         PostCard post = postDAO.getPostById(postUpdateRequest.getPostId()).get(0);
         if (post.isComplete()) {
-            throw new WebApplicationException(400);
+            throw new WebApplicationException("You cannot update a complete post.", 400);
         }
 
         int userId = post.getUserId();
@@ -94,7 +94,7 @@ public class PostResource {
                 userDAO.onCompletePostUpdatePoints(postUpdateRequest.getPostId());
             }
         } else {
-            throw new WebApplicationException(401);
+            throw new WebApplicationException("You are not the owner of this post", 401);
         }
     }
 
