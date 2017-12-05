@@ -6,24 +6,41 @@ import Navbar from '../Navbar.jsx';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
+/**
+*TODO
+*
+*/
 class Search extends React.Component {
-
 	constructor(props){
 		super(props);
 		this.state = {
-			data: PropTypes.Object,
-			search: PropTypes.String
+			data: PropTypes.Object,     //TODO
+			search: PropTypes.String    //TODO
 		};
 	}
 
+	/**
+	*TODO
+	*
+	*/
 	componentDidMount(){
-		this.setState({ search: this.decodedSearch() })
+		this.setState({ search: this.decodedSearch() });
 	}
 
+	/**
+	*TODO
+	*
+	*@return {} -
+	*/
 	decodedSearch(){
 		return decodeURIComponent(this.props.match.params.search);
 	}
 
+	/**
+	*TODO
+	*
+	*@return {} -
+	*/
 	render(){
 		return (
 			<div id="search">
@@ -36,7 +53,9 @@ class Search extends React.Component {
 				/>
 
 				<div className = "dashboard container">
-					<p>{this.decodedSearch()}</p>
+					<p>
+						{this.decodedSearch()}
+					</p>
 				</div>
 			</div>
 		);

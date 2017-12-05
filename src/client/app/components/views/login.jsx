@@ -68,7 +68,7 @@ class Login extends React.Component {
 			|| ReactDOM.findDOMNode(this.refs.registerEmail).value.trim() == ""
 			|| ReactDOM.findDOMNode(this.refs.registerBirth).value.trim() == ""
 			|| ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value.trim() == ""){
-			this.setState({ registerError: 3 })
+			this.setState({ registerError: 3 });
 		} else if(ReactDOM.findDOMNode(this.refs.registerPassword).value != ReactDOM.findDOMNode(this.refs.registerPasswordConfirm).value){
 			this.setState({ registerError: 1 });
 		} else {
@@ -100,11 +100,11 @@ class Login extends React.Component {
 			ReactDOM.findDOMNode(this.refs.registerLastName).value = "",
 			ReactDOM.findDOMNode(this.refs.registerEmail).value = "",
 			ReactDOM.findDOMNode(this.refs.registerBirth).value = "",
-			this.setState({ registerError: 0} )
+			this.setState({ registerError: 0});
 		}).catch((error) => {
 			if (error.response) {
 				if(error.response.status == 205){
-					this.setState({ registerError: 2 })
+					this.setState({ registerError: 2 });
 				}
 			}
 		});

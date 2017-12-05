@@ -190,29 +190,33 @@ class ProfileCard extends React.Component {
 							</Link>
 						</div>
 					</div>
-
 					{this.renderFollowButton()}
-
 					<div className="row mt-4">
 						<div className="col-4">
 							<a 
 								className="follower-count" 
-								href="#">Prayers<br/>
-									{this.state.profileData.postCount}
+								href="#">
+								Prayers
+								<br/>
+								{this.state.profileData.postCount}
 							</a>
 						</div>
 						<div className="col-4">
 							<a 
 								className="follower-count" 
-								href="#">Followers <br/>
-									{this.state.profileData.followersCount}
+								href="#">
+								Followers
+								<br/>
+								{this.state.profileData.followersCount}
 							</a>
 						</div>
 						<div className="col-4">
 							<a 
 								className="follower-count" 
-								href="#">Following<br/>
-									{this.state.profileData.followedUsersCount}
+								href="#">
+								Following
+								<br/>
+								{this.state.profileData.followedUsersCount}
 							</a>
 						</div>
 					</div>

@@ -6,44 +6,60 @@ import Navbar from '../Navbar.jsx';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
+/**
+*TODO
+*
+*/
 class Settings extends React.Component {
-
 	constructor(props){
 		super(props);
 		this.state = {
-			profileData : PropTypes.Object
+			profileData : PropTypes.Object      //TODO
 			
 		};
 	}
 
+	/**
+	*TODO
+	*
+	*/
 	componentDidMount(){
 		this.fetchData();
 	}
 
+	/**
+	*TODO
+	*
+	*/
 	fetchData(){
 		axios({
-        method:'get',
-          url: `${this.props.uri}/users/profile`,
-          headers:{
-            'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
-          },
-          responseType: 'json'
-      })
-          .then(res => {
-          	console.log(res)
-            ReactDOM.findDOMNode(this.refs.settingsFirstName).value = res.data.firstName;
-            ReactDOM.findDOMNode(this.refs.settingsLastName).value = res.data.lastName;
-            ReactDOM.findDOMNode(this.refs.settingsUserName).value = res.data.username;
-            ReactDOM.findDOMNode(this.refs.settingsEmail).value = "";
-            ReactDOM.findDOMNode(this.refs.settingsPassword).value = "";
-            ReactDOM.findDOMNode(this.refs.settingsBio).value = res.data.bio;
-            this.setState({ profileData });
-          }).catch(function (error) {
-            if (error.response) {
+		method:'get',
+			url: `${this.props.uri}/users/profile`,
+			headers:{
+				'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+			},
+			responseType: 'json'
+		}).then(res => {
+			console.log(res)
+			ReactDOM.findDOMNode(this.refs.settingsFirstName).value = res.data.firstName;
+			ReactDOM.findDOMNode(this.refs.settingsLastName).value = res.data.lastName;
+			ReactDOM.findDOMNode(this.refs.settingsUserName).value = res.data.username;
+			ReactDOM.findDOMNode(this.refs.settingsEmail).value = "";
+			ReactDOM.findDOMNode(this.refs.settingsPassword).value = "";
+			ReactDOM.findDOMNode(this.refs.settingsBio).value = res.data.bio;
+			this.setState({ profileData });
+		}).catch(function (error) {
+			if (error.response) {
 
-            }
-      });
+			}
+		});
 	}
+
+	/**
+	*TODO
+	*
+	*@return {} -
+	*/
 	render(){
 		return (
 			<div id="settings">
@@ -58,16 +74,17 @@ class Settings extends React.Component {
 				<div className ="container dashboard">
 					<div className ="row">
 						<div className= "offset-1 col-10">
-							<h2>Change Your Settings</h2>
+							<h2>
+								Change Your Settings
+							</h2>
 						</div>
 					</div>
-      				<div className = "row">
-           				<div className = "offset-1 col-sm-4 col-10">
-           					
-           					
-							
+					<div className = "row">
+						<div className = "offset-1 col-sm-4 col-10">
 							<div className="form-group">
-								<label htmlFor="settingsFirstName">First Name</label>
+								<label htmlFor="settingsFirstName">
+									First Name
+								</label>
 								<input 
 									type="text" 
 									className="form-control" 
@@ -78,7 +95,9 @@ class Settings extends React.Component {
 								/>
 							</div>
 							<div className="form-group">
-								<label htmlFor="settingsLastName">Last Name</label>
+								<label htmlFor="settingsLastName">
+									Last Name
+								</label>
 								<input 
 									type="text" 
 									className="form-control" 
@@ -91,7 +110,9 @@ class Settings extends React.Component {
 						</div>
 						<div className = "offset-1 col-sm-4 col-10">
 							<div className="form-group">
-								<label htmlFor="settingsUserName">Username</label>
+								<label htmlFor="settingsUserName">
+									Username
+								</label>
 								<input 
 									type="text" 
 									className="form-control" 
@@ -102,7 +123,9 @@ class Settings extends React.Component {
 								/>
 							</div>
 							<div className="form-group">
-								<label htmlFor="settingsEmail">Email Address</label>
+								<label htmlFor="settingsEmail">
+									Email Address
+								</label>
 								<input 
 									type="text" 
 									className="form-control" 
@@ -117,7 +140,9 @@ class Settings extends React.Component {
 					<div className = "row">
 						<div className = "offset-1 col-9">
 							<div className="form-group">
-								<label htmlFor="settingsBio">Bio</label>
+								<label htmlFor="settingsBio">
+									Bio
+								</label>
 								<textarea 
 									name="Text1" 
 									cols="40" 
@@ -139,10 +164,13 @@ class Settings extends React.Component {
 					</div>
 					<div className = "row mb-5">
 						<div className = "offset-1 col-9">
-							<h2 className= "mt-5">Change Your Password</h2>
-
+							<h2 className= "mt-5">
+								Change Your Password
+							</h2>
 							<div className="form-group">
-								<label htmlFor="settingsPassword">Password</label>
+								<label htmlFor="settingsPassword">
+									Password
+								</label>
 								<input 
 									type="password" 
 									className="form-control" 
@@ -153,7 +181,9 @@ class Settings extends React.Component {
 								/>
 							</div>
 							<div className="form-group">
-								<label htmlFor="settingsPasswordConfirm">Confirm Password</label>
+								<label htmlFor="settingsPasswordConfirm">
+									Confirm Password
+								</label>
 								<input 
 									type="password" 
 									className="form-control" 
@@ -163,11 +193,11 @@ class Settings extends React.Component {
 									placeholder="Re-type Password"
 								/>
 							</div>
-
-							<button className="btn btn-primary" /*onClick={this.savePasswordChanges}*/ >Change Password</button>
+							<button className="btn btn-primary" /*onClick={this.savePasswordChanges}*/ >
+								Change Password
+							</button>
 						</div>
 					</div>
-					
 				</div>
 			</div>
 		);

@@ -51,7 +51,10 @@ class PostSubmitter extends React.Component {
 	*
 	*/
 	hideSubmitter () {
-		this.setState({showSubmitter: false, submitterClass: "hideSubmitter"})
+		this.setState({
+			showSubmitter: false, 
+			submitterClass: "hideSubmitter"
+		})
 	}
 
 	/**
@@ -60,7 +63,9 @@ class PostSubmitter extends React.Component {
 	*@param {} e -
 	*/
 	handleBodyTextChange(e) {
-		this.setState({ bodyText: e.target.value });
+		this.setState({ 
+			bodyText: e.target.value 
+		});
 	}
 
 	/**
@@ -69,7 +74,9 @@ class PostSubmitter extends React.Component {
 	*@param {} e -
 	*/
 	handleTitleChange(e) {
-		this.setState({ titleText: e.target.value});
+		this.setState({ 
+			titleText: e.target.value
+		});
 	}
 
 	/**

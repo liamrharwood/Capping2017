@@ -39,6 +39,7 @@ class CommentCard extends React.Component {
 									className="text-muted" >
 									@{this.props.username}
 								</Link> 
+								&nbsp;
 								{this.props.createDate}
 							</h6>
 						</div>
