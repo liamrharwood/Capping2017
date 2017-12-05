@@ -24,7 +24,7 @@ class Search extends React.Component {
 	*
 	*/
 	componentDidMount(){
-		this.setState({ search: this.decodedSearch() });
+		this.setState({ search: this.decodeSearch() });
 	}
 
 	/**
@@ -32,7 +32,7 @@ class Search extends React.Component {
 	*
 	*@return {} -
 	*/
-	decodedSearch(){
+	decodeSearch(){
 		return decodeURIComponent(this.props.match.params.search);
 	}
 
@@ -54,7 +54,7 @@ class Search extends React.Component {
 
 				<div className = "dashboard container">
 					<p>
-						{this.decodedSearch()}
+						{this.decodeSearch()}
 					</p>
 				</div>
 			</div>
