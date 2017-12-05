@@ -9,11 +9,15 @@ import com.helpinghands.core.user.UserRegistration;
 import com.helpinghands.core.user.UserSettings;
 import com.helpinghands.dao.UserDAO;
 import io.dropwizard.auth.Auth;
+import io.dropwizard.util.Size;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
+import javax.imageio.ImageIO;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystems;
@@ -86,15 +90,25 @@ public class UserResource {
     public void uploadImage(@Auth UserPrincipal userPrincipal,
                                 @FormDataParam("file") InputStream fileInputStream,
                                 @FormDataParam("fileName") String fileName) throws IOException {
+        BufferedImage bufferedImage = ImageIO.read(fileInputStream);
+        ByteArrayOutputStream tmp = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, "png", tmp);
+        tmp.close();
+        Integer contentLength = tmp.size();
+        if (bufferedImage.getWidth() != bufferedImage.getHeight() || contentLength > Size.megabytes(5).toBytes()) {
+            throw new WebApplicationException("Image does not meet specified requirements.", 400);
+        }
+
         UUID uuid = UUID.randomUUID();
         String newFileName = uuid.toString() + "-" + System.currentTimeMillis() + "-" + fileName;
 
         java.nio.file.Path outputPath = FileSystems.getDefault().getPath("/var/www/html/images", newFileName);
-        //try {
+
+        try {
             Files.copy(fileInputStream, outputPath);
-        //} catch (IOException ex) {
-            //throw new WebApplicationException(ex.getCause() + ex.getMessage(), 500);
-        //}
+        } catch (IOException ex) {
+            throw new WebApplicationException("Unable to save file", 500);
+        }
 
         userDAO.updateImagePathForUser(userPrincipal.getId(), newFileName);
     }

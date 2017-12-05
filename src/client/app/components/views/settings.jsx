@@ -206,10 +206,14 @@ class Settings extends React.Component {
 							<h2 onClick={this.foo} className= "mt-5">
 								Change Your Profile Picture
 							</h2>
+							<h3>
+								Image must be square and be less than 5MB.
+							</h3>
 						</div>
 						<img 
 							src=""
-							ref="settingProfilePic" 
+							ref="settingProfilePic"
+							class="profilePic"
 						/>
 						<div className="form-group">
      							<input 
