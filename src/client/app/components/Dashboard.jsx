@@ -101,8 +101,8 @@ class Dashboard extends React.Component {
 							queryUri = {this.props.postsQueryUri} 
 							token={this.props.token} 
 							username={this.props.username} 
-              communtityId={this.props.communityId}
-              userId={this.props.userId} 
+				            communityId={this.props.communityId}
+				            userId={this.props.userId} 
 							uri={this.props.uri}
 						/>
 					</div>
