@@ -214,7 +214,7 @@ class Settings extends React.Component {
 								<img 
 									src=""
 									ref="settingProfilePic"
-									class="profile-pic"
+									className="profile-pic"
 								/>
      							<input 
      								id="imageFile"
