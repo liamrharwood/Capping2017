@@ -159,6 +159,10 @@ button:focus {
 	color:black;
 }
 
+.search-section{
+	text-decoration: underline;
+}
+
 .post-title:hover{
 	color:grey;
 	text-decoration:none;

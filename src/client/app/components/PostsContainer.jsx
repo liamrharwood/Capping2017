@@ -49,7 +49,7 @@ class PostsContainer extends React.Component {
 	fetchPostCards(){
 		var callDate = (new Date()).getTime();
 		var startNum = (this.state.pageNum - 1) * this.state.numPostsPerPage;
-		var endNum = (this.state.pageNum) * this.state.numPostsPerPage;
+		var endNum = (this.state.pageNum) * this.state.numPostsPerPage - 1;
 
 		axios({
 		  	method:'get',
