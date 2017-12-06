@@ -22,10 +22,6 @@ class Settings extends React.Component {
 		this.foo = this.foo.bind(this);
 	}
 
-	foo() {
-		console.log(this.state);
-	}
-
 	/**
 	*TODO
 	*
@@ -45,12 +41,8 @@ class Settings extends React.Component {
 		const imageData = document.querySelector('#imageFile').files[0];
 		const fileName = document.querySelector('#imageFile').files[0].name;
 
-		console.log(imageData);
-
 		data.append('file', imageData);
 		data.append('fileName', fileName);
-
-		console.log(data);
 
 		axios({
 		method:'post',
