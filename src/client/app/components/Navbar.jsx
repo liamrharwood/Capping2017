@@ -132,6 +132,7 @@ class Navbar extends React.Component {
 
 	/**
 	*When component is mounted
+	*
 	*@return {React Component} - navigation bar
 	*/
 	render() {
