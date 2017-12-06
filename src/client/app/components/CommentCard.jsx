@@ -8,8 +8,8 @@ import {
 	from 'react-router-dom';
 
 /**
-*TODO
-*
+*Comment card component
+*Used in individual post view
 */
 class CommentCard extends React.Component {
 	constructor(props) {
@@ -20,9 +20,9 @@ class CommentCard extends React.Component {
 	}
 
 	/**
-	*TODO
+	*When component is mounted
 	*
-	*@return {} -
+	*@return {React Component} - comment card
 	*/
 	render() {
 		return (
