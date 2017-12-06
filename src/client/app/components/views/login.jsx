@@ -361,7 +361,7 @@ class Login extends React.Component {
 							<div className="card-header">
 							    <ul className="nav nav-tabs card-header-tabs">
 							      <li className="nav-item">
-							        <button type="button" className="nav-link active">Login</button>
+							        <button type="button" className="nav-link active">Log In</button>
 							      </li>
 							      <li className="nav-item">
 							        <button type="button" className="nav-link login-link" onClick={this.switchToRegister}>Register</button>
