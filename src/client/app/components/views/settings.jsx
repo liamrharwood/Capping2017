@@ -78,7 +78,7 @@ class Settings extends React.Component {
 			ReactDOM.findDOMNode(this.refs.settingsFirstName).value = res.data.firstName;
 			ReactDOM.findDOMNode(this.refs.settingsLastName).value = res.data.lastName;
 			ReactDOM.findDOMNode(this.refs.settingsUserName).value = res.data.username;
-			ReactDOM.findDOMNode(this.refs.settingsEmail).value = "";
+			ReactDOM.findDOMNode(this.refs.settingsEmail).value = res.data.email;
 			ReactDOM.findDOMNode(this.refs.settingsBio).value = res.data.bio;
 			document.querySelector("img").src = `${this.props.uri.substring(0, this.props.uri.length-5)}/images/${res.data.profileImagePath}`;
 			this.setState({ profileData });
