@@ -85,7 +85,7 @@ class Settings extends React.Component {
 			ReactDOM.findDOMNode(this.refs.settingsEmail).value = "";
 			ReactDOM.findDOMNode(this.refs.settingsPassword).value = "";
 			ReactDOM.findDOMNode(this.refs.settingsBio).value = res.data.bio;
-			document.querySelector("img").src = "images/" + res.data.profileImagePath;
+			document.querySelector("img").src = "http://10.10.7.191/images/" + res.data.profileImagePath;
 			this.setState({ profileData });
 		}).catch(function (error) {
 			if (error.response) {
