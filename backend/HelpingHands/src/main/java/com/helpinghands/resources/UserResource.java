@@ -17,6 +17,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystems;
@@ -87,24 +88,20 @@ public class UserResource {
     @Path("images")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public void uploadImage(@Auth UserPrincipal userPrincipal,
-                                @FormDataParam("file") InputStream fileInputStream,
-                                @FormDataParam("fileName") String fileName) throws IOException {
-        //BufferedImage bufferedImage = ImageIO.read(fileInputStream);
-        //ByteArrayOutputStream tmp = new ByteArrayOutputStream();
-        //ImageIO.write(bufferedImage, "png", tmp);
-        //tmp.close();
-        //Integer contentLength = tmp.size();
-        //if (bufferedImage.getWidth() != bufferedImage.getHeight() || contentLength > Size.megabytes(5).toBytes()) {
-          //  throw new WebApplicationException("Image does not meet specified requirements.", 400);
-        //}
+                            @FormDataParam("file") InputStream fileInputStream,
+                            @FormDataParam("fileName") String fileName,
+                            @HeaderParam("Content-Length") int contentLength) throws IOException {
+        BufferedImage bufferedImage = ImageIO.read(fileInputStream);
+        if (bufferedImage.getWidth() != bufferedImage.getHeight() || contentLength > Size.megabytes(5).toBytes()) {
+            throw new WebApplicationException("Image does not meet specified requirements.", 400);
+        }
 
         UUID uuid = UUID.randomUUID();
         String newFileName = uuid.toString() + "-" + System.currentTimeMillis() + "-" + fileName;
 
-        java.nio.file.Path outputPath = FileSystems.getDefault().getPath("/var/www/html/images", newFileName);
-
         try {
-            Files.copy(fileInputStream, outputPath);
+            File outputfile = new File("/var/www/html/images/" + newFileName);
+            ImageIO.write(bufferedImage, "png", outputfile);
         } catch (IOException ex) {
             throw new WebApplicationException("Unable to save file", 500);
         }
