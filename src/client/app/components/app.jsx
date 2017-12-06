@@ -39,9 +39,11 @@ class App extends React.Component {
 			uri: "http://10.10.7.191:8080", //TODO
 		//    uri: "https://35.190.132.190:22",
 			userId: PropTypes.number,       //TODO
+			rememberMe: false,
 		};
 		this.auth = this.auth.bind(this);
 		this.unauth = this.unauth.bind(this);
+		this.checkAuth = this.checkAuth.bind(this);
 
 	}
 
@@ -50,14 +52,16 @@ class App extends React.Component {
 	*
 	*/
 	componentWillMount(){
-		if(window.sessionStorage.getItem("username") != null && 
-		   window.sessionStorage.getItem("token") != null && 
-		   window.sessionStorage.getItem("userId")){
+		if(window.sessionStorage.getItem("username") && 
+		   window.sessionStorage.getItem("token") && 
+		   window.sessionStorage.getItem("userId") &&
+		   window.sessionStorage.getItem("rememberMe")){
 			this.setState({
 				username: window.sessionStorage.getItem("username"), 
 				token: window.sessionStorage.getItem("token"), 
 				userId: window.sessionStorage.getItem("userId"), 
-				authed: true 
+				rememberMe: window.sessionStorage.getItem("rememberMe"),
+				authed: true,
 			});
 		}
 	}
@@ -69,7 +73,7 @@ class App extends React.Component {
 	*@param {} password - 
 	*@param {} redirect - 
 	*/
-	auth(username, password, redirect){
+	auth(username, password, rememberMe, redirect){
 		axios({
 			method:'post',
 			url: `${this.state.uri}/users/login`,
@@ -85,11 +89,13 @@ class App extends React.Component {
 			window.sessionStorage.setItem("username", username);
 			window.sessionStorage.setItem("token", res.data.token);
 			window.sessionStorage.setItem("userId", res.data.id);
+			window.sessionStorage.setItem("rememberMe", rememberMe);
 			this.setState({ 
 				authed: true, 
 				token: res.data.token, 
 				username: username, 
-				userId: res.data.id 
+				userId: res.data.id,
+				rememberMe: rememberMe,
 			});
 			redirect();
 		}).catch((error) => {
@@ -98,6 +104,14 @@ class App extends React.Component {
 				return;
 			}
 		});
+	}
+
+	checkAuth(){
+		if(this.state.authed){
+
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -111,7 +125,8 @@ class App extends React.Component {
 			username: null, 
 			token: null, 
 			wrongCreds: false, 
-			userId: null 
+			userId: null,
+			rememberMe: false,
 		});
 	}
 

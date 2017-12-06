@@ -19,12 +19,15 @@ class Login extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			registerError: -1     //TODO
+			registerError: -1,     //TODO
+			showLogin: true,
 		};
 		this.authLogin = this.authLogin.bind(this);
 		this.redirect = this.redirect.bind(this);
 		this.keyPress = this.keyPress.bind(this);
-		this.registerButtonClick = this.registerButtonClick.bind(this)
+		this.registerButtonClick = this.registerButtonClick.bind(this);
+		this.switchToLogin = this.switchToLogin.bind(this);
+		this.switchToRegister = this.switchToRegister.bind(this);
 	}
 
 	/**
@@ -32,9 +35,10 @@ class Login extends React.Component {
 	*
 	*/
 	authLogin(){
-		var username = ReactDOM.findDOMNode(this.refs.loginUsername).value
-		var password = ReactDOM.findDOMNode(this.refs.loginPassword).value
-		this.props.auth(username,password, this.redirect)
+		var username = ReactDOM.findDOMNode(this.refs.loginUsername).value;
+		var password = ReactDOM.findDOMNode(this.refs.loginPassword).value;
+		var rememberMe = ReactDOM.findDOMNode(this.refs.rememberCheckbox).checked;
+		this.props.auth(username,password, rememberMe, this.redirect)
 	}
 
 	/**
@@ -46,6 +50,14 @@ class Login extends React.Component {
 		if(e.keyCode == 13){
 			this.authLogin();
 		}
+	}
+
+	switchToLogin(){
+		this.setState({ showLogin: true });
+	}
+
+	switchToRegister(){
+		this.setState({ showLogin: false });
 	}
 
 	/**
@@ -176,196 +188,239 @@ class Login extends React.Component {
 	*@return {} -
 	*/
 	render () {
-		return(
-			<div id="login">
-				{/* Basic Non-authed Navbar */}
-				<nav className="navbar navbar-expand-lg navbar-dark nav-purple">
-					<ul className="navbar-nav mr-auto">
-						<li className= "nav-item">
-							<Link 
-								to="/login" 
-								className="nav-link">
-								Helping Hands
-							</Link>
-						</li>
-					</ul>
-				</nav>
-				<div className ="container mb-4">
-					<div className = "row mt-5">
-						<div className = "offset-1 col-4">
-							<h2>
-								Register a New Account
-							</h2>
-							{this.renderRegisterErrors()}
-							<div className="form-group">
-								<label htmlFor="inputFirstName">
-									First Name
-									<span style={{ color: 'red' }}>
-										*
-									</span>
-								</label>
-								<input 
-									type="text" 
-									ref="registerFirstName" 
-									className="form-control" 
-									id="inputFirstName" 
-									placeholder="Enter First Name" 
-								/>
-							</div>
-							<div className="form-group">
-								<label htmlFor="inputLastName">
-									Last Name
-									<span style={{ color: 'red' }}>
-										*
-									</span>
-								</label>
-								<input 
-									type="text" 
-									ref="registerLastName" 
-									className="form-control" 
-									id="inputLastName" 
-									placeholder="Enter First Name" 
-								/>
-							</div>
-							<div className="form-group">
-								<label htmlFor="inputUsername">
-									Your Personal Username
-									<span style={{ color: 'red' }}>
-										*
-									</span>
-								</label>
-								<div 
-									className="input-group" 
-									id="inputUsername">
-									<span 
-										className="input-group-addon" 
-										id="basic-addon1">
-										@
-									</span>
+		
+		if(!this.state.showLogin){
+
+			return(
+				<div className = "container">
+					<div className = "row pt-5 pb-5">
+						<div className = "col-10 offset-1 col-sm-8 offset-sm-2 p-0 text-center">
+							<h1>Helping Hands</h1>
+						</div>
+					</div>
+					<div className = "row mb-5">
+						<div className = "card col-sm-6 offset-sm-3 col-10 offset-1 p-0">
+							<div className="card-header">
+							    <ul className="nav nav-tabs card-header-tabs">
+							      <li className="nav-item">
+							        <button type="button" className="nav-link login-link" onClick={this.switchToLogin}>Login</button>
+							      </li>
+							      <li className="nav-item">
+							        <button type="button" className="nav-link active">Register</button>
+							      </li>
+							    </ul>
+							  </div>
+							<div className = "card-body">
+								<h2>
+									Register a New Account
+								</h2>
+								{this.renderRegisterErrors()}
+								<div className="form-group">
+									<label htmlFor="inputFirstName">
+										First Name
+										<span style={{ color: 'red' }}>
+											*
+										</span>
+									</label>
+									<input 
+										type="text" 
+										ref="registerFirstName" 
+										className="form-control" 
+										id="inputFirstName" 
+										placeholder="Enter First Name" 
+									/>
+								</div>
+								<div className="form-group">
+									<label htmlFor="inputLastName">
+										Last Name
+										<span style={{ color: 'red' }}>
+											*
+										</span>
+									</label>
+									<input 
+										type="text" 
+										ref="registerLastName" 
+										className="form-control" 
+										id="inputLastName" 
+										placeholder="Enter First Name" 
+									/>
+								</div>
+								<div className="form-group">
+									<label htmlFor="inputUsername">
+										Your Personal Username
+										<span style={{ color: 'red' }}>
+											*
+										</span>
+									</label>
+									<div 
+										className="input-group" 
+										id="inputUsername">
+										<span 
+											className="input-group-addon" 
+											id="basic-addon1">
+											@
+										</span>
+										<input 
+											type="text" 
+											className="form-control" 
+											ref="registerUsername" 
+											placeholder="Username" 
+											aria-label="Username" 
+											aria-describedby="basic-addon1" 
+										/>
+									</div>
+								</div>
+								<div className="form-group">
+									<label htmlFor="exampleInputEmail1">
+										Email address
+										<span style={{ color: 'red' }}>
+											*
+										</span>
+									</label>
 									<input 
 										type="text" 
 										className="form-control" 
-										ref="registerUsername" 
-										placeholder="Username" 
-										aria-label="Username" 
-										aria-describedby="basic-addon1" 
+										ref="registerEmail" 
+										id="inputEmail" 
+										aria-describedby="emailHelp" 
+										placeholder="Enter email" 
+									/>
+									<small 
+										id="emailHelp" 
+										className="form-text text-muted">
+										We'll never share your email with anyone else.
+									</small>
+								</div>
+								<div className="form-group">
+									<label htmlFor="inputPassword">
+										Password
+										<span style={{ color: 'red' }}>
+											*
+										</span>
+									</label>
+									<input 
+										type="password" 
+										className="form-control" 
+										ref="registerPassword" 
+										id="inputPassword" 
+										placeholder="Password"
 									/>
 								</div>
+								<div className="form-group">
+									<label htmlFor="inputConfirmPassword">
+										Confirm Password
+										<span style={{ color: 'red' }}>
+											*
+										</span>
+									</label>
+									<input 
+										type="password" 
+										className="form-control" 
+										ref="registerPasswordConfirm" 
+										id="inputConfirmPassword" 
+										placeholder="Password" 
+									/>
+								</div>
+								<div className="form-group">
+									<label htmlFor="inputBirth">
+										Birth Date
+										<span style={{ color: 'red' }}>
+											*
+										</span>
+									</label>
+									<input 
+										type="date" 
+										className="form-control" 
+										ref="registerBirth" 
+										id="inputBirth"
+									/>
+								</div>
+								<button 
+									className="btn btn-primary" 
+									onClick={this.registerButtonClick}>
+									Register
+								</button>
 							</div>
-							<div className="form-group">
-								<label htmlFor="exampleInputEmail1">
-									Email address
-									<span style={{ color: 'red' }}>
-										*
-									</span>
-								</label>
-								<input 
-									type="text" 
-									className="form-control" 
-									ref="registerEmail" 
-									id="inputEmail" 
-									aria-describedby="emailHelp" 
-									placeholder="Enter email" 
-								/>
-								<small 
-									id="emailHelp" 
-									className="form-text text-muted">
-									We'll never share your email with anyone else.
-								</small>
-							</div>
-							<div className="form-group">
-								<label htmlFor="inputPassword">
-									Password
-									<span style={{ color: 'red' }}>
-										*
-									</span>
-								</label>
-								<input 
-									type="password" 
-									className="form-control" 
-									ref="registerPassword" 
-									id="inputPassword" 
-									placeholder="Password"
-								/>
-							</div>
-							<div className="form-group">
-								<label htmlFor="inputConfirmPassword">
-									Confirm Password
-									<span style={{ color: 'red' }}>
-										*
-									</span>
-								</label>
-								<input 
-									type="password" 
-									className="form-control" 
-									ref="registerPasswordConfirm" 
-									id="inputConfirmPassword" 
-									placeholder="Password" 
-								/>
-							</div>
-							<div className="form-group">
-								<label htmlFor="inputBirth">
-									Birth Date
-									<span style={{ color: 'red' }}>
-										*
-									</span>
-								</label>
-								<input 
-									type="date" 
-									className="form-control" 
-									ref="registerBirth" 
-									id="inputBirth"
-								/>
-							</div>
-							<button 
-								className="btn btn-primary" 
-								onClick={this.registerButtonClick}>
-								Register
-							</button>
-						</div>
-						<div className = "offset-2 col-4">
-							<h2>
-								Log In with an Existing Account
-							</h2>
-							{this.renderLoginErrors()}
-							<div className="form-group">
-								<label htmlFor="loginUsername">
-									Username
-								</label>
-								<input 
-									type="text" 
-									ref="loginUsername" 
-									className="form-control" 
-									id="inputLoginUsername" 
-									aria-describedby="emailUsername" 
-									onKeyDown={this.keyPress} 
-									placeholder="Username" 
-								/>
-							</div>
-							<div className="form-group">
-								<label 
-									htmlFor="exampleInputPassword1">
-									Password
-								</label>
-								<input 
-									type="password" 
-									ref="loginPassword"
-									className="form-control" 
-									id="inputLoginPassword" 
-									onKeyDown={this.keyPress} 
-									placeholder="Password" 
-								/>
-							</div>
-							<button 
-								className="btn btn-primary" 
-								onClick={this.authLogin}>
-								Log In
-							</button>
 						</div>
 					</div>
 				</div>
-			</div>
-		);
+				);
+
+			} else {
+
+				return(
+				<div className = "container">
+					<div className = "row pt-5 pb-5">
+						<div className = "col-10 offset-1 col-sm-8 offset-sm-2 p-0 text-center">
+							<h1>Helping Hands</h1>
+						</div>
+					</div>
+					<div className = "row">
+						<div className = "card col-sm-6 offset-sm-3 col-10 offset-1 p-0">
+							<div className="card-header">
+							    <ul className="nav nav-tabs card-header-tabs">
+							      <li className="nav-item">
+							        <button type="button" className="nav-link active">Login</button>
+							      </li>
+							      <li className="nav-item">
+							        <button type="button" className="nav-link login-link" onClick={this.switchToRegister}>Register</button>
+							      </li>
+							    </ul>
+							  </div>
+							<div className = "card-body">
+								<h2>
+									Log In with an Existing Account
+								</h2>
+								{this.renderLoginErrors()}
+								<div className="form-group">
+									<label htmlFor="loginUsername">
+										Username
+									</label>
+									<input 
+										type="text" 
+										ref="loginUsername" 
+										className="form-control" 
+										id="inputLoginUsername" 
+										aria-describedby="emailUsername" 
+										onKeyDown={this.keyPress} 
+										placeholder="Username" 
+									/>
+								</div>
+								<div className="form-group">
+									<label 
+										className=""
+										htmlFor="exampleInputPassword1">
+										Password
+									</label>
+									<input 
+										type="password" 
+										ref="loginPassword"
+										className="form-control" 
+										id="inputLoginPassword" 
+										onKeyDown={this.keyPress} 
+										placeholder="Password" 
+									/>
+								</div>
+								<div className="form-check mt-4">
+					                <label className="form-check-label">
+						                <input type="checkbox" ref="rememberCheckbox" className="form-check-input" />
+						                Remember Me
+					                </label>
+					            </div>
+								<button 
+									className="btn btn-primary mt-3" 
+									onClick={this.authLogin}>
+									Log In
+								</button>
+								<p className="mt-3">Don't have an account? <a className = "link" onClick={this.switchToRegister}>Register a new account!</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				);
+
+		}
 	}
 }
 

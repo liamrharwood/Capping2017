@@ -121,6 +121,14 @@ class ProfileCard extends React.Component {
 		}
 	}
 
+	renderProfilePicture(){
+		if(this.state.profileData && this.state.profileData.profileImagePath && this.state.profileData.profileImagePath != ""){
+			return  <img src={`${this.props.uri}/images/${this.state.profileData.profileImagePath}`} className="profile-pic"/>
+		} else {
+			//return <img src={`${this.props.uri}/images/nopic.jpg`} className="profile-pic" />
+		}
+	}
+
 	/**
 	*TODO
 	*
@@ -172,28 +180,26 @@ class ProfileCard extends React.Component {
 				<div className = "card-body container">
 					<div className="row">
 						<div className="col-4">
-							<img 
-									src={"images/" + this.state.profileData.profileImagePath}
-									className="profile-pic"
-							/>
+							{this.renderProfilePicture()}
 						</div>
-						<div className="col-8">
-							{this.state.profileData.firstName}
-							&nbsp;
-							{this.state.profileData.lastName}
-						</div>
-					</div>
-					<div className="row">
-						<div className="col-4"/>
-						<div className="col-8">
-							<Link 
-								to={`/users/4`} 
-								className="text-muted">
+						<div className="col-8 container">
+							<div className="row">
+								{this.state.profileData.firstName}
+								&nbsp;
+								{this.state.profileData.lastName}
+							</div>
+							<div className="row">
+								<Link 
+									to={`/users/4`} 
+									className="text-muted">
 									@{this.state.profileData.username}
-							</Link>
+								</Link>
+							</div>
 						</div>
 					</div>
+
 					{this.renderFollowButton()}
+
 					<div className="row mt-4">
 						<div className="col-4">
 							<a 

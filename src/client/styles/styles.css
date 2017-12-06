@@ -1,6 +1,9 @@
 .profile-pic {
-	height: 50px;
-	width: 50px;
+	height: 65px;
+	width: 65px;
+	border-style:solid;
+	border-width:2px;
+	border-color: #adb0ff;
 }
 
 .main-navbar {
@@ -187,6 +190,20 @@ button:focus {
 .select-all-button{
 	font-size:11px;
 	padding: 3px 5px;
+}
+
+.login-link{
+	background: none;
+	cursor: pointer;
+}
+
+.link{
+	color:#007bff!important;
+	cursor:pointer;
+}
+
+.link:hover{
+	text-decoration: underline!important;
 }
 
 body {

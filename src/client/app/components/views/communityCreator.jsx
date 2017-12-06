@@ -100,7 +100,8 @@ class CommunityCreator extends React.Component {
 									ref="communityName"
 									className="form-control" 
 									id="communityName"
-									placeholder="Community Name" 
+									placeholder="Community Name"
+									maxLength="100" 
 								/>
 							</div>
 							<div className="form-group">
