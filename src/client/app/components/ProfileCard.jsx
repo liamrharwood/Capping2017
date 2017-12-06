@@ -99,7 +99,8 @@ class ProfileCard extends React.Component {
 							<button 
 								type="button" 
 								className="btn btn-block btn-info" 
-								onClick={this.follow}>Follow
+								onClick={this.follow}>
+								Follow
 							</button>
 						</div>
 					</div>
@@ -111,7 +112,8 @@ class ProfileCard extends React.Component {
 							<button 
 								type="button" 
 								className="btn btn-block btn-outline-secondary" 
-								onClick={this.unFollow}>Followed
+								onClick={this.unFollow}>
+								Followed
 							</button>
 						</div>
 					</div>)
@@ -291,6 +293,7 @@ class ProfileCard extends React.Component {
 
 	/**
 	*When component is mounted
+	*
 	*@return {React Component} - profile card (uses helper function)
 	*/
 	render() {

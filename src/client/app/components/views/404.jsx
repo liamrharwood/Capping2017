@@ -5,8 +5,8 @@ import Navbar from '../Navbar.jsx';
 import Dashboard from '../Dashboard.jsx';
 
 /**
-*TODO
-*
+*404 view
+*Page for '404 not found'
 */
 class NotFound extends React.Component {
 	constructor(props) {
@@ -17,9 +17,9 @@ class NotFound extends React.Component {
 	}
 
 	/**
-	*TODO
+	*When component is mounted
 	*
-	*@return {} -
+	*@return {React Component} - 404 page
 	*/
 	render () {
 		return(

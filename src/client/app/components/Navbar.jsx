@@ -10,29 +10,29 @@ import {
 import axios from 'axios';
 
 /**
-*TODO
-*
+*Navigation bar component
+*Used in every view except for login
 */
 class Navbar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: PropTypes.Array,     //TODO
+			data: PropTypes.Array,     //data array (authorization, etc)
 		};
-    this.handleSearch = this.handleSearch.bind(this);
-    this.keyPress = this.keyPress.bind(this);
+	this.handleSearch = this.handleSearch.bind(this);
+	this.keyPress = this.keyPress.bind(this);
 	}
 
 	/**
-	*TODO
-	*
+	*After component is mounted
+	*Triggers re-rendering
 	*/
 	componentDidMount(){
 		this.fetchCommunities(this.props);
 	}
 
-  	/**
-	*TODO
+	/**
+	*Acquires user's followed communities
 	*
 	*/
 	fetchCommunities(props){
@@ -57,10 +57,10 @@ class Navbar extends React.Component {
 
 	}
 
-  	/**
-	*TODO
+	/**
+	*Populated dropdown menu (user's followed communities)
 	*
-	*@return {} -
+	*@return {React Component} - dropdown menu
 	*/
 	renderCommunitiesDropdown() {
 
@@ -85,10 +85,10 @@ class Navbar extends React.Component {
 		}
 	}
 	
-  	/**
-	*TODO
+	/**
+	*Individual community buttons, used by renderCommunitiesDropdown
 	*
-	*@return {} -
+	*@return {React Component} - button for community
 	*/
 	renderCommunityOption(data) {
 		return (
@@ -100,28 +100,40 @@ class Navbar extends React.Component {
 		);
 	}
 
-  handleSearch(){
-    var search = ReactDOM.findDOMNode(this.refs.search).value;
-
-    if(search == ""){
-      return;
-    }
-    var encodedSearch = encodeURIComponent(search);
-
-    this.props.history.push(`/search/${encodedSearch}`);
-  }
-
-  keyPress(e){
-    if(e.keyCode == 13){
-         this.handleSearch();
-      }
-  }
-
-
-  	/**
-	*TODO
+	/**
+	*Handle's user's search
 	*
-	*@return {} -
+	*@return {String} - empty string searched
+	*/
+	handleSearch(){
+		var search = ReactDOM.findDOMNode(this.refs.search).value;
+
+		if(search == ""){
+		  return;
+		}
+
+		var encodedSearch = encodeURIComponent(search);
+
+		this.props.history.push(`/search/${encodedSearch}`);
+	}
+
+	/**
+	*handles user input
+	*state update
+	*
+	*@param {String} e - user input
+	*/
+	keyPress(e){
+		if(e.keyCode == 13){
+			this.handleSearch();
+		}
+	}
+
+
+	/**
+	*When component is mounted
+	*
+	*@return {React Component} - navigation bar
 	*/
 	render() {
 		return (
@@ -165,8 +177,8 @@ class Navbar extends React.Component {
 								className="dropdown-menu" 
 								aria-labelledby="navbarDropdown">
 								{this.renderCommunitiesDropdown()}
-                <div className="dropdown-divider"></div>
-                <Link to={`/communities/create`} className="dropdown-item">Create your own community!</Link>
+				<div className="dropdown-divider"></div>
+				<Link to={`/communities/create`} className="dropdown-item">Create your own community!</Link>
 							</div>
 						</li>
 					</ul>
@@ -174,15 +186,15 @@ class Navbar extends React.Component {
 						<input 
 							className="form-control mr-sm-2" 
 							type="search" 
-              				ref = "search"
-              				onKeyDown={this.keyPress}
+							ref = "search"
+							onKeyDown={this.keyPress}
 							placeholder="Search" 
 							aria-label="Search"
 						/>
 						<button 
 							className="btn btn-outline-light my-2 my-sm-0" 
 							type="button"
-              				onClick={this.handleSearch}>
+							onClick={this.handleSearch}>
 							Search
 						</button>
 					</form>

@@ -16,12 +16,15 @@ class Settings extends React.Component {
 		this.state = {
 			profileData : PropTypes.Object,      //TODO
 			status: 0,
-			errorMessage: PropTypes.string
+			errorMessage: PropTypes.string,
+			passwordStatus: 0,
+			passwordErrorMessage: PropTypes.string,
 		};
 
 		this.uploadProfilePicture = this.uploadProfilePicture.bind(this);
 		this.fetchData = this.fetchData.bind(this);
 		this.saveAccountChanges = this.saveAccountChanges.bind(this);
+		this.savePasswordChanges = this.savePasswordChanges.bind(this);
 		
 	}
 
@@ -78,7 +81,7 @@ class Settings extends React.Component {
 			ReactDOM.findDOMNode(this.refs.settingsFirstName).value = res.data.firstName;
 			ReactDOM.findDOMNode(this.refs.settingsLastName).value = res.data.lastName;
 			ReactDOM.findDOMNode(this.refs.settingsUserName).value = res.data.username;
-			ReactDOM.findDOMNode(this.refs.settingsEmail).value = "";
+			ReactDOM.findDOMNode(this.refs.settingsEmail).value = res.data.email;
 			ReactDOM.findDOMNode(this.refs.settingsBio).value = res.data.bio;
 			document.querySelector("img").src = `${this.props.uri.substring(0, this.props.uri.length-5)}/images/${res.data.profileImagePath}`;
 			this.setState({ profileData });
@@ -124,6 +127,40 @@ class Settings extends React.Component {
 			return <div className = "alert alert-success">Changes saved successfully!</div>
 		} else if(this.state.status == -1){
 			return <div className = "alert alert-danger">{this.state.errorMessage}</div>
+		} else {
+			return;
+		}
+	}
+
+	savePasswordChanges(){
+
+		if(ReactDOM.findDOMNode(this.refs.settingsPassword).value != ReactDOM.findDOMNode(this.refs.settingsPasswordConfirm).value){
+			this.setState({ passwordStatus: -1, passwordErrorMessage: "Passwords don't match." });
+			return;
+		}
+
+		axios({
+		method:'put',
+			url: `${this.props.uri}/users/settings/password`,
+			headers:{
+				'Content-Type': 'text/plain',
+				'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+			},
+			data: ReactDOM.findDOMNode(this.refs.settingsPassword).value
+		}).then(res => {
+			this.setState({passwordStatus: 1, passwordErrorMessage: null});
+		}).catch(function (error) {
+			if (error.response) {
+				this.setState({ passwordStatus: -1, passwordErrorMessage: error.response.message})
+			}
+		});
+	}
+
+	renderPasswordErrorMessage(){
+		if(this.state.passwordStatus == 1){
+			return <div className = "alert alert-success">Password changed successfully!</div>
+		} else if(this.state.passwordStatus == -1){
+			return <div className = "alert alert-danger">{this.state.passwordErrorMessage}</div>
 		} else {
 			return;
 		}
@@ -305,9 +342,14 @@ class Settings extends React.Component {
 									placeholder="Re-type Password"
 								/>
 							</div>
-							<button className="btn btn-primary" /*onClick={this.savePasswordChanges}*/ >
+							<button className="btn btn-primary" onClick={this.savePasswordChanges} >
 								Change Password
 							</button>
+						</div>
+					</div>
+					<div className="row">
+						<div className="col-10 offset-1">
+							{this.renderPasswordErrorMessage()}
 						</div>
 					</div>
 				</div>

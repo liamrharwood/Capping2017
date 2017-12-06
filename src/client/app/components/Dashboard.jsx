@@ -5,8 +5,8 @@ import ProfileCard from '../components/ProfileCard.jsx';
 import CommunityCard from '../components/CommunityCard.jsx';
 
 /**
-*TODO
-*
+*Dashboard component
+*Used in certain views (Home, Profile, User, Community)
 */
 class Dashboard extends React.Component {
 	constructor(props) {
@@ -17,9 +17,9 @@ class Dashboard extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Renders different profile cards depending on which is needed
 	*
-	*@return {} -
+	*@return {React Component} - information card for user, community, etc.
 	*/
 	renderInfoCard(){
 		switch(this.props.infoCard){
@@ -42,6 +42,7 @@ class Dashboard extends React.Component {
 						username={this.props.username} 
 						location = {this.props.location} 
 						queryUri={this.props.profileQueryUri}
+						userId={this.props.id}
 						id={this.props.id} 
 						type="user-profile" 
 						uri={this.props.uri}
@@ -54,6 +55,7 @@ class Dashboard extends React.Component {
 						username={this.props.username} 
 						location = {this.props.location} 
 						queryUri = {this.props.profileQueryUri} 
+						userId={this.props.id}
 						id={this.props.id} 
 						type = "community-profile" 
 						uri={this.props.uri}
@@ -68,9 +70,9 @@ class Dashboard extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Renders a different message depending on view
 	*
-	*@return {} -
+	*@return {String} - message for top of dashboard
 	*/
 	renderMessage(){
 		switch(this.props.infoCard){
@@ -87,9 +89,9 @@ class Dashboard extends React.Component {
 
 
 	/**
-	*TODO
+	*When component is mounted
 	*
-	*@return {} -
+	*@return {React Component} - dashboard
 	*/
 	render() {
 		return (
