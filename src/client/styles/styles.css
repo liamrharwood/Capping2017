@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Berkshire Swash');
+
 .profile-pic {
 	height: 65px;
 	width: 65px;
@@ -209,6 +211,12 @@ button:focus {
 .registration-alert-link:hover{
 	text-decoration: underline!important;
 	cursor:pointer;
+}
+
+.logo-title{
+	font-family: 'Berkshire Swash';
+	color: #7f4eb7;
+	font-size: 60px;
 }
 
 body {

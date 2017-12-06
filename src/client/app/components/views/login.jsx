@@ -195,7 +195,7 @@ class Login extends React.Component {
 				<div className = "container">
 					<div className = "row pt-5 pb-5">
 						<div className = "col-10 offset-1 col-sm-8 offset-sm-2 p-0 text-center">
-							<h1>Helping Hands</h1>
+							<h1 className = "logo-title">Helping<br /> Hands</h1>
 						</div>
 					</div>
 					<div className = "row mb-5">
@@ -355,7 +355,7 @@ class Login extends React.Component {
 				<div className = "container">
 					<div className = "row pt-5 pb-5">
 						<div className = "col-10 offset-1 col-sm-8 offset-sm-2 p-0 text-center">
-							<h1>Helping Hands</h1>
+							<h1 className = "logo-title">Helping<br /> Hands</h1>
 						</div>
 					</div>
 					<div className = "row">
