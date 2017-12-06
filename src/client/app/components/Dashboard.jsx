@@ -30,7 +30,8 @@ class Dashboard extends React.Component {
 						username={this.props.username} 
 						location = {this.props.location} 
 						queryUri={this.props.profileQueryUri} 
-						type="home" 
+						type="home"
+						userId={this.props.userId}
 						uri={this.props.uri}
 					/>
 				);
