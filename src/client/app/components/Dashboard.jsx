@@ -31,7 +31,7 @@ class Dashboard extends React.Component {
 						location = {this.props.location} 
 						queryUri={this.props.profileQueryUri} 
 						type="home"
-						userId={this.props.userId}
+						userId={this.props.id}
 						uri={this.props.uri}
 					/>
 				);
@@ -57,6 +57,7 @@ class Dashboard extends React.Component {
 						id={this.props.id} 
 						type = "community-profile" 
 						uri={this.props.uri}
+						history={this.props.history}
 					/>
 				);
 			default: 
