@@ -370,18 +370,18 @@ class Post extends React.Component {
 	renderUpdates(updates){
 		if(updates && updates.length != 0){
 			return(
-				updates.map((x) => this.generateUpdate(x))
+				updates.map((x,index) => this.generateUpdate(x,index))
 			);
 		}
 	}
 
-	generateUpdate(update){
+	generateUpdate(update,index){
 		// var date = new Date (update.createDate);
 		// var createDate = (date.getUTCMonth() + 1) + '/' + date.getUTCDate() + '/' + date.getUTCFullYear();
 		return (
 			<div className="updateCard container">
 				<div className = "row">
-					<div className = "col-10 offset-1">
+					<div key={index} className = "col-10 offset-1">
 						{update.bodyText}
 					</div>
 				</div>
@@ -408,18 +408,18 @@ class Post extends React.Component {
 						/>
 					</div>
 					<div className="row text-center">
-						<div className ="col-12 col-sm-6 mt-4">
+						<div className ="col-12 col-sm-6 col-md-4 offset-md-4 mt-4">
 							<button 
 								className = "btn btn-success" 
 								onClick={this.setAnswered}>
-								{this.state.loading ? <PulseLoader loading={true} size={15} margin={"2px"} color={"white"}/> : "Mark Prayer Answered"}
+								Mark Answered
 							</button>
 						</div>
-						<div className ="col-12 col-sm-6 mt-4">
+						<div className ="col-12 col-sm-6 col-md-4 mt-4">
 							<button 
 								className = "btn btn-primary" 
 								onClick={this.submitUpdate}>
-								{this.state.loading ? <PulseLoader loading={true} size={15} margin={"2px"} color={"white"}/> : "Submit Update"}
+								Submit Update
 							</button>
 						</div>
 					</div>
@@ -429,11 +429,49 @@ class Post extends React.Component {
 	}
 
 	submitUpdate(){
-
+		axios({
+			method:'post',
+			url: `${this.props.uri}/posts/updates`,
+			headers:{
+				'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+			},
+			data:{
+				postId: this.props.match.params.postId,
+				bodyText: ReactDOM.findDOMNode(this.refs.update).value,
+				complete: false,
+			}
+		}).then(res => {
+			this.fetchUpdates();
+		}).catch(function (error) {
+			if (error.response) {
+				if(error.response.status == 401){
+					props.unauth();
+				}
+			}
+		});
 	}
 
 	setAnswered(){
-
+		axios({
+			method:'post',
+			url: `${this.props.uri}/posts/updates`,
+			headers:{
+				'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+			},
+			data:{
+				postId: this.props.match.params.postId,
+				bodyText: ReactDOM.findDOMNode(this.refs.update).value,
+				complete: true,
+			}
+		}).then(res => {
+			this.fetchUpdates();
+		}).catch(function (error) {
+			if (error.response) {
+				if(error.response.status == 401){
+					props.unauth();
+				}
+			}
+		});
 	}
 
 	/**
@@ -467,9 +505,10 @@ class Post extends React.Component {
 													<Link 
 														to={`/users/${this.state.data.userId}`}  
 														className="text-muted">
-														@{this.state.data.username}
+														@{this.state.data.username}&nbsp;
 													</Link>
 													{this.formatDate()}
+													{this.state.data.complete ? <button type="button" className="btn btn-outline-success select-all-button ml-sm-2 mt-sm-0 mt-2" disabled>Answered!</button> : ""}
 												</h6>
 												<h6 className="post-body mt-2">
 													{this.state.data.bodyText}
