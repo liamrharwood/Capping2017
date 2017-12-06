@@ -37,8 +37,8 @@ class App extends React.Component {
 			wrongCreds: false,              //TODO
 			username: PropTypes.string,     //TODO
 			token: PropTypes.string,        //TODO
-			uri: "http://10.10.7.191:8080", //TODO
-		//    uri: "https://35.190.132.190:8080",
+			//uri: "http://10.10.7.191:8080", //TODO
+		      uri: "https://hh.reev.us:8443",
 			userId: PropTypes.number,       //TODO
 			rememberMe: false,
 		};
