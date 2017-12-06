@@ -8,15 +8,15 @@ import {
 	from 'react-router-dom';
 
 /**
-*TODO
-*
+*Post card component
+*Used in the post container, and individual post views/reports
 */
 class PostCard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			vote: this.props.vote,   //TODO
-			score: this.props.score, //TODO
+			vote: this.props.vote,   //post card votes
+			score: this.props.score, //post card score
 		};
 		this.upvote = this.upvote.bind(this);
 		this.downvote = this.downvote.bind(this);
@@ -24,7 +24,7 @@ class PostCard extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Fetches vote status of post
 	*
 	*/
 	vote(vote){
@@ -46,8 +46,8 @@ class PostCard extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Updates vote score
+	*+1
 	*/
 	upvote(){
 		if(this.state.vote == 1){
@@ -72,8 +72,8 @@ class PostCard extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Updates vote score
+	*-1
 	*/
 	downvote(){
 		if(this.state.vote == -1){
@@ -98,9 +98,9 @@ class PostCard extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Displays post card's voting/reporting buttons
 	*
-	*@return {} -
+	*@return {React Component} - post card voter buttons
 	*/
 	renderVoter(){
 		if(this.state.vote == 1){
@@ -205,9 +205,8 @@ class PostCard extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
-	*@return {} -
+	*When component is mounted
+	*@return {React Component} - post card, with helper function renderVoter
 	*/
 	render() {
 		return (

@@ -53,7 +53,8 @@ class PostsContainer extends React.Component {
 			this.setState({ 
 				posts: posts, 
 				callDate: callDate, 
-				pageNum: 1 });
+				pageNum: 1 
+			});
 		}).catch(function (error) {
 			if (error.response) {
 			
