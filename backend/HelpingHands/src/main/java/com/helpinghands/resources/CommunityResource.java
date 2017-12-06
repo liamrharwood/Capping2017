@@ -41,8 +41,10 @@ public class CommunityResource {
     public CommunityProfile getCommunityProfile(@Auth Optional<UserPrincipal> userPrincipal,
                                                 @QueryParam("id") int communityId) {
         if (userPrincipal.isPresent()) {
-            int authId = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
-            return communityDAO.getCommunityProfileWithAuth(authId, communityId);
+            int authId = userPrincipal.get().getId();
+            CommunityProfile communityProfile = communityDAO.getCommunityProfileWithAuth(authId, communityId);
+            communityProfile.setModerating(userDAO.isModeratorForCommunity(authId, communityProfile.getId()));
+            return communityProfile;
         }
         return communityDAO.getCommunityProfile(communityId);
     }
