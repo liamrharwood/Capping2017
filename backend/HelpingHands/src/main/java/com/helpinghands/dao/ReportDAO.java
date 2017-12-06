@@ -9,6 +9,12 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
 import java.util.List;
 
+/**
+ * SQL queries dealing with reports.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public interface ReportDAO {
     @SqlUpdate("INSERT INTO Reports (post_id, user_id, report_reason) VALUES (:postId, :userId, :reportReason)")
     void insertReport(@Bind("postId") int postId, @Bind("userId") int userId, @Bind("reportReason") String reportReason);

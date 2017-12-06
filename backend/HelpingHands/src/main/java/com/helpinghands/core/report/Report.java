@@ -4,6 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * Represents a report submitted about a post.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class Report {
     @NotNull
     @JsonProperty

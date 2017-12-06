@@ -11,6 +11,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+/**
+ * API site search endpoint. Path begins with /search.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 @Path("/search")
 @Produces(MediaType.APPLICATION_JSON)
 public class SearchResource {
@@ -28,7 +34,9 @@ public class SearchResource {
 
     @GET
     public SearchResults search(@QueryParam("q") String query) {
+        // Change query to lowercase to make it case insensitive search
         query = query.toLowerCase();
+        // Put in tokens for SQL LIKE clause
         query = "%" + query + "%";
 
         return new SearchResults(userDAO.searchUsers(query),

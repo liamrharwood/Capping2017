@@ -5,6 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+/**
+ * Represents a comment on a post.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class Comment {
     @NotNull
     @JsonProperty

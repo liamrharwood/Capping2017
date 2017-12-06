@@ -12,6 +12,12 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
 import java.util.List;
 
+/**
+ * SQL queries dealing with communities.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public interface CommunityDAO {
     @SqlQuery("SELECT c.community_id, c.name, c.description, c.is_verified, c.create_date, c.ban_status " +
             "FROM Communities AS c " +

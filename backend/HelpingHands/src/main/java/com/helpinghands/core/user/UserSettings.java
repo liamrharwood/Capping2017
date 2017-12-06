@@ -4,6 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * Represents a user's settings as seen on the settings page.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class UserSettings {
     @NotNull
     @JsonProperty

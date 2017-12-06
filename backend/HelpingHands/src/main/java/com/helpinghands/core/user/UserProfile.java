@@ -4,6 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * Represents a user profile as seen on the UI.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class UserProfile {
     @NotNull
     @JsonProperty

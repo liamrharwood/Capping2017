@@ -14,6 +14,12 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * SQL queries dealing with users.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public interface UserDAO {
     String SELECT_FIELDS = "user_id, username, first_name, last_name, email, birth_date, " +
             "location, profile_image_path, bio, reputation_points, is_administrator, ban_status, create_date, update_date";

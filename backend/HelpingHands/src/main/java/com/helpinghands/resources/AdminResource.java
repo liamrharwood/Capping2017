@@ -10,6 +10,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 
+/**
+ * API endpoints for admins. All paths begin with /admin.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 @Path("admin")
 public class AdminResource {
     private UserDAO userDAO;
@@ -20,6 +26,9 @@ public class AdminResource {
         this.communityDAO = communityDAO;
     }
 
+    /*
+        Change a user's ban status; The "b" query param is either -1, 0, or 1.
+     */
     @PUT
     @Path("users/ban_status")
     public void changeUserBanStatus(@Auth UserPrincipal userPrincipal,
@@ -43,6 +52,9 @@ public class AdminResource {
         }
     }
 
+    /*
+        Change a community's ban status; The "b" query param is either -1, 0, or 1.
+     */
     @PUT
     @Path("communities/ban_status")
     public void changeCommunityBanStatus(@Auth UserPrincipal userPrincipal,

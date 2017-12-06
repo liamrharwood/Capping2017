@@ -27,6 +27,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+
+/**
+ * API endpoints dealing with users. All paths begin with /users.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -43,19 +50,23 @@ public class UserResource {
         return users;
     }
 
+    /*
+        Handles getting your own profile and also other people's profiles, depending on if you are auth'd and if
+        a user id is supplied or not.
+     */
     @GET
     @Path("profile")
     public UserProfile getProfile(@Auth Optional<UserPrincipal> userPrincipal,
                                   @QueryParam("user_id") Optional<Integer> userId) {
         if (userId.isPresent()) {
             if (userPrincipal.isPresent()) {
-                int id = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
+                int id = userPrincipal.get().getId();
                 return userDAO.getUserProfileWithAuth(id, userId.get());
             }
             return userDAO.getUserProfile(userId.get());
         }
         if (userPrincipal.isPresent()) {
-            int id = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
+            int id = userPrincipal.get().getId();
             return userDAO.getUserProfileWithEmail(id);
         } else {
             throw new BadRequestException();
@@ -66,7 +77,7 @@ public class UserResource {
     @Path("follow")
     public void followUser(@Auth UserPrincipal userPrincipal,
                            @QueryParam("user_id") int followeeId) {
-        int followerId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        int followerId = userPrincipal.getId();
         if (followeeId == followerId) {
             throw new WebApplicationException("You cannot follow yourself", 400);
         }
@@ -77,13 +88,17 @@ public class UserResource {
     @Path("unfollow")
     public void unfollowUser(@Auth UserPrincipal userPrincipal,
                              @QueryParam("user_id") int followeeId) {
-        int followerId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        int followerId = userPrincipal.getId();
         if (followeeId == followerId) {
             throw new WebApplicationException("You cannot unfollow yourself", 400);
         }
         userDAO.unfollowUser(followerId, followeeId);
     }
 
+    /*
+        Endpoint for uploading profile pictures. Images are checked to see if they are valid profile pictures before
+        saving to the server. The save location is always /images.
+     */
     @POST
     @Path("images")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -91,15 +106,18 @@ public class UserResource {
                             @FormDataParam("file") InputStream fileInputStream,
                             @FormDataParam("fileName") String fileName,
                             @HeaderParam("Content-Length") int contentLength) throws IOException {
+        // Get the image, make sure it is square and less than 5MB
         BufferedImage bufferedImage = ImageIO.read(fileInputStream);
         if (bufferedImage.getWidth() != bufferedImage.getHeight() || contentLength > Size.megabytes(5).toBytes()) {
             throw new WebApplicationException("Image does not meet specified requirements.", 400);
         }
 
+        // Generate a random filename
         UUID uuid = UUID.randomUUID();
         String newFileName = uuid.toString() + "-" + System.currentTimeMillis() + "-" + fileName;
 
         try {
+            // Attempt to save image
             File outputfile = new File("/var/www/html/images/" + newFileName);
             ImageIO.write(bufferedImage, "png", outputfile);
         } catch (IOException ex) {
@@ -112,9 +130,11 @@ public class UserResource {
     @POST
     @Path("register")
     public void registerNewUser(UserRegistration userRegistration) {
+        // Hash password for storage
         PasswordEncryption passwordEncryption = new PasswordEncryption();
         String passwordHash = passwordEncryption.hash(userRegistration.getPassword().toCharArray());
 
+        // Check if username is taken
         Optional<User> user = Optional.ofNullable(userDAO.getUserByUsername(userRegistration.getUsername()));
         if (user.isPresent()) {
             throw new WebApplicationException("Username taken.", 400);
@@ -134,6 +154,7 @@ public class UserResource {
     public void updateUserSettings(@Auth UserPrincipal userPrincipal,
                                    UserSettings userSettings) {
         if (!userPrincipal.getName().equals(userSettings.getUsername())) {
+            // Check if username is taken
             Optional<User> user = Optional.ofNullable(userDAO.getUserByUsername(userSettings.getUsername()));
             if (user.isPresent()) {
                 throw new WebApplicationException("Username taken.", 400);
@@ -151,7 +172,7 @@ public class UserResource {
     @PUT
     @Path("settings/password")
     @Consumes(MediaType.TEXT_PLAIN)
-    public void updateUserSettings(@Auth UserPrincipal userPrincipal,
+    public void updateUserPassword(@Auth UserPrincipal userPrincipal,
                                    String newPassword) {
         PasswordEncryption passwordEncryption = new PasswordEncryption();
         String passwordHash = passwordEncryption.hash(newPassword.toCharArray());
@@ -165,18 +186,21 @@ public class UserResource {
         UUID uuid = UUID.randomUUID();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
+        // Create a random token and hash it for storage and for use in the client
         PasswordEncryption passwordEncryption = new PasswordEncryption();
         String unencryptedToken = uuid.toString() + "|" + timestamp.toString();
         String accessToken = passwordEncryption.hash(unencryptedToken.toCharArray());
 
         userDAO.updateAccessTokenForUser(userPrincipal.getId(), accessToken, timestamp);
 
+        // Give the client back the token with user info
         return new LoginObject(userPrincipal.getName(), accessToken, userPrincipal.getId());
     }
 
     @POST
     @Path("logout")
     public void logout(@Auth UserPrincipal userPrincipal) {
+        // Clear the access token so there is no longer a valid one
         userDAO.updateAccessTokenForUser(userPrincipal.getId(), null, null);
     }
 

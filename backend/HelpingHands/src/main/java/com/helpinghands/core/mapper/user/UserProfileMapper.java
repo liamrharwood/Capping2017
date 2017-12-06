@@ -7,6 +7,12 @@ import org.skife.jdbi.v2.tweak.ResultSetMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Mapper for JDBC result sets.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class UserProfileMapper implements ResultSetMapper<UserProfile> {
     public UserProfile map(int index, ResultSet resultSet, StatementContext statementContext) throws SQLException {
         return new UserProfile(resultSet.getInt("user_id"),

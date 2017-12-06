@@ -8,6 +8,12 @@ import io.dropwizard.auth.basic.BasicCredentials;
 
 import java.util.Optional;
 
+/**
+ * Checks Basic Auth credentials against the database to make sure they are valid.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class HelpingHandsBasicAuthenticator implements Authenticator<BasicCredentials, UserPrincipal> {
     private UserDAO userDAO;
 

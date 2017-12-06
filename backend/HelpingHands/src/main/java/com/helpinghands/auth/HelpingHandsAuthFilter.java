@@ -10,6 +10,12 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 
+/**
+ * Filters HTTP requests using Token authentication. Uses the HelpingHands prefix.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class HelpingHandsAuthFilter<P extends Principal> extends AuthFilter<TokenCredentials, P> {
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
@@ -19,6 +25,9 @@ public class HelpingHandsAuthFilter<P extends Principal> extends AuthFilter<Toke
         }
     }
 
+    /*
+        Token credentials are received as a Base64 encoded username:token and decoded here.
+     */
     @Nullable
     private TokenCredentials getCredentials(String header) {
         if (header == null) {

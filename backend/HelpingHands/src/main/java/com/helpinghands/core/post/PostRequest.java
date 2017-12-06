@@ -5,6 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * De-serialized JSON object used for creating posts.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class PostRequest {
     @NotNull
     @JsonProperty
