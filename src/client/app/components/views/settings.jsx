@@ -57,11 +57,10 @@ class Settings extends React.Component {
 			responseType: 'json',
 			data: data
 		}).then(res => {
-			console.log(res);
 			this.fetchData();
 		}).catch(function (error) {
 			if (error.response) {
-				console.log(error);
+				
 			}
 		});
 	}
@@ -114,7 +113,7 @@ class Settings extends React.Component {
 					<div className ="row">
 						<div className= "offset-1 col-10">
 							<h2>
-								Change Your Settings
+								Customize your Profile
 							</h2>
 						</div>
 					</div>
@@ -206,26 +205,30 @@ class Settings extends React.Component {
 							<h2 onClick={this.foo} className= "mt-5">
 								Change Your Profile Picture
 							</h2>
-							<h3>
+							<h5 className="text-muted">
 								Image must be square and be less than 5MB.
-							</h3>
+							</h5>
 						</div>
-						<div className="form-group">
-								<img 
-									src=""
-									ref="settingProfilePic"
-									className="profile-pic"
-								/>
-     							<input 
-     								id="imageFile"
-     								type="file" 
-     								name="file"
-     							/>
-     							<input 
-     								type="submit" 
-     								value="Upload"
-     								onClick={this.uploadProfilePicture}
-     							/>
+						<div className = "offset-1 col-9">
+							<div className="form-group">
+									<img 
+										src=""
+										ref="settingProfilePic"
+										className="profile-pic"
+									/>
+	     							<input 
+	     								className = "ml-4"
+	     								id="imageFile"
+	     								type="file" 
+	     								name="file"
+	     							/>
+	     							<input 
+	     								className ="btn btn-primary"
+	     								type="submit" 
+	     								value="Upload"
+	     								onClick={this.uploadProfilePicture}
+	     							/>
+							</div>
 						</div>					
 					</div>
 					<div className = "row mb-5">
