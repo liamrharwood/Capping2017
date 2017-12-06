@@ -29,17 +29,22 @@ public class CommunityProfile {
     @JsonProperty
     private boolean following;
 
+    @NotNull
+    @JsonProperty
+    private boolean moderating;
+
     public CommunityProfile() {
         // Jackson deserialization
     }
 
-    public CommunityProfile(Integer id, String name, String description, Integer followerCount, Integer postCount, boolean following) {
+    public CommunityProfile(Integer id, String name, String description, Integer followerCount, Integer postCount, boolean following, boolean moderating) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.followerCount = followerCount;
         this.postCount = postCount;
         this.following = following;
+        this.moderating = moderating;
     }
 
     public Integer getId() {
@@ -64,5 +69,13 @@ public class CommunityProfile {
 
     public boolean isFollowing() {
         return following;
+    }
+
+    public boolean isModerating() {
+        return moderating;
+    }
+
+    public void setModerating(boolean moderating) {
+        this.moderating = moderating;
     }
 }
