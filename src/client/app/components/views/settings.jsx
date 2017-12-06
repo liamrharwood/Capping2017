@@ -42,11 +42,15 @@ class Settings extends React.Component {
 
 	uploadProfilePicture(){
 		const data = new FormData();
-		const imageData = document.querySelector('img').files[0];
-		const fileName = document.querySelector('img').value.replace("C:\\fakepath\\", "");
+		const imageData = document.querySelector('#imageFile').files[0];
+		const fileName = document.querySelector('#imageFile').value.replace("C:\\fakepath\\", "");
+
+		console.log(imageData);
 
 		data.append('file', imageData);
 		data.append('fileName', fileName);
+
+		console.log(data);
 
 		axios({
 		method:'post',
