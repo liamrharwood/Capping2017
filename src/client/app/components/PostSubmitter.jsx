@@ -4,19 +4,19 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 
 /**
-*TODO
-*
+*Post Submitter component
+*Used on the dashboard
 */
 class PostSubmitter extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			showSubmitter: false,             //TODO
-			submitterClass: "hideSubmitter",  //TODO
-			titleText: "",                    //TODO
-			bodyText: "",                     //TODO
-			communities: PropTypes.Array,     //TODO
-			selectedCommunities: [],          //TODO
+			showSubmitter: false,             //display post submitter?
+			submitterClass: "hideSubmitter",  //submitter option
+			titleText: "",                    //title of submission
+			bodyText: "",                     //body of submission
+			communities: PropTypes.Array,     //community list
+			selectedCommunities: [],          //chosen communities
 		}
 
 		this.showSubmitter = this.showSubmitter.bind(this);
@@ -29,16 +29,16 @@ class PostSubmitter extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*After component is mounted
+	*Triggers re-rendering
 	*/
 	componentDidMount(){
 		this.fetchCommunities();
 	}
 
 	/**
-	*TODO
-	*
+	*Displays submitter
+	*updates state
 	*/
 	showSubmitter () {
 		this.setState({
@@ -48,8 +48,8 @@ class PostSubmitter extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Hides submitter
+	*updates state
 	*/
 	hideSubmitter () {
 		this.setState({
@@ -59,9 +59,10 @@ class PostSubmitter extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Displays user input
+	*updates state
 	*
-	*@param {} e -
+	*@param {String} e - user input
 	*/
 	handleBodyTextChange(e) {
 		this.setState({ 
@@ -70,9 +71,10 @@ class PostSubmitter extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Displays user input
+	*updates state
 	*
-	*@param {} e -
+	*@param {String} e - user input
 	*/
 	handleTitleChange(e) {
 		this.setState({ 
@@ -81,8 +83,8 @@ class PostSubmitter extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Submits post to selected communities
+	*updates state
 	*/
 	submitPost () {
 
@@ -114,8 +116,8 @@ class PostSubmitter extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Acquires communities that can be posted to (followed communities)
+	*JSON
 	*/
 	fetchCommunities(){
 		axios({
@@ -138,11 +140,11 @@ class PostSubmitter extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Selection box for communities, using buttons from generateCommunityButton component
 	*
-	*@param {} communities -
-	*@param {} selectedCommunities -
-	*@return {} - 
+	*@param {Array} communities - list of followed communities
+	*@param {List} selectedCommunities -
+	*@return {React Component} - list of communities, or loading message
 	*/
 	renderCommunitySelect(communities, selectedCommunities){
 		if(communities){
@@ -159,15 +161,15 @@ class PostSubmitter extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Creates buttons for renderCommunitySelect
 	*
-	*@param {} community -
-	*@param {} selected -
-	*@return {} -
+	*@param {String} community - community name
+	*@param {Boolean} selected - is community selected?
+	*@return {React Component} - button for community
 	*/
 	generateCommunityButton(community, selected){
 
-		var id = community.communityId
+		var id = community.communityId;
 
 		if(selected){
 			return(
@@ -199,13 +201,13 @@ class PostSubmitter extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Is a community selected?
 	*
-	*@param {} id -
+	*@param {} id - selected community's id
 	*/
 	selectCommunity(id){
 
-		var selectedCommunities = this.state.selectedCommunities
+		var selectedCommunities = this.state.selectedCommunities;
 
 		if(selectedCommunities.includes(id)){
 
@@ -225,6 +227,10 @@ class PostSubmitter extends React.Component {
 		}
 	}
 
+	/**
+	*Select all communities
+	*updates state
+	*/
 	selectAll(){
 
 
@@ -234,13 +240,14 @@ class PostSubmitter extends React.Component {
 			allCommunities.push(this.state.communities[i].communityId);
 		}
 
-		this.setState({ selectedCommunities: allCommunities })
+		this.setState({ 
+			selectedCommunities: allCommunities 
+		})
 	}
 
 	/**
-	*TODO
-	*
-	*@return {} -
+	*When component is mounted
+	*@return {React Component} - post submitter
 	*/
 	render () {
 		return (
