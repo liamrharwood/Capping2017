@@ -26,21 +26,21 @@ import ModTools from './views/modTools.jsx';
 import axios from 'axios';
 
 /**
-*TODO
-*
+*App Component
+*Rendered in index.jsx
 */
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			authed: false,                  //TODO
-			wrongCreds: false,              //TODO
-			username: PropTypes.string,     //TODO
-			token: PropTypes.string,        //TODO
-			uri: "http://10.10.7.191:8080", //TODO
-		//    uri: "https://35.190.132.190:8080",
-			userId: PropTypes.number,       //TODO
-			rememberMe: false,
+			authed: false,                    //is user authenticated
+			wrongCreds: false,                //wrong credentials error
+			username: PropTypes.string,       //username being used
+			token: PropTypes.string,          //token
+			//uri: "http://10.10.7.191:8080", 
+		      uri: "https://hh.reev.us:8443", //host address
+			userId: PropTypes.number,         //user ID number
+			rememberMe: false,                //status of remember me checkbox
 		};
 		this.auth = this.auth.bind(this);
 		this.unauth = this.unauth.bind(this);
@@ -49,8 +49,8 @@ class App extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Invoked before mounting occurs 
+	*Called before Render
 	*/
 	componentWillMount(){
 		if(window.sessionStorage.getItem("username") && 
@@ -68,11 +68,13 @@ class App extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Authentication of user upon login
 	*
-	*@param {} username - 
-	*@param {} password - 
-	*@param {} redirect - 
+	*@param {String} username - inputted username
+	*@param {String} password - inputted password
+	*@param {Boolean} rememberMe - checked off 'Remember Me' upon login?
+	*@param {Function} redirect - Redirects to home upon login
+	*@return only if wrong credentials are given
 	*/
 	auth(username, password, rememberMe, redirect){
 		axios({
@@ -107,6 +109,11 @@ class App extends React.Component {
 		});
 	}
 
+	/**
+	*Checks is user is authorized
+	*
+	*@return {Boolean} - False if user is not authenticated 
+	*/
 	checkAuth(){
 		if(this.state.authed){
 
@@ -116,8 +123,8 @@ class App extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Unautheticates a user
+	*Resets the state to null/false values
 	*/
 	unauth(){
 		window.sessionStorage.clear();
@@ -133,8 +140,8 @@ class App extends React.Component {
 
 	/**
 	*TODO
-	*
-	*@return {} - 
+	*When component is mounted
+	*@return {React Component} - Routes to app views
 	*/
 	render () {
 		return(
@@ -270,7 +277,7 @@ class App extends React.Component {
 				  </div>
 				</Router>
 			</div>
-			);
+		);
 	}
 }
 
