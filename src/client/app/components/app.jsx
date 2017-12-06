@@ -22,6 +22,7 @@ import Profile from './views/profile.jsx';
 import Report from './views/report.jsx';
 import CommunityCreator from './views/communityCreator.jsx';
 import Search from './views/search.jsx';
+import ModTools from './views/modTools.jsx';
 import axios from 'axios';
 
 /**
@@ -155,6 +156,7 @@ class App extends React.Component {
 							component={Home} 
 							token={this.state.token} 
 							username={this.state.username} 
+							userId={this.state.userId}
 							unauth={this.unauth} 
 							uri={this.state.uri}
 						/>
@@ -178,6 +180,16 @@ class App extends React.Component {
 							token={this.state.token} 
 							username={this.state.username} 
 							unauth={this.unauth}  
+							uri={this.state.uri}
+						/>
+						<PrivateRoute 
+							path="/communities/:communityId/mod" 
+							authed={this.state.authed} 
+							redirectTo="/login" 
+							component={ModTools} 
+							token={this.state.token} 
+							username={this.state.username} 
+							unauth={this.unauth} 
 							uri={this.state.uri}
 						/>
 						<PrivateRoute 

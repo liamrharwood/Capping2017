@@ -17,6 +17,7 @@ class CommunityCard extends React.Component {
 		this.renderFollowButton = this.renderFollowButton.bind(this);
 		this.follow = this.follow.bind(this);
 		this.unFollow = this.unFollow.bind(this);
+		this.goToModTools = this.goToModTools.bind(this);
 	}
 
 	/**
@@ -61,13 +62,28 @@ class CommunityCard extends React.Component {
 		});
 	}
 
+	goToModTools(){
+		this.props.history.push(`/communities/${this.props.id}/mod`)
+	}
+
 	/**
 	*TODO
 	*
 	*@return {} -
 	*/
 	renderFollowButton() {
-		if(!this.state.data.following){
+		if(this.state.data.moderator){
+
+			return (
+				<button 
+					type="button" 
+					className="btn btn-block btn-outline-danger" 
+					onClick={this.goToModTools}>
+					Mod Tools
+				</button>
+			);
+
+		} else if(!this.state.data.following){
 			return (
 				<button 
 					type="button" 

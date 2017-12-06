@@ -37,10 +37,11 @@ class Home extends React.Component {
 					postsQueryUri = {`${this.props.uri}/posts`}
 					infoCard = "home"
 					token={this.props.token}
-					userId={this.props.userId}
+					id={this.props.userId}
 					username={this.props.username}
 					uri={this.props.uri}
 					unauth={this.props.unauth} 
+					history={this.props.history}
 				/>
 			</div>
 		);
