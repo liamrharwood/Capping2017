@@ -368,7 +368,7 @@ class Post extends React.Component {
 	}
 
 	renderUpdates(updates){
-		if(updates && updates.length != 0){
+		if(updates && updates.length > 0){
 			return(
 				updates.map((x,index) => this.generateUpdate(x,index))
 			);
@@ -379,9 +379,9 @@ class Post extends React.Component {
 		// var date = new Date (update.createDate);
 		// var createDate = (date.getUTCMonth() + 1) + '/' + date.getUTCDate() + '/' + date.getUTCFullYear();
 		return (
-			<div className="update-card container">
+			<div key={index} className="update-card container">
 				<div className = "row">
-					<div key={index} className = "col-10 offset-1">
+					<div  className = "col-10 offset-1">
 						{update.bodyText}
 					</div>
 				</div>
@@ -465,6 +465,7 @@ class Post extends React.Component {
 			}
 		}).then(res => {
 			this.fetchUpdates();
+			this.fetchPostData();
 		}).catch(function (error) {
 			if (error.response) {
 				if(error.response.status == 401){
