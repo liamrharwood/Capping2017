@@ -43,7 +43,7 @@ class Settings extends React.Component {
 	uploadProfilePicture(){
 		const data = new FormData();
 		const imageData = document.querySelector('#imageFile').files[0];
-		const fileName = document.querySelector('#imageFile').value.replace("C:\\fakepath\\", "");
+		const fileName = document.querySelector('#imageFile').files[0].name;
 
 		console.log(imageData);
 
