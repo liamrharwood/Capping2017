@@ -33,14 +33,14 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			authed: false,                  //is user authenticated
-			wrongCreds: false,              //wrong credentials error
-			username: PropTypes.string,     //username being used
-			token: PropTypes.string,        //token
-			uri: "http://10.10.7.191:8080", //host address
-		//    uri: "https://35.190.132.190:8080",
-			userId: PropTypes.number,       //user ID number
-			rememberMe: false,
+			authed: false,                    //is user authenticated
+			wrongCreds: false,                //wrong credentials error
+			username: PropTypes.string,       //username being used
+			token: PropTypes.string,          //token
+			//uri: "http://10.10.7.191:8080", 
+		      uri: "https://hh.reev.us:8443", //host address
+			userId: PropTypes.number,         //user ID number
+			rememberMe: false,                //status of remember me checkbox
 		};
 		this.auth = this.auth.bind(this);
 		this.unauth = this.unauth.bind(this);
