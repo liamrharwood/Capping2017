@@ -228,9 +228,11 @@ class PostCard extends React.Component {
 									to={`/users/${this.props.userId}`}  
 									className="text-muted">
 									@{this.props.user}
+
 								</Link>
 								&nbsp;
 								{this.props.createDate}
+								{this.state.data.complete ? <button type="button" className="btn btn-outline-success select-all-button ml-sm-2 mt-sm-0 mt-2" disabled>Answered!</button> : ""}
 							</h6>
 							<h6 className="post-body mt-2">
 								{this.props.bodyText}

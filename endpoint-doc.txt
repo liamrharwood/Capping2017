@@ -151,7 +151,7 @@ POST /posts/updates
 Request Body:
 {
 	postId:
-	reportReason:
+	bodyText:
 	complete:
 }
 
