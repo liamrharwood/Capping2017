@@ -12,15 +12,15 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 /**
-*TODO
-*
+*Login view
+*Page for registration or login
 */
 class Login extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			registerError: -1,     //TODO
-			showLogin: true,
+			registerError: -1,     //registration error code
+			showLogin: true,       //which tab view is currently selected
 		};
 		this.authLogin = this.authLogin.bind(this);
 		this.redirect = this.redirect.bind(this);
@@ -31,7 +31,7 @@ class Login extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Authenticates login info
 	*
 	*/
 	authLogin(){
@@ -42,9 +42,9 @@ class Login extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Check authentication when the enter key is pressed
 	*
-	*@param {} e -
+	*@param {Object} e - Enter Key
 	*/
 	keyPress(e){
 		if(e.keyCode == 13){
@@ -52,16 +52,24 @@ class Login extends React.Component {
 		}
 	}
 
+	/**
+	*Changes tabs to 'Log In'
+	*
+	*/
 	switchToLogin(){
 		this.setState({ showLogin: true });
 	}
 
+	/**
+	*Changes tabs to 'Register'
+	*
+	*/
 	switchToRegister(){
 		this.setState({ showLogin: false });
 	}
 
 	/**
-	*TODO
+	*Redirects to home
 	*
 	*/
 	redirect(){
@@ -69,7 +77,7 @@ class Login extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Checks if user has input on all required fields before allowing registration on button click
 	*
 	*/
 	registerButtonClick(){
@@ -89,8 +97,8 @@ class Login extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Registers a new user with new data
+	*Updates state
 	*/
 	registerNewUser(){
 		axios({
@@ -123,10 +131,10 @@ class Login extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Login error display
 	*
-	*@param {} props -
-	*@return {} -
+	*@param {Object} props -
+	*@return {React Component} - Error message for user
 	*/
 	renderLoginErrors(props){
 		if(this.props.wrongCreds){
@@ -141,9 +149,9 @@ class Login extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Displays registration errors or successes
 	*
-	*@return {} -
+	*@return {React Component} - error/success messages
 	*/
 	renderRegisterErrors(){
 		var re = this.state.registerError;
@@ -183,9 +191,9 @@ class Login extends React.Component {
 	}
 
 	/**
-	*TODO
+	*When component is mounted
 	*
-	*@return {} -
+	*@return {React Component} - login page
 	*/
 	render () {
 		
