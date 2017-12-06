@@ -379,7 +379,7 @@ class Post extends React.Component {
 		// var date = new Date (update.createDate);
 		// var createDate = (date.getUTCMonth() + 1) + '/' + date.getUTCDate() + '/' + date.getUTCFullYear();
 		return (
-			<div className="updateCard container">
+			<div className="update-card container">
 				<div className = "row">
 					<div key={index} className = "col-10 offset-1">
 						{update.bodyText}
@@ -515,7 +515,7 @@ class Post extends React.Component {
 												</h6>
 											</div>
 										</div>
-										<div className = "row">
+										<div className = "row mt-4">
 											<div className="col-12">
 											{this.renderUpdates(this.state.updates)}
 											</div>

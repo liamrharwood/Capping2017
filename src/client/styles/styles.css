@@ -219,6 +219,13 @@ button:focus {
 	font-size: 60px;
 }
 
+.update-card{
+	border-style:solid;
+	border-color:grey;
+	border-width:1px 0px;
+	padding:15px;
+}
+
 body {
 	margin: 0px;
 	background-color: #fffef7;
