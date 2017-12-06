@@ -64,6 +64,7 @@ Query Param: post_id
 		postId:
 		bodyText:
 		createDate:
+		imgPath:
 	},
 	{
 		...
@@ -162,6 +163,7 @@ optional parameters: user_id
 
 # Returns user profile info
 # If auth'd, "following" is a boolean value which states whether the auth'd user follows the owner of the profile
+# If auth'd, email is returned
 
 {
 	userId:
@@ -180,6 +182,7 @@ optional parameters: user_id
 	reportPoints:
 	upvotePoints:
 	overallReputationPoints:
+	email:
 }
 
 -------------------------------
