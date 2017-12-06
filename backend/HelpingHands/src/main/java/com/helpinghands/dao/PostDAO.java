@@ -171,4 +171,7 @@ public interface PostDAO {
             "ORDER BY p.create_date DESC")
     @Mapper(PostCardMapper.class)
     List<PostCard> searchPosts(@Bind("query") String query);
+
+    @SqlUpdate("DELETE FROM PostsToCommunities WHERE post_id = :postId AND community_id = :communityId")
+    void deletePostFromCommunity(@Bind("postId") int postid, @Bind("communityId") int communityId);
 }

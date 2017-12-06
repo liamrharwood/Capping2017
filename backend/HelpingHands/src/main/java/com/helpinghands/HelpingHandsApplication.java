@@ -67,7 +67,7 @@ public class HelpingHandsApplication extends Application<HelpingHandsConfigurati
         environment.jersey().register(new UserResource(userDAO));
         environment.jersey().register(new PostResource(postDAO, userDAO, commentDAO, reportDAO));
         environment.jersey().register(new CommunityResource(communityDAO, userDAO));
-        environment.jersey().register(new ModeratorResource(userDAO, reportDAO));
+        environment.jersey().register(new ModeratorResource(userDAO, reportDAO, postDAO));
         environment.jersey().register(new SearchResource(communityDAO, postDAO, userDAO));
 
         BasicCredentialAuthFilter basicCredentialAuthFilter = new BasicCredentialAuthFilter.Builder<UserPrincipal>()
