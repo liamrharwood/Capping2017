@@ -206,6 +206,11 @@ button:focus {
 	text-decoration: underline!important;
 }
 
+.registration-alert-link:hover{
+	text-decoration: underline!important;
+	cursor:pointer;
+}
+
 body {
 	margin: 0px;
 	background-color: #fffef7;

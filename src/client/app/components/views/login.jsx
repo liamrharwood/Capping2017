@@ -153,8 +153,8 @@ class Login extends React.Component {
 				break;
 			case(0):
 				return( 
-					<div className="alert alert-success">
-						Account created successfully! Please log in to the right.
+					<div className="alert alert-success mt-3">
+						Account created successfully! <a className = "alert-link registration-alert-link" onClick={this.switchToLogin} >Click here</a> to log in.
 					</div>
 				);
 				break;
@@ -214,7 +214,7 @@ class Login extends React.Component {
 								<h2>
 									Register a New Account
 								</h2>
-								{this.renderRegisterErrors()}
+								
 								<div className="form-group">
 									<label htmlFor="inputFirstName">
 										First Name
@@ -340,6 +340,7 @@ class Login extends React.Component {
 									onClick={this.registerButtonClick}>
 									Register
 								</button>
+								{this.renderRegisterErrors()}
 							</div>
 						</div>
 					</div>
