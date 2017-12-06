@@ -89,14 +89,14 @@ public class UserResource {
     public void uploadImage(@Auth UserPrincipal userPrincipal,
                                 @FormDataParam("file") InputStream fileInputStream,
                                 @FormDataParam("fileName") String fileName) throws IOException {
-        BufferedImage bufferedImage = ImageIO.read(fileInputStream);
-        ByteArrayOutputStream tmp = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "png", tmp);
-        tmp.close();
-        Integer contentLength = tmp.size();
-        if (bufferedImage.getWidth() != bufferedImage.getHeight() || contentLength > Size.megabytes(5).toBytes()) {
-            throw new WebApplicationException("Image does not meet specified requirements.", 400);
-        }
+        //BufferedImage bufferedImage = ImageIO.read(fileInputStream);
+        //ByteArrayOutputStream tmp = new ByteArrayOutputStream();
+        //ImageIO.write(bufferedImage, "png", tmp);
+        //tmp.close();
+        //Integer contentLength = tmp.size();
+        //if (bufferedImage.getWidth() != bufferedImage.getHeight() || contentLength > Size.megabytes(5).toBytes()) {
+          //  throw new WebApplicationException("Image does not meet specified requirements.", 400);
+        //}
 
         UUID uuid = UUID.randomUUID();
         String newFileName = uuid.toString() + "-" + System.currentTimeMillis() + "-" + fileName;
