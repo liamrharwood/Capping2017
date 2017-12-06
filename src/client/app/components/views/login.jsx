@@ -214,10 +214,12 @@ class Login extends React.Component {
 								<h2>
 									Register a New Account
 								</h2>
-								
+								<span style={{ color: 'red' }}>
+											* = Required
+										</span>
 								<div className="form-group">
 									<label htmlFor="inputFirstName">
-										First Name
+										First Name 
 										<span style={{ color: 'red' }}>
 											*
 										</span>
@@ -232,7 +234,7 @@ class Login extends React.Component {
 								</div>
 								<div className="form-group">
 									<label htmlFor="inputLastName">
-										Last Name
+										Last Name 
 										<span style={{ color: 'red' }}>
 											*
 										</span>
@@ -247,7 +249,7 @@ class Login extends React.Component {
 								</div>
 								<div className="form-group">
 									<label htmlFor="inputUsername">
-										Your Personal Username
+										Your Personal Username 
 										<span style={{ color: 'red' }}>
 											*
 										</span>
@@ -272,7 +274,7 @@ class Login extends React.Component {
 								</div>
 								<div className="form-group">
 									<label htmlFor="exampleInputEmail1">
-										Email address
+										Email address 
 										<span style={{ color: 'red' }}>
 											*
 										</span>
@@ -293,7 +295,7 @@ class Login extends React.Component {
 								</div>
 								<div className="form-group">
 									<label htmlFor="inputPassword">
-										Password
+										Password 
 										<span style={{ color: 'red' }}>
 											*
 										</span>
@@ -308,7 +310,7 @@ class Login extends React.Component {
 								</div>
 								<div className="form-group">
 									<label htmlFor="inputConfirmPassword">
-										Confirm Password
+										Confirm Password 
 										<span style={{ color: 'red' }}>
 											*
 										</span>
@@ -323,9 +325,9 @@ class Login extends React.Component {
 								</div>
 								<div className="form-group">
 									<label htmlFor="inputBirth">
-										Birth Date
+										Birth Date 
 										<span style={{ color: 'red' }}>
-											*
+											 *
 										</span>
 									</label>
 									<input 
