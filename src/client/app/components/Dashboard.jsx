@@ -5,8 +5,8 @@ import ProfileCard from '../components/ProfileCard.jsx';
 import CommunityCard from '../components/CommunityCard.jsx';
 
 /**
-*TODO
-*
+*Dashboard component
+*Used in certain views (Home, Profile, User, Community)
 */
 class Dashboard extends React.Component {
 	constructor(props) {
@@ -17,9 +17,9 @@ class Dashboard extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Renders different profile cards depending on which is needed
 	*
-	*@return {} -
+	*@return {React Component} - information card for user, community, etc.
 	*/
 	renderInfoCard(){
 		switch(this.props.infoCard){
@@ -70,9 +70,9 @@ class Dashboard extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Renders a different message depending on view
 	*
-	*@return {} -
+	*@return {String} - message for top of dashboard
 	*/
 	renderMessage(){
 		switch(this.props.infoCard){
@@ -89,9 +89,9 @@ class Dashboard extends React.Component {
 
 
 	/**
-	*TODO
+	*When component is mounted
 	*
-	*@return {} -
+	*@return {React Component} - dashboard
 	*/
 	render() {
 		return (

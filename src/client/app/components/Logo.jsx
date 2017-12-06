@@ -2,8 +2,9 @@ import React from 'react';
 import 'react-bootstrap'
 
 /**
-*TODO
+*Logo component
 *
+*Used in some views
 */
 class Logo extends React.Component {
 
@@ -15,9 +16,9 @@ class Logo extends React.Component {
 	}
 
 	/**
-	*TODO
+	*When component is mounted
 	*
-	*@return {} -
+	*@return {React Component} - logo
 	*/
 	render() {
 		return (
