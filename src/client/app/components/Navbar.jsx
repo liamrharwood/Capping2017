@@ -36,12 +36,11 @@ class Navbar extends React.Component {
 	*
 	*/
 	fetchCommunities(props){
-
 		axios({
 			method:'get',
-			url: `${this.props.uri}/communities`,
+			url: `${props.uri}/communities`,
 			headers:{
-				'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+				'Authorization': `HelpingHands ${window.btoa(props.username + ":" + props.token)}`
 			},
 			responseType: 'json',
 		})  

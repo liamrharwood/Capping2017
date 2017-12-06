@@ -167,11 +167,11 @@ class Report extends React.Component {
 		if (this.state.data){
 			return (
 				<div id="post">
-					<Navbar 
+					<Navbar
 						token={this.props.token} 
+						uri={this.props.uri}
 						username={this.props.username} 
-						unauth={this.props.unauth} 
-						uri={this.props.uri} 
+						unauth={this.props.unauth}
 						history={this.props.history}
 					/>
 					<div className="container dashboard" >
@@ -240,7 +240,10 @@ class Report extends React.Component {
 				<div id="post">
 					<Navbar 
 						token={this.props.token} 
+						uri={this.props.uri}
 						username={this.props.username} 
+						unauth={this.props.unauth}
+						history={this.props.history}
 					/>
 					<h4>
 						Loading Post...
