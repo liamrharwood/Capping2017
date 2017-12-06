@@ -27,6 +27,8 @@ public class HelpingHandsTokenAuthenticator implements Authenticator<TokenCreden
             }
             User user = userDAO.getUserByUsername(credentials.getUsername());
             UserPrincipal userPrincipal = new UserPrincipal(credentials.getUsername(), user.getId());
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            userDAO.updateAccessTokenForUser(userPrincipal.getId(), accessToken.get(), timestamp);
             return Optional.of(userPrincipal);
         }
 
