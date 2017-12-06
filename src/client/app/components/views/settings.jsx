@@ -15,10 +15,13 @@ class Settings extends React.Component {
 		super(props);
 		this.state = {
 			profileData : PropTypes.Object,      //TODO
+			status: 0,
+			errorMessage: PropTypes.string
 		};
 
 		this.uploadProfilePicture = this.uploadProfilePicture.bind(this);
 		this.fetchData = this.fetchData.bind(this);
+		this.saveAccountChanges = this.saveAccountChanges.bind(this);
 		
 	}
 
@@ -31,9 +34,7 @@ class Settings extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if(this.state.profileData == prevState.profileData){
-			this.fetchPostCards();
-		}
+
 	}
 
 	uploadProfilePicture(){
@@ -56,7 +57,7 @@ class Settings extends React.Component {
 			this.fetchData();
 		}).catch(function (error) {
 			if (error.response) {
-				
+
 			}
 		});
 	}
@@ -78,7 +79,6 @@ class Settings extends React.Component {
 			ReactDOM.findDOMNode(this.refs.settingsLastName).value = res.data.lastName;
 			ReactDOM.findDOMNode(this.refs.settingsUserName).value = res.data.username;
 			ReactDOM.findDOMNode(this.refs.settingsEmail).value = "";
-			ReactDOM.findDOMNode(this.refs.settingsPassword).value = "";
 			ReactDOM.findDOMNode(this.refs.settingsBio).value = res.data.bio;
 			document.querySelector("img").src = `${this.props.uri.substring(0, this.props.uri.length-5)}/images/${res.data.profileImagePath}`;
 			this.setState({ profileData });
@@ -87,6 +87,46 @@ class Settings extends React.Component {
 
 			}
 		});
+	}
+
+	saveAccountChanges(){
+
+		if(ReactDOM.findDOMNode(this.refs.settingsUserName).value.trim() == ""
+		|| ReactDOM.findDOMNode(this.refs.settingsFirstName).value.trim() == ""
+		|| ReactDOM.findDOMNode(this.refs.settingsLastName).value.trim() == ""){
+			return;
+		}
+
+		axios({
+		method:'put',
+			url: `${this.props.uri}/users/settings`,
+			headers:{
+				'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+			},
+			data:{
+				username: ReactDOM.findDOMNode(this.refs.settingsUserName).value,
+				firstName: ReactDOM.findDOMNode(this.refs.settingsFirstName).value,
+				lastName: ReactDOM.findDOMNode(this.refs.settingsLastName).value,
+				email: ReactDOM.findDOMNode(this.refs.settingsEmail).value,
+				bio: ReactDOM.findDOMNode(this.refs.settingsBio).value,
+			}
+		}).then(res => {
+			this.setState({status: 1, errorMessage: null});
+		}).catch(function (error) {
+			if (error.response) {
+				this.setState({ status: -1, errorMessage: error.response.message})
+			}
+		});
+	}
+
+	renderChangesStatus(){
+		if(this.state.status == 1){
+			return <div className = "alert alert-success">Changes saved successfully!</div>
+		} else if(this.state.status == -1){
+			return <div className = "alert alert-danger">{this.state.errorMessage}</div>
+		} else {
+			return;
+		}
 	}
 
 	/**
@@ -111,13 +151,15 @@ class Settings extends React.Component {
 							<h2>
 								Customize your Profile
 							</h2>
+							<span style={{ color: 'red' }}>* = Required</span>
 						</div>
 					</div>
 					<div className = "row">
 						<div className = "offset-1 col-sm-4 col-10">
+
 							<div className="form-group">
 								<label htmlFor="settingsFirstName">
-									First Name
+									First Name <span style={{ color: 'red' }}>*</span>
 								</label>
 								<input 
 									type="text" 
@@ -130,7 +172,7 @@ class Settings extends React.Component {
 							</div>
 							<div className="form-group">
 								<label htmlFor="settingsLastName">
-									Last Name
+									Last Name <span style={{ color: 'red' }}>*</span>
 								</label>
 								<input 
 									type="text" 
@@ -145,7 +187,7 @@ class Settings extends React.Component {
 						<div className = "offset-1 col-sm-4 col-10">
 							<div className="form-group">
 								<label htmlFor="settingsUserName">
-									Username
+									Username <span style={{ color: 'red' }}>*</span>
 								</label>
 								<input 
 									type="text" 
@@ -193,7 +235,12 @@ class Settings extends React.Component {
 					</div>
 					<div className = "row">
 						<div className = "offset-1 col-3">
-							<button className="btn btn-primary" /*onClick={this.saveAccountChanges}*/ >Save Changes</button>
+							<button className="btn btn-primary" onClick={this.saveAccountChanges} >Save Changes</button>
+						</div>
+					</div>
+					<div className = "row mt-3">
+						<div className = "col-6 offset-1">
+							{this.renderChangesStatus()}
 						</div>
 					</div>
 					<div className = "row mb-5">
