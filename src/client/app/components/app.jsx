@@ -221,6 +221,7 @@ class App extends React.Component {
 							username={this.state.username} 
 							unauth={this.unauth}  
 							uri={this.state.uri}
+							userId={this.state.userId}
 						/>
 						<PrivateRoute 
 							path="/settings" 

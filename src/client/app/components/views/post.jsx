@@ -22,6 +22,7 @@ class Post extends React.Component {
 		super(props);
 		this.state = {
 			data: PropTypes.Object,      //TODO
+			updates: PropTypes.Array,
 			score: PropTypes.Integer,    //TODO
 			vote: PropTypes.Integer,     //TODO
 			comments: PropTypes.Array,   //TODO
@@ -32,6 +33,8 @@ class Post extends React.Component {
 		this.downvote = this.downvote.bind(this);
 		this.formatDate = this.formatDate.bind(this);
 		this.submitComment = this.submitComment.bind(this);
+		this.submitUpdate = this.submitUpdate.bind(this);
+		this.setAnswered = this.setAnswered.bind(this);
 	}
 
 	/**
@@ -40,6 +43,7 @@ class Post extends React.Component {
 	*/
 	componentDidMount(){
 		this.fetchPostData(this.props);
+		this.fetchUpdates();
 		this.fetchComments();
 	}
 
@@ -61,6 +65,28 @@ class Post extends React.Component {
 				data: data[0], 
 				score: data[0].score, 
 				vote: data[0].vote,
+			});
+		}).catch(function (error) {
+			if (error.response) {
+				if(error.response.status == 401){
+					props.unauth();
+				}
+			}
+		});
+	}
+
+	fetchUpdates(){
+		axios({
+			method:'get',
+			url: `${this.props.uri}/posts/updates?post_id=${this.props.match.params.postId}`,
+			headers:{
+				'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+			},
+			responseType: 'json',
+		}).then(res => {
+			const data = res.data;
+			this.setState({ 
+				updates: data
 			});
 		}).catch(function (error) {
 			if (error.response) {
@@ -341,6 +367,75 @@ class Post extends React.Component {
 		);
 	}
 
+	renderUpdates(updates){
+		if(updates && updates.length != 0){
+			return(
+				updates.map((x) => this.generateUpdate(x))
+			);
+		}
+	}
+
+	generateUpdate(update){
+		// var date = new Date (update.createDate);
+		// var createDate = (date.getUTCMonth() + 1) + '/' + date.getUTCDate() + '/' + date.getUTCFullYear();
+		return (
+			<div className="updateCard container">
+				<div className = "row">
+					<div className = "col-10 offset-1">
+						{update.bodyText}
+					</div>
+				</div>
+			</div>
+		);
+	}
+
+	renderUpdateSubmitter(){
+		if(this.state.data.userId == this.props.userId){
+			return(
+				<div className="form-group container">
+					<div className="row">
+						<label htmlFor="updateText">
+							Leave an update about your prayer!
+						</label>
+						<textarea 
+							ref="update" 
+							className="form-control" 
+							id="updateText" 
+							style={{ height: 75 }} 
+							maxLength="140" 
+							placeholder = "Update on your situtation" 
+							aria-label="Update on your situtation" 
+						/>
+					</div>
+					<div className="row text-center">
+						<div className ="col-12 col-sm-6 mt-4">
+							<button 
+								className = "btn btn-success" 
+								onClick={this.setAnswered}>
+								{this.state.loading ? <PulseLoader loading={true} size={15} margin={"2px"} color={"white"}/> : "Mark Prayer Answered"}
+							</button>
+						</div>
+						<div className ="col-12 col-sm-6 mt-4">
+							<button 
+								className = "btn btn-primary" 
+								onClick={this.submitUpdate}>
+								{this.state.loading ? <PulseLoader loading={true} size={15} margin={"2px"} color={"white"}/> : "Submit Update"}
+							</button>
+						</div>
+					</div>
+				</div>
+			);
+		}
+	}
+
+	submitUpdate(){
+
+	}
+
+	setAnswered(){
+
+	}
+
 	/**
 	*TODO
 	*
@@ -361,8 +456,8 @@ class Post extends React.Component {
 						<div className = "row">
 							<div className = "col-10 offset-1">
 								<div className = "card post-card">
-									<div className ="card-body container ml-4">
-										<div className = "row">
+									<div className ="card-body container">
+										<div className = "row ml-3">
 											{this.renderVoter()}
 											<div className = "col-11">
 												<h4 className = "card-title">
@@ -379,6 +474,16 @@ class Post extends React.Component {
 												<h6 className="post-body mt-2">
 													{this.state.data.bodyText}
 												</h6>
+											</div>
+										</div>
+										<div className = "row">
+											<div className="col-12">
+											{this.renderUpdates(this.state.updates)}
+											</div>
+										</div>
+										<div className = "row mt-4">
+											<div className="col-12">
+											{this.renderUpdateSubmitter()}
 											</div>
 										</div>
 									</div>
