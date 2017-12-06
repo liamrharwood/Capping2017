@@ -203,7 +203,7 @@ class Login extends React.Component {
 							<div className="card-header">
 							    <ul className="nav nav-tabs card-header-tabs">
 							      <li className="nav-item">
-							        <button type="button" className="nav-link login-link" onClick={this.switchToLogin}>Login</button>
+							        <button type="button" className="nav-link login-link" onClick={this.switchToLogin}>Log In</button>
 							      </li>
 							      <li className="nav-item">
 							        <button type="button" className="nav-link active">Register</button>

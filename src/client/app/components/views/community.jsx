@@ -43,6 +43,7 @@ class Community extends React.Component {
 					username={this.props.username}
 					uri={this.props.uri}
                     unauth={this.props.unauth} 
+                    history={this.props.history}
 				/>
 			</div>
 		);

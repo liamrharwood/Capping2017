@@ -72,7 +72,7 @@ class CommunityCard extends React.Component {
 	*@return {} -
 	*/
 	renderFollowButton() {
-		if(this.state.data.moderator){
+		if(this.state.data.moderating){
 
 			return (
 				<button 
