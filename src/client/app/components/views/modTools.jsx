@@ -5,6 +5,11 @@ import { browserHistory } from 'react-router';
 import Navbar from '../Navbar.jsx';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import {
+	BrowserRouter as Router,
+	Route,
+	Link }
+	from 'react-router-dom';
 
 /**
 *TODO
@@ -81,7 +86,7 @@ class ModTools extends React.Component {
 		return (
 		<tr key={index}>
 			<td><button type="button" className="btn btn-outline-info" onClick={() => this.sendToPost(report.postId)}>Post</button></td>
-			<td>{report.username}</td>
+			<td><Link to={`/users/${report.userId}`} className="text-muted">@{report.username}</Link></td>
 			<td>{report.reportReason}</td>
 			<td><button type="button" className="btn btn-outline-danger" onClick={() => this.deletePost(report.postId)}>Delete Post</button></td>
 		</tr>
