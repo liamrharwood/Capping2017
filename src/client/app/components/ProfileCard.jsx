@@ -291,7 +291,7 @@ class ProfileCard extends React.Component {
 
 	/**
 	*When component is mounted
-	*@return {React Component} - profile card (is rendered by helper function)
+	*@return {React Component} - profile card (uses helper function)
 	*/
 	render() {
 		return (
