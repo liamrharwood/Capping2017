@@ -334,6 +334,14 @@ Query Param: community_id
 
 --------------------------------
 
+GET /moderators/users
+
+Query Param: community_id
+
+# Get list of users for specified community (must be auth'd as a moderator for that community)
+
+--------------------------------
+
 DELETE /moderators/posts
 
 Query Params: post_id, community_id

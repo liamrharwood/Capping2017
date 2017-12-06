@@ -26,6 +26,20 @@ public interface UserDAO {
     @Mapper(UserMapper.class)
     User getUserByUsername(@Bind("username") String username);
 
+    @SqlQuery("SELECT u.user_id, u.username, u.first_name, u.last_name, " +
+            "0 AS followers_count, " +
+            "0 AS followed_communities_count, " +
+            "0 AS followed_users_count, " +
+            "u.bio, u,profile_image_path, " +
+            "0 AS post_count, " +
+            "FALSE AS is_following, " +
+            "pray_points, answered_points, report_points, upvote_points, reputation_points " +
+            "FROM Users AS u " +
+            "JOIN Members AS m ON m.user_id = u.user_id " +
+            "WHERE m.community_id = :communityId ")
+    @Mapper(UserProfileMapper.class)
+    List<UserProfile> getUsersForCommunity(@Bind("communityId") int communityId);
+
     @SqlQuery("SELECT user_id, username, first_name, last_name, " +
             "(SELECT COUNT(*) FROM Follows WHERE followee_id = :id) AS followers_count, " +
             "(SELECT COUNT(*) FROM Members WHERE user_id = :id) AS followed_communities_count, " +

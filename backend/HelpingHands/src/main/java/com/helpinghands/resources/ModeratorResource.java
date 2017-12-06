@@ -2,6 +2,7 @@ package com.helpinghands.resources;
 
 import com.helpinghands.auth.UserPrincipal;
 import com.helpinghands.core.report.Report;
+import com.helpinghands.core.user.UserProfile;
 import com.helpinghands.dao.PostDAO;
 import com.helpinghands.dao.ReportDAO;
 import com.helpinghands.dao.UserDAO;
@@ -48,5 +49,16 @@ public class ModeratorResource {
         }
 
         postDAO.deletePostFromCommunity(postId, communityId);
+    }
+
+    @GET
+    @Path("users")
+    public List<UserProfile> getUsersForCommunity(@Auth UserPrincipal userPrincipal,
+                                                  @QueryParam("community_id") int communityId) {
+        if (!userDAO.isModeratorForCommunity(userPrincipal.getId(), communityId)) {
+            throw new WebApplicationException("You are not a moderator for this community.", 401);
+        }
+
+        return userDAO.getUsersForCommunity(communityId);
     }
 }
