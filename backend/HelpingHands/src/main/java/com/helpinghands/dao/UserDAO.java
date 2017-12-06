@@ -79,6 +79,18 @@ public interface UserDAO {
     @SqlQuery("SELECT is_moderator FROM Members WHERE user_id = :userId AND community_id = :communityId")
     boolean isModeratorForCommunity(@Bind("userId") int userId, @Bind("communityId") int communityId);
 
+    @SqlQuery("SELECT is_administrator FROM Users WHERE user_id = :userId")
+    boolean isAdministrator(@Bind("userId") int userId);
+
+    @SqlUpdate("UPDATE Users SET ban_status = NOT_BANNED WHERE user_id = :userId")
+    void setUserNotBanned(@Bind("userId") int userId);
+
+    @SqlUpdate("UPDATE Users SET ban_status = BANNED WHERE user_id = :userId")
+    void setUserBanned(@Bind("userId") int userId);
+
+    @SqlUpdate("UPDATE Users SET ban_status = PENDING WHERE user_id = :userId")
+    void setUserPending(@Bind("userId") int userId);
+
     @SqlQuery("SELECT password_hash FROM Users WHERE username = :username")
     String getPasswordForUsername(@Bind("username") String username);
 

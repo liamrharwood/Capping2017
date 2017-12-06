@@ -350,3 +350,27 @@ DELETE /moderators/posts
 Query Params: post_id, community_id
 
 # Delete a post from a community (must be auth'd as a moderator for that community)
+
+--------------------------------
+
+PUT /admin/users/ban_status
+
+Query Params: b (-1, 0, 1), user_id
+
+# Sets user's ban status: NOT_BANNED for -1, PENDING for 0, BANNED for 1 (must be auth'd as a administrator)
+
+--------------------------------
+
+PUT /admin/communities/ban_status
+
+Query Params: b (-1, 0, 1), community_id
+
+# Sets community's ban status: NOT_BANNED for -1, PENDING for 0, BANNED for 1 (must be auth'd as a administrator)
+
+--------------------------------
+
+PUT /admin/communities/verification
+
+Query Params: v (boolean), community_id
+
+# Verifies community if true, unverifies if false (must be auth'd as a administrator)

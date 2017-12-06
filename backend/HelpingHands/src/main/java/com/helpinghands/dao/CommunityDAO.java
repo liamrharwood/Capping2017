@@ -65,4 +65,16 @@ public interface CommunityDAO {
     @SqlUpdate("INSERT INTO Members (user_id, community_id, is_moderator) VALUES " +
             "(:userId, :communityId, TRUE)")
     void addModerator(@Bind("userId") int userId, @Bind("communityId") int communityId);
+
+    @SqlUpdate("UPDATE Communities SET ban_status = NOT_BANNED WHERE community_id = :communityId")
+    void setCommunityNotBanned(@Bind("communityId") int communityId);
+
+    @SqlUpdate("UPDATE Communities SET ban_status = BANNED WHERE community_id = :communityId")
+    void setCommunityBanned(@Bind("communityId") int communityId);
+
+    @SqlUpdate("UPDATE Communities SET ban_status = PENDING WHERE community_id = :communityId")
+    void setCommunityPending(@Bind("communityId") int communityId);
+
+    @SqlUpdate("UPDATE Communities SET is_verified = :verified WHERE community_id = :communityId")
+    void updateCommunityVerification(@Bind("verified") boolean verified, @Bind("communityId") int communityId);
 }
