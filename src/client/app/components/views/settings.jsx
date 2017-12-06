@@ -19,7 +19,7 @@ class Settings extends React.Component {
 
 		this.uploadProfilePicture = this.uploadProfilePicture.bind(this);
 		this.fetchData = this.fetchData.bind(this);
-		this.foo = this.foo.bind(this);
+		
 	}
 
 	/**
