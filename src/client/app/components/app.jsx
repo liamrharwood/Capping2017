@@ -139,7 +139,6 @@ class App extends React.Component {
 	}
 
 	/**
-	*TODO
 	*When component is mounted
 	*@return {React Component} - Routes to app views
 	*/
@@ -147,134 +146,134 @@ class App extends React.Component {
 		return(
 			<div>
 				<Router>
-				  <div>
-					<Switch>
-						<PublicRoute 
-							exact path="/login" 
-							component={Login} authed={this.state.authed} 
-							auth={this.auth} redirectTo="/home" 
-							wrongCreds={this.state.wrongCreds} 
-							uri={this.state.uri}
-						/>
-						<PrivateRoute 
-							exact path="/" 
-							authed={this.state.authed} 
-							redirectTo="/login" 
-							component={Home} 
-							token={this.state.token} 
-							username={this.state.username} 
-							userId={this.state.userId}
-							unauth={this.unauth} 
-							uri={this.state.uri}
-						/>
-						<PrivateRoute 
-							exact path="/home" 
-							authed={this.state.authed} 
-							redirectTo="/login" 
-							component={Home} 
-							token={this.state.token} 
-							username={this.state.username} 
-							unauth={this.unauth} 
-							userId = {this.state.userId}
-							uri={this.state.uri}
-						/>
-						<PrivateRoute 
-							exact path="/communities/create" 
-							authed={this.state.authed} 
-							redirectTo="/login" 
-							userId={this.state.userId} 
-							component={CommunityCreator} 
-							token={this.state.token} 
-							username={this.state.username} 
-							unauth={this.unauth}  
-							uri={this.state.uri}
-						/>
-						<PrivateRoute 
-							path="/communities/:communityId/mod" 
-							authed={this.state.authed} 
-							redirectTo="/login" 
-							component={ModTools} 
-							token={this.state.token} 
-							username={this.state.username} 
-							unauth={this.unauth} 
-							uri={this.state.uri}
-						/>
-						<PrivateRoute 
-							path="/communities/:communityId" 
-							authed={this.state.authed} 
-							redirectTo="/login" 
-							component={Community} 
-							token={this.state.token} 
-							username={this.state.username} 
-							unauth={this.unauth} 
-							uri={this.state.uri}
-						/>
-						<PrivateRoute 
-							path="/users/:userId" 
-							authed={this.state.authed} 
-							redirectTo="/login" 
-							component={User} 
-							token={this.state.token}
-							username={this.state.username} 
-							unauth={this.unauth} 
-							uri={this.state.uri}
-						/>
-						<PrivateRoute 
-							path="/posts/:postId" 
-							authed={this.state.authed} 
-							redirectTo ="/login" 
-							component={Post} 
-							token={this.state.token} 
-							username={this.state.username} 
-							unauth={this.unauth}  
-							uri={this.state.uri}
-							userId={this.state.userId}
-						/>
-						<PrivateRoute 
-							path="/settings" 
-							authed={this.state.authed} 
-							redirectTo="/login" 
-							component={Settings} 
-							token={this.state.token} 
-							username={this.state.username} 
-							unauth={this.unauth} 
-							uri={this.state.uri} 
-						/>
-						<PrivateRoute 
-							path="/report/:postId" 
-							authed={this.state.authed} 
-							redirectTo="/login" 
-							component={Report} 
-							token={this.state.token} 
-							username={this.state.username} 
-							unauth={this.unauth} 
-							uri={this.state.uri} 
-						/>
-						<PrivateRoute 
-							path="/search/:search" 
-							authed={this.state.authed} 
-							redirectTo="/login" 
-							userId={this.state.userId} 
-							component={Search} 
-							token={this.state.token} 
-							username={this.state.username} 
-							unauth={this.unauth}  
-							uri={this.state.uri}
-						/>
-						<PrivateRoute 
-							path="/profile" 
-							authed={this.state.authed} 
-							redirectTo="/login" 
-							userId={this.state.userId} 
-							component={Profile} 
-							token={this.state.token} 
-							username={this.state.username} 
-							unauth={this.unauth}  
-							uri={this.state.uri}
-						/>
-						<PropsRoute component={NotFound}/>
-					</Switch>
-				  </div>
+				  	<div>
+						<Switch>
+							<PublicRoute 
+								exact path="/login" 
+								component={Login} authed={this.state.authed} 
+								auth={this.auth} redirectTo="/home" 
+								wrongCreds={this.state.wrongCreds} 
+								uri={this.state.uri}
+							/>
+							<PrivateRoute 
+								exact path="/" 
+								authed={this.state.authed} 
+								redirectTo="/login" 
+								component={Home} 
+								token={this.state.token} 
+								username={this.state.username} 
+								userId={this.state.userId}
+								unauth={this.unauth} 
+								uri={this.state.uri}
+							/>
+							<PrivateRoute 
+								exact path="/home" 
+								authed={this.state.authed} 
+								redirectTo="/login" 
+								component={Home} 
+								token={this.state.token} 
+								username={this.state.username} 
+								unauth={this.unauth} 
+								userId = {this.state.userId}
+								uri={this.state.uri}
+							/>
+							<PrivateRoute 
+								exact path="/communities/create" 
+								authed={this.state.authed} 
+								redirectTo="/login" 
+								userId={this.state.userId} 
+								component={CommunityCreator} 
+								token={this.state.token} 
+								username={this.state.username} 
+								unauth={this.unauth}  
+								uri={this.state.uri}
+							/>
+							<PrivateRoute 
+								path="/communities/:communityId/mod" 
+								authed={this.state.authed} 
+								redirectTo="/login" 
+								component={ModTools} 
+								token={this.state.token} 
+								username={this.state.username} 
+								unauth={this.unauth} 
+								uri={this.state.uri}
+							/>
+							<PrivateRoute 
+								path="/communities/:communityId" 
+								authed={this.state.authed} 
+								redirectTo="/login" 
+								component={Community} 
+								token={this.state.token} 
+								username={this.state.username} 
+								unauth={this.unauth} 
+								uri={this.state.uri}
+							/>
+							<PrivateRoute 
+								path="/users/:userId" 
+								authed={this.state.authed} 
+								redirectTo="/login" 
+								component={User} 
+								token={this.state.token}
+								username={this.state.username} 
+								unauth={this.unauth} 
+								uri={this.state.uri}
+							/>
+							<PrivateRoute 
+								path="/posts/:postId" 
+								authed={this.state.authed} 
+								redirectTo ="/login" 
+								component={Post} 
+								token={this.state.token} 
+								username={this.state.username} 
+								unauth={this.unauth}  
+								uri={this.state.uri}
+								userId={this.state.userId}
+							/>
+							<PrivateRoute 
+								path="/settings" 
+								authed={this.state.authed} 
+								redirectTo="/login" 
+								component={Settings} 
+								token={this.state.token} 
+								username={this.state.username} 
+								unauth={this.unauth} 
+								uri={this.state.uri} 
+							/>
+							<PrivateRoute 
+								path="/report/:postId" 
+								authed={this.state.authed} 
+								redirectTo="/login" 
+								component={Report} 
+								token={this.state.token} 
+								username={this.state.username} 
+								unauth={this.unauth} 
+								uri={this.state.uri} 
+							/>
+							<PrivateRoute 
+								path="/search/:search" 
+								authed={this.state.authed} 
+								redirectTo="/login" 
+								userId={this.state.userId} 
+								component={Search} 
+								token={this.state.token} 
+								username={this.state.username} 
+								unauth={this.unauth}  
+								uri={this.state.uri}
+							/>
+							<PrivateRoute 
+								path="/profile" 
+								authed={this.state.authed} 
+								redirectTo="/login" 
+								userId={this.state.userId} 
+								component={Profile} 
+								token={this.state.token} 
+								username={this.state.username} 
+								unauth={this.unauth}  
+								uri={this.state.uri}
+							/>
+							<PropsRoute component={NotFound}/>
+						</Switch>
+				  	</div>
 				</Router>
 			</div>
 		);

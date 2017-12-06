@@ -9,14 +9,14 @@ import {
 import { PulseLoader } from 'react-spinners';
 
 /**
-*TODO
-*
+*Profile card component
+*Used in multiple views (profile, user, home, etc.)
 */
 class ProfileCard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			profileData: PropTypes.Object,      //TODO
+			profileData: PropTypes.Object,      //JSON of auth'd user's profile data
 		};
 
 	this.follow = this.follow.bind(this);
@@ -24,18 +24,18 @@ class ProfileCard extends React.Component {
 }
 
 	/**
-	*TODO
-	*
+	*Called after component is mounted
+	*Triggers re-rendering
 	*/
 	componentDidMount() {
 		this.fetchUserProfile();
 	}
 
 	/**
-	*TODO
+	*Called after update, not called upon initial render
 	*
-	*@param {} prevProps - 
-	*@param {} prevState - 
+	*@param {Object} prevProps - previous props
+	*@param {Object} prevState - previous state
 	*/
 	componentDidUpdate(prevProps, prevState) {
 		if(this.props.location != prevProps.location){
@@ -44,8 +44,8 @@ class ProfileCard extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Acquires the user's profile info
+	*updates state with new JSON
 	*/
 	fetchUserProfile() {
 		if(this.props.id){
@@ -86,9 +86,9 @@ class ProfileCard extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Follow button with functionality
 	*
-	*@return {} -
+	*@return {React Component} - Button w/ functionality
 	*/
 	renderFollowButton() {
 		if(this.props.type=="user-profile" && this.state.profileData.username != this.props.username){
@@ -121,17 +121,26 @@ class ProfileCard extends React.Component {
 		}
 	}
 
+	/**
+	*Profile picture
+	*
+	*@return {React Component} - User's profile picture
+	*/
 	renderProfilePicture(){
 		if(this.state.profileData && this.state.profileData.profileImagePath && this.state.profileData.profileImagePath != ""){
-			return  <img src={`${this.props.uri.substring(0, this.props.uri.length-5)}/images/${this.state.profileData.profileImagePath}`} className="profile-pic"/>
+			return  (
+				<img 
+					src={`${this.props.uri.substring(0, this.props.uri.length-5)}/images/${this.state.profileData.profileImagePath}`} 
+					className="profile-pic"
+				/>);
 		} else {
 			//return <img src={`http://10.10.7.191/images/nopic.jpg`} className="profile-pic" />
 		}
 	}
 
 	/**
-	*TODO
-	*
+	*Follows user
+	*re-acquires profile info
 	*/
 	follow(){
 		axios({
@@ -150,8 +159,8 @@ class ProfileCard extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Unfollows user
+	*re-acquires profile info
 	*/
 	unFollow() {
 		axios({
@@ -170,9 +179,9 @@ class ProfileCard extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Helper function for render
 	*
-	*@return {} -
+	*@return {React Component} - Profile card if profile data is received, loading icon otherwise
 	*/
 	renderProfile(){
 		if(this.state.profileData){
@@ -281,9 +290,8 @@ class ProfileCard extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
-	*@return {} -
+	*When component is mounted
+	*@return {React Component} - profile card (is rendered by helper function)
 	*/
 	render() {
 		return (
