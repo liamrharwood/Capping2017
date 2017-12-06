@@ -8,8 +8,8 @@ import axios from 'axios';
 import { PulseLoader } from 'react-spinners';
 
 /**
-*TODO
-*
+*Community creation view
+*Page for community creation
 */
 class CommunityCreator extends React.Component {
 	constructor(props){
@@ -23,6 +23,10 @@ class CommunityCreator extends React.Component {
 		this.handleCommunitySubmit = this.handleCommunitySubmit.bind(this);
 	}
 
+	/**
+	*Community submission handler
+	*updates state
+	*/
 	handleCommunitySubmit(){
 
 		this.setState({ loading: true })
@@ -55,6 +59,11 @@ class CommunityCreator extends React.Component {
 		});
 	}
 	
+	/**
+	*Displays specific errors for community creation, or success
+	*
+	*@return {React Component} - error or success messages
+	*/
 	renderErrors(){
 		if(this.state.status == -1){
 			return <div className = "alert alert-danger text-center">{this.state.errorMessage}</div>
@@ -66,9 +75,9 @@ class CommunityCreator extends React.Component {
 	}
 	
 	/**
-	*TODO
+	*When component is mounted
 	*
-	*@return {} -
+	*@return {React Component} - community creation page
 	*/
 	render(){
 		return (

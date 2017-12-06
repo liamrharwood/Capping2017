@@ -5,9 +5,8 @@ import Navbar from '../Navbar.jsx';
 import Dashboard from '../Dashboard.jsx';
 
 /**
-*TODO
-*
-*@return {} -
+*Profile view
+*Page for logged-in user's profile
 */
 class Profile extends React.Component {
 	constructor(props) {
@@ -18,9 +17,9 @@ class Profile extends React.Component {
 	}
 
 	/**
-	*TODO
+	*When component is mounted
 	*
-	*@return {} -
+	*@return {React Component} - profile page
 	*/
 	render () {
 		return(
