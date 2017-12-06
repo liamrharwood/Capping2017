@@ -123,9 +123,9 @@ class ProfileCard extends React.Component {
 
 	renderProfilePicture(){
 		if(this.state.profileData && this.state.profileData.profileImagePath && this.state.profileData.profileImagePath != ""){
-			return  <img src={`${this.props.uri}/images/${this.state.profileData.profileImagePath}`} className="profile-pic"/>
+			return  <img src={`http://10.10.7.191/images/${this.state.profileData.profileImagePath}`} className="profile-pic"/>
 		} else {
-			//return <img src={`${this.props.uri}/images/nopic.jpg`} className="profile-pic" />
+			//return <img src={`http://10.10.7.191/images/nopic.jpg`} className="profile-pic" />
 		}
 	}
 
