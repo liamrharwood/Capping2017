@@ -24,6 +24,7 @@ public class UserProfileMapper implements ResultSetMapper<UserProfile> {
                 resultSet.getInt("answered_points"),
                 resultSet.getInt("report_points"),
                 resultSet.getInt("upvote_points"),
-                resultSet.getInt("reputation_points"));
+                resultSet.getInt("reputation_points"),
+                resultSet.getString("email"));
     }
 }

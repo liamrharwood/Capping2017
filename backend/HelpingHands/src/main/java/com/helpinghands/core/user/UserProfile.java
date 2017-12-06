@@ -67,7 +67,10 @@ public class UserProfile {
     @JsonProperty
     private Integer overallReputationPoints;
 
-    public UserProfile(Integer userId, String username, String firstName, String lastName, Integer followersCount, Integer followedCommunitiesCount, Integer followedUsersCount, String bio, String profileImagePath, Integer postCount, boolean following, Integer prayPoints, Integer answeredPoints, Integer reportPoints, Integer upvotePoints, Integer overallReputationPoints) {
+    @JsonProperty
+    private String email;
+
+    public UserProfile(Integer userId, String username, String firstName, String lastName, Integer followersCount, Integer followedCommunitiesCount, Integer followedUsersCount, String bio, String profileImagePath, Integer postCount, boolean following, Integer prayPoints, Integer answeredPoints, Integer reportPoints, Integer upvotePoints, Integer overallReputationPoints, String email) {
         this.userId = userId;
         this.username = username;
         this.firstName = firstName;
@@ -84,6 +87,7 @@ public class UserProfile {
         this.reportPoints = reportPoints;
         this.upvotePoints = upvotePoints;
         this.overallReputationPoints = overallReputationPoints;
+        this.email = email;
     }
 
     public Integer getUserId() {
@@ -148,5 +152,9 @@ public class UserProfile {
 
     public Integer getOverallReputationPoints() {
         return overallReputationPoints;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

@@ -18,6 +18,7 @@ public class PostCardMapper implements ResultSetMapper<PostCard> {
                 resultSet.getString("body_text"),
                 resultSet.getString("post_title"),
                 resultSet.getTimestamp("create_date"),
-                resultSet.getBoolean("is_complete"));
+                resultSet.getBoolean("is_complete"),
+                resultSet.getString("post_image_path"));
     }
 }

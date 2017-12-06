@@ -17,7 +17,7 @@ import java.util.List;
 public interface PostDAO {
     String CARD_SELECT_FIELDS = " p.post_id, p.user_id, u.username, " +
             "(SELECT SUM(direction) FROM Votes AS v WHERE v.post_id = p.post_id) AS score, " +
-            "p.body_text, p.post_title, p.create_date, p.is_complete ";
+            "p.body_text, p.post_title, p.create_date, p.is_complete, p.post_image_path ";
 
     @SqlQuery("SELECT " + CARD_SELECT_FIELDS + ", " +
             "NULL AS vote " +

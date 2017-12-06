@@ -56,7 +56,7 @@ public class UserResource {
         }
         if (userPrincipal.isPresent()) {
             int id = userDAO.getUserByUsername(userPrincipal.get().getName()).getId();
-            return userDAO.getUserProfile(id);
+            return userDAO.getUserProfileWithEmail(id);
         } else {
             throw new BadRequestException();
         }

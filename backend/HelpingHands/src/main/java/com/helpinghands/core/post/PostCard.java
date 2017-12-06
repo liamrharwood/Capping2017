@@ -40,7 +40,10 @@ public class PostCard {
     @JsonProperty
     private boolean complete;
 
-    public PostCard(Integer id, Integer userId, String username, Integer score, Integer vote, String bodyText, String title, Timestamp createDate, boolean complete) {
+    @JsonProperty
+    private String imgPath;
+
+    public PostCard(Integer id, Integer userId, String username, Integer score, Integer vote, String bodyText, String title, Timestamp createDate, boolean complete, String imgPath) {
         this.id = id;
         this.userId = userId;
         this.username = username;
@@ -50,6 +53,7 @@ public class PostCard {
         this.title = title;
         this.createDate = createDate;
         this.complete = complete;
+        this.imgPath = imgPath;
     }
 
     public Integer getId() {
@@ -82,5 +86,9 @@ public class PostCard {
 
     public boolean isComplete() {
         return complete;
+    }
+
+    public String getImgPath() {
+        return imgPath;
     }
 }
