@@ -111,7 +111,7 @@ class Dashboard extends React.Component {
 							unath={this.props.unath}
 						/>
 					</div>
-					<div className="col-md-4 d-none d-lg-block">
+					<div className="col-md-4 col-12" >
 						{this.renderInfoCard()}
 					</div>
 				</div>
