@@ -37,8 +37,8 @@ class App extends React.Component {
 			wrongCreds: false,                //wrong credentials error
 			username: PropTypes.string,       //username being used
 			token: PropTypes.string,          //token
-			uri: "http://10.10.7.191:8080", 
-		    //uri: "https://hh.reev.us:8443", //host address
+			//uri: "http://10.10.7.191:8080", 
+		    uri: "https://hh.reev.us:8443", //host address
 			userId: PropTypes.number,         //user ID number
 			rememberMe: false,                //status of remember me checkbox
 		};
