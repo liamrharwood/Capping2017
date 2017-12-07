@@ -1,6 +1,5 @@
 node_modules/
 *.log
-**/bundle.js
 
 #
 # IntelliJ files
