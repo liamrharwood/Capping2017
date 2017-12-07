@@ -4,6 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * Represents the community profile card seen when viewing a community.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class CommunityProfile {
     @NotNull
     @JsonProperty

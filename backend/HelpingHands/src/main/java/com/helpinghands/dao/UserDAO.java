@@ -14,6 +14,12 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * SQL queries dealing with users.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public interface UserDAO {
     String SELECT_FIELDS = "user_id, username, first_name, last_name, email, birth_date, " +
             "location, profile_image_path, bio, reputation_points, is_administrator, ban_status, create_date, update_date";
@@ -78,6 +84,18 @@ public interface UserDAO {
 
     @SqlQuery("SELECT is_moderator FROM Members WHERE user_id = :userId AND community_id = :communityId")
     boolean isModeratorForCommunity(@Bind("userId") int userId, @Bind("communityId") int communityId);
+
+    @SqlQuery("SELECT is_administrator FROM Users WHERE user_id = :userId")
+    boolean isAdministrator(@Bind("userId") int userId);
+
+    @SqlUpdate("UPDATE Users SET ban_status = NOT_BANNED WHERE user_id = :userId")
+    void setUserNotBanned(@Bind("userId") int userId);
+
+    @SqlUpdate("UPDATE Users SET ban_status = BANNED WHERE user_id = :userId")
+    void setUserBanned(@Bind("userId") int userId);
+
+    @SqlUpdate("UPDATE Users SET ban_status = PENDING WHERE user_id = :userId")
+    void setUserPending(@Bind("userId") int userId);
 
     @SqlQuery("SELECT password_hash FROM Users WHERE username = :username")
     String getPasswordForUsername(@Bind("username") String username);

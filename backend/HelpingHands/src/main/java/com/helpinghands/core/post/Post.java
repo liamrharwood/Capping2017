@@ -5,6 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+/**
+ * Represents a post / prayer request.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class Post {
     @NotNull
     @JsonProperty

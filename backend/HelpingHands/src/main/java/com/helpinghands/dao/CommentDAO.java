@@ -9,6 +9,12 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
 import java.util.List;
 
+/**
+ * SQL queries dealing with comments.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public interface CommentDAO {
     @SqlQuery("SELECT c.comment_id, c.user_id, u.username, c.post_id, c.body_text, c.create_date " +
             "FROM Comments AS c " +

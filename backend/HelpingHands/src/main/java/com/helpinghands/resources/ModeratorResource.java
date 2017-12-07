@@ -13,6 +13,12 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+/**
+ * API endpoints for moderators. All paths begin with /moderators.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 @Path("moderators")
 @Produces(MediaType.APPLICATION_JSON)
 public class ModeratorResource {

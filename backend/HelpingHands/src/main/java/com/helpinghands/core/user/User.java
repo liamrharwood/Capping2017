@@ -7,6 +7,12 @@ import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+/**
+ * Represents a user.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class User {
 
     @NotNull

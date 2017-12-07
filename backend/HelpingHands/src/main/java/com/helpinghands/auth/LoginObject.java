@@ -4,6 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * Returned by login endpoint for use by client.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class LoginObject {
     @NotNull
     @JsonProperty

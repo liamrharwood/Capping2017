@@ -6,6 +6,12 @@ import com.helpinghands.core.BanStatus;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+/**
+ * Represents a community or religion.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class Community {
     @NotNull
     @JsonProperty

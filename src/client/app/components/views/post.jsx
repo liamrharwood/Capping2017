@@ -13,20 +13,21 @@ import {
 import axios from 'axios';
 import { PulseLoader } from 'react-spinners';
 
+
 /**
-*TODO
-*
+*Individual Post view
+*Page of an individual post
 */
 class Post extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			data: PropTypes.Object,      //TODO
-			updates: PropTypes.Array,
-			score: PropTypes.Integer,    //TODO
-			vote: PropTypes.Integer,     //TODO
-			comments: PropTypes.Array,   //TODO
-			loading: false,
+			data: PropTypes.Object,      //post data
+			updates: PropTypes.Array,    //list of updates
+			score: PropTypes.Integer,    //score tally
+			vote: PropTypes.Integer,     //user's vote
+			comments: PropTypes.Array,   //list of comments
+			loading: false,              //is page loading?
 		};
 
 		this.upvote = this.upvote.bind(this);
@@ -38,8 +39,8 @@ class Post extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*After component is mounted
+	*Triggers re-rendering
 	*/
 	componentDidMount(){
 		this.fetchPostData(this.props);
@@ -48,8 +49,8 @@ class Post extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Acquires data about the post
+	*JSON
 	*/
 	fetchPostData(){
 		axios({
@@ -75,6 +76,10 @@ class Post extends React.Component {
 		});
 	}
 
+	/**
+	*Acquires post updates
+	*JSON
+	*/
 	fetchUpdates(){
 		axios({
 			method:'get',
@@ -98,9 +103,8 @@ class Post extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
-	*@return {} -
+	*Acquires post comments
+	*JSON
 	*/
 	fetchComments(){
 		axios({
@@ -125,7 +129,7 @@ class Post extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Submits a comment onto the post comments section
 	*
 	*/
 	submitComment(){
@@ -159,8 +163,9 @@ class Post extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Submits votes for the post
 	*
+	*@param {Int} - vote
 	*/
 	vote(vote){
 		axios({
@@ -183,8 +188,8 @@ class Post extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Vote counter +1
+	*Updates state
 	*/
 	upvote(){
 		if (this.state.vote == 1){
@@ -200,8 +205,8 @@ class Post extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Vote counter -1
+	*Updates state
 	*/
 	downvote(){
 		if (this.state.vote == -1){
@@ -217,9 +222,9 @@ class Post extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Formats the create date
 	*
-	*@return {} -
+	*@return {String} - newly formatted date
 	*/
 	formatDate(){
 		var date = new Date(this.state.data.createDate);
@@ -228,9 +233,9 @@ class Post extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Displays voting buttons
 	*
-	*@return {} -
+	*@return {React Component} - voting buttons
 	*/
 	renderVoter(){
 		if(this.state.vote == 1){
@@ -323,9 +328,9 @@ class Post extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Displays comment cards
 	*
-	*@return {} -
+	*@return {Array} - array of comment cards
 	*/
 	renderCommentCards(comments){
 		if(comments && comments.length != 0){
@@ -346,9 +351,10 @@ class Post extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Generate individual comment card
 	*
-	*@return {} -
+	*@param {String} - a user's comment
+	*@return {React Component} - comment card
 	*/
 	generateCommentCard(comment){
 
@@ -367,6 +373,12 @@ class Post extends React.Component {
 		);
 	}
 
+	/**
+	*Generate poster's updates
+	*
+	*@param {String} updates - poster's update
+	*@return {Array} - array of updates
+	*/
 	renderUpdates(updates){
 		if(updates && updates.length > 0){
 			return(
@@ -375,9 +387,14 @@ class Post extends React.Component {
 		}
 	}
 
+	/**
+	*Generates individual update
+	*
+	*@param {String} update - text of update
+	*@param {String} index - index of update
+	*@return {React Component} - update card
+	*/
 	generateUpdate(update,index){
-		// var date = new Date (update.createDate);
-		// var createDate = (date.getUTCMonth() + 1) + '/' + date.getUTCDate() + '/' + date.getUTCFullYear();
 		return (
 			<div key={index} className="update-card container">
 				<div className = "row">
@@ -389,6 +406,11 @@ class Post extends React.Component {
 		);
 	}
 
+	/**
+	*Displays the update submitter for the user who posted it
+	*
+	*@return {React Component} - update submitter
+	*/
 	renderUpdateSubmitter(){
 		if(this.state.data.userId == this.props.userId){
 			return(
@@ -428,6 +450,10 @@ class Post extends React.Component {
 		}
 	}
 
+	/**
+	*Submits update
+	*
+	*/
 	submitUpdate(){
 		axios({
 			method:'post',
@@ -451,6 +477,10 @@ class Post extends React.Component {
 		});
 	}
 
+	/**
+	*Sets post as answered
+	*
+	*/
 	setAnswered(){
 		axios({
 			method:'post',
@@ -476,9 +506,9 @@ class Post extends React.Component {
 	}
 
 	/**
-	*TODO
+	*When component is mounted
 	*
-	*@return {} -
+	*@return {React Component} - post page
 	*/
 	render(){
 		if (this.state.data){

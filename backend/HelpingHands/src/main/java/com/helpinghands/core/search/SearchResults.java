@@ -8,6 +8,12 @@ import com.helpinghands.core.user.User;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * Represents results returned from searching the site.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class SearchResults {
     @NotNull
     @JsonProperty

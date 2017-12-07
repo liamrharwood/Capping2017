@@ -12,27 +12,31 @@ import {
 	from 'react-router-dom';
 
 /**
-*TODO
-*
+*Mod Tools view
+*Page for moderation tools
 */
 class ModTools extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			profileData : PropTypes.Object,      //TODO
-			reports: PropTypes.Array,
+			profileData : PropTypes.Object,      //profile data for logged-in user
+			reports: PropTypes.Array,			 // reports array
 		};
 		this.sendToPost = this.sendToPost.bind(this);
 		this.deletePost = this.deletePost.bind(this);
 	}
 
+	/**
+	*After component is mounted
+	*Triggers re-rendering
+	*/
 	componentDidMount(){
 		this.fetchReports();
 	}
 
 	/**
-	*TODO
-	*
+	*Acquires reports on community posts
+	*JSON
 	*/
 	fetchReports(){
 		axios({
@@ -51,6 +55,11 @@ class ModTools extends React.Component {
 		});
 	}
 
+	/**
+	*Displays the reports table
+	*
+	*@return {React Component} - Reports table
+	*/
 	renderReportsTable(){
 		if(this.state.reports && this.state.reports.length > 0){
 			return(
@@ -74,6 +83,11 @@ class ModTools extends React.Component {
 		}
 	}
 
+	/**
+	*Creates report rows based on number of reports from generateReportRows
+	*
+	*@return {Array} - report rows
+	*/
 	generateReportRows(){
 		var reports = this.state.reports
 
@@ -82,21 +96,60 @@ class ModTools extends React.Component {
 		}
 	}
 
+	/**
+	*Creates a single report row
+	*
+	*@param {Object} report - report
+	*@param {Int} index - index of reported post
+	*@return {React Component} - single report row
+	*/
 	generateSingleReportRow(report, index){
 		return (
 		<tr key={index}>
-			<td><button type="button" className="btn btn-outline-info" onClick={() => this.sendToPost(report.postId)}>Post</button></td>
-			<td><Link to={`/users/${report.userId}`} className="text-muted">@{report.username}</Link></td>
-			<td>{report.reportReason}</td>
-			<td><button type="button" className="btn btn-outline-danger" onClick={() => this.deletePost(report.postId)}>Delete Post</button></td>
+			<td>
+				<button 
+					type="button" 
+					className="btn btn-outline-info" 
+					onClick={() => this.sendToPost(report.postId)}>
+					Post
+				</button>
+			</td>
+			<td>
+				<Link 
+					to={`/users/${report.userId}`} 
+					className="text-muted">
+					@{report.username}
+				</Link>
+			</td>
+			<td>
+				{report.reportReason}
+			</td>
+			<td>
+				<button 
+					type="button" 
+					className="btn btn-outline-danger" 
+					onClick={() => this.deletePost(report.postId)}>
+					Delete Post
+				</button>
+			</td>
 		</tr>
 		);
 	}
 
+	/**
+	*Redirects to individual post view for post that was reported
+	*
+	*@param {String} postId- post ID number
+	*/
 	sendToPost(postId){
 		this.props.history.push(`/posts/${postId}`)
 	}
 
+	/**
+	*Deletes reported post
+	*
+	*@param {String} postId- post ID number
+	*/
 	deletePost(postId){
 		axios({
 		method:'delete',
@@ -115,9 +168,9 @@ class ModTools extends React.Component {
 	}
 
 	/**
-	*TODO
+	*When component is mounted
 	*
-	*@return {} -
+	*@return {React Component} - mod tools page
 	*/
 	render(){
 		return (

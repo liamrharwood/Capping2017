@@ -4,6 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * Represents a post / prayer request update.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class PostUpdate {
     @NotNull
     @JsonProperty

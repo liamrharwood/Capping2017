@@ -4,8 +4,8 @@ import Navbar from '../Navbar.jsx';
 import Dashboard from '../Dashboard.jsx';
 
 /**
-*TODO
-*
+*Community view
+*Page for an individual community
 */
 class Community extends React.Component {
 	constructor(props) {		
@@ -16,9 +16,9 @@ class Community extends React.Component {
 	}
 
 	/**
-	*TODO
+	*When component is mounted
 	*
-	*@return {} -
+	*@return {React Component} - community page
 	*/
 	render () {
 		return(

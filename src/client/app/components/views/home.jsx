@@ -5,8 +5,8 @@ import Navbar from '../Navbar.jsx';
 import Dashboard from '../Dashboard.jsx';
 
 /**
-*TODO
-*
+*Home view
+*Page for user's home page, timeline
 */
 class Home extends React.Component {
 	constructor(props) {
@@ -17,9 +17,9 @@ class Home extends React.Component {
 	}
 
 	/**
-	*TODO
+	*When component is mounted
 	*
-	*@return {} -
+	*@return {React Component} - home page
 	*/
 	render () {
 		return(

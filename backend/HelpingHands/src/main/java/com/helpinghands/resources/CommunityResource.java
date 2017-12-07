@@ -17,6 +17,12 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * API endpoints dealing with communities. All paths begin with /communities.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 @Path("/communities")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -32,7 +38,7 @@ public class CommunityResource {
 
     @GET
     public List<Community> getCommunities(@Auth UserPrincipal userPrincipal) {
-        int userId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        int userId = userPrincipal.getId();
         return communityDAO.getFollowedCommunities(userId);
     }
 
@@ -40,6 +46,7 @@ public class CommunityResource {
     @Path("profile")
     public CommunityProfile getCommunityProfile(@Auth Optional<UserPrincipal> userPrincipal,
                                                 @QueryParam("id") int communityId) {
+        // If the user is auth'd, check if they are a moderator
         if (userPrincipal.isPresent()) {
             int authId = userPrincipal.get().getId();
             CommunityProfile communityProfile = communityDAO.getCommunityProfileWithAuth(authId, communityId);
@@ -53,7 +60,7 @@ public class CommunityResource {
     @Path("follow")
     public void followCommunity(@Auth UserPrincipal userPrincipal,
                                 @QueryParam("community_id") int communityId) {
-        int userId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        int userId = userPrincipal.getId();
         communityDAO.followCommunity(userId, communityId);
     }
 
@@ -61,7 +68,7 @@ public class CommunityResource {
     @Path("unfollow")
     public void unfollowCommunity(@Auth UserPrincipal userPrincipal,
                                 @QueryParam("community_id") int communityId) {
-        int userId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        int userId = userPrincipal.getId();
         communityDAO.unfollowCommunity(userId, communityId);
     }
 

@@ -8,6 +8,12 @@ import org.skife.jdbi.v2.tweak.ResultSetMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Mapper for JDBC result sets.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public class CommunityMapper implements ResultSetMapper<Community> {
     public Community map(int index, ResultSet resultSet, StatementContext statementContext) throws SQLException {
         return new Community(resultSet.getInt("community_id"),

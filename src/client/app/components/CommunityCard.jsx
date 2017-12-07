@@ -4,14 +4,14 @@ import axios from 'axios';
 import { PulseLoader } from 'react-spinners';
 
 /**
-*TODO
-*
+*Community card component
+*Used in community
 */
 class CommunityCard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: PropTypes.Object,  //TODO
+			data: PropTypes.Object,  //community data
 		};
 
 		this.renderFollowButton = this.renderFollowButton.bind(this);
@@ -21,18 +21,18 @@ class CommunityCard extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*After component is mounted
+	*Triggers re-rendering
 	*/
 	componentDidMount() {
 		this.fetchCommunityProfile();
 	}
 
 	/**
-	*TODO
+	*Called after update, not called upon initial render
 	*
-	*@param {} prevProps-
-	*@param {} prevState- 
+	*@param {Object} prevProps - previous props
+	*@param {Object} prevState - previous state
 	*/
 	componentDidUpdate(prevProps, prevState) {
 		if (this.props.location != prevProps.location){
@@ -41,8 +41,8 @@ class CommunityCard extends React.Component {
 	}
 
 	/**
-	*TODO
-	*
+	*Acquires the community's info
+	*updates state with new JSON
 	*/
 	fetchCommunityProfile() {
 		axios({
@@ -62,14 +62,17 @@ class CommunityCard extends React.Component {
 		});
 	}
 
+	/**
+	*redirects to community's mod tools page
+	*/
 	goToModTools(){
 		this.props.history.push(`/communities/${this.props.id}/mod`)
 	}
 
 	/**
-	*TODO
+	*Displays follow button for community
 	*
-	*@return {} -
+	*@return {React Component} - Follow button for info card
 	*/
 	renderFollowButton() {
 		if(this.state.data.moderating){
@@ -105,7 +108,7 @@ class CommunityCard extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Changes user's follow status to following
 	*
 	*/
 	follow(){
@@ -125,7 +128,7 @@ class CommunityCard extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Changes user's follow status to unfollowing
 	*
 	*/
 	unFollow() {
@@ -145,9 +148,9 @@ class CommunityCard extends React.Component {
 	}
 
 	/**
-	*TODO
+	*Helper function for render
 	*
-	*@return {} -
+	*@return {React Component} - Community card if community data is received, loading icon otherwise
 	*/
 	renderProfile(){
 		if(this.state.data){
@@ -210,9 +213,9 @@ class CommunityCard extends React.Component {
 	}
 
 	/**
-	*TODO
+	*When component is mounted
 	*
-	*@return {} -
+	*@return {React Component} - community card (uses helper function)
 	*/
 	render() {
 		return (

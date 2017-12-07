@@ -17,6 +17,12 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * API endpoints dealing with posts. All paths begin with /posts.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 @Path("/posts")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -36,6 +42,11 @@ public class PostResource {
         this.reportDAO = reportDAO;
     }
 
+    /*
+        Endpoint to handle ALL fetching of posts. Can take optional auth, user id, and/or community id.
+        Also handles pagination: callDate determines when to get posts from, startNum and endNum determine index of
+        the fetched results.
+     */
     @GET
     public List<PostCard> getPosts(@Auth Optional<UserPrincipal> userPrincipal,
                                    @QueryParam("post_id") Optional<Integer> postId,
@@ -44,11 +55,15 @@ public class PostResource {
                                    @QueryParam("callDate") long callDate,
                                    @QueryParam("startNum") int startNum,
                                    @QueryParam("endNum") int endNum) {
+        // Turn callData millis into a Timestamp
         Timestamp callTimestamp = new Timestamp(callDate);
+        // Calculate the number of posts to get
         int limit = endNum - startNum + 1;
         if (limit < 0) {
             throw new WebApplicationException("Invalid range of posts.", 400);
         }
+
+        // Check if auth'd, if there is a user id, and if there is a community id, and filter accordingly
         if (userPrincipal.isPresent()) {
             int authId  = userPrincipal.get().getId();
             if (postId.isPresent()) {
@@ -107,6 +122,7 @@ public class PostResource {
                     postUpdateRequest.getBodyText(),
                     postUpdateRequest.isComplete());
             if (postUpdateRequest.isComplete()) {
+                // Update answeredPoints for users involved.
                 userDAO.onCompletePostUpdatePoints(postUpdateRequest.getPostId());
             }
         } else {
@@ -130,7 +146,7 @@ public class PostResource {
     @Path("comments")
     public void createCommentOnPost(@Auth UserPrincipal userPrincipal,
                                     CommentRequest commentRequest) {
-        int userId = userDAO.getUserByUsername(userPrincipal.getName()).getId();
+        int userId = userPrincipal.getId();
         commentDAO.insertComment(userId, commentRequest.getPostId(), commentRequest.getBodyText());
     }
 
@@ -139,6 +155,7 @@ public class PostResource {
     public void reportPost(@Auth UserPrincipal userPrincipal,
                            ReportRequest reportRequest) {
         reportDAO.insertReport(reportRequest.getPostId(), userPrincipal.getId(), reportRequest.getReportReason());
+        // Update reportPoints for users involved
         userDAO.onReportUpdatePoints(userPrincipal.getId(), reportRequest.getPostId());
     }
 
@@ -149,6 +166,7 @@ public class PostResource {
         int userId = userPrincipal.getId();
         int voteeId = postDAO.getPostById(voteRequest.getPostId()).get(0).getUserId();
         postDAO.voteOnPost(userId, voteRequest.getPostId(), voteRequest.getDirection());
+        // Update prayPoints and upvotePoints for users involved
         userDAO.onVoteUpdatePoints(userId, voteeId, voteRequest.getPostId());
     }
 

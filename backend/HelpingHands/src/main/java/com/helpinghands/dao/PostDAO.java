@@ -14,6 +14,12 @@ import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * SQL queries dealing with posts.
+ *
+ * @author Helping Hands
+ * @author hh.reev.us
+ */
 public interface PostDAO {
     String CARD_SELECT_FIELDS = " p.post_id, p.user_id, u.username, " +
             "(SELECT SUM(direction) FROM Votes AS v WHERE v.post_id = p.post_id) AS score, " +
