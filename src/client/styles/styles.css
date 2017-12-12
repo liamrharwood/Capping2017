@@ -224,6 +224,14 @@ button:focus {
 	font-size: 14px;
 }
 
+.post-delete-button{
+	color:#d7000b;
+}
+
+.post-delete-button:hover{
+	color:#9d0109;
+}
+
 body {
 	margin: 0px;
 	background-color: #fffef7;

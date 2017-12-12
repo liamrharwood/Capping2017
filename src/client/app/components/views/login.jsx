@@ -252,7 +252,7 @@ class Login extends React.Component {
 										ref="registerLastName" 
 										className="form-control" 
 										id="inputLastName" 
-										placeholder="Enter First Name" 
+										placeholder="Enter Last Name" 
 									/>
 								</div>
 								<div className="form-group">
