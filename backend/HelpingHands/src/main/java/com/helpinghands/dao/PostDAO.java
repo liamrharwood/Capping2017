@@ -180,4 +180,13 @@ public interface PostDAO {
 
     @SqlUpdate("DELETE FROM PostsToCommunities WHERE post_id = :postId AND community_id = :communityId")
     void deletePostFromCommunity(@Bind("postId") int postid, @Bind("communityId") int communityId);
+
+    @SqlUpdate("DELETE FROM PostsToCommunities WHERE post_id = :postId; " +
+            "DELETE FROM Votes WHERE post_id = :postId; " +
+            "DELETE FROM Hashtags WHERE post_id = :postId; " +
+            "DELETE FROM PostUpdates WHERE post_id = :postId; " +
+            "DELETE FROM Reports WHERE post_id = :postId; " +
+            "DELETE FROM Comments WHERE post_id = :postId; " +
+            "DELETE FROM Posts WHERE post_id = :postId;")
+    void deletePostCompletely(@Bind("postId") int postId);
 }

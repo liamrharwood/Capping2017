@@ -144,6 +144,14 @@ Request Body:
 
 -------------------------------
 
+DELETE /posts
+
+Query Param: post_id
+
+# Deletes the specified post owned by the auth'd user
+
+-------------------------------
+
 POST /posts/updates
 
 # Create a post update, specifying whether the post should be marked as complete (true or false)

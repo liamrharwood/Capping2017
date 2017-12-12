@@ -107,6 +107,21 @@ public class PostResource {
         }
     }
 
+    @DELETE
+    public void deletePost(@QueryParam("post_id") int postId,
+                           @Auth UserPrincipal userPrincipal) {
+        List<PostCard> post = postDAO.getPostById(postId);
+        if (post.size() > 0) {
+            if (post.get(0).getUserId() == userPrincipal.getId()) {
+                postDAO.deletePostCompletely(postId);
+            } else {
+                throw new WebApplicationException("You don't have permission to delete this post.", 400);
+            }
+        } else {
+            throw new WebApplicationException("No such post exists.", 400);
+        }
+    }
+
     @POST
     @Path("updates")
     public void createNewPostUpdate(@Auth UserPrincipal userPrincipal,
