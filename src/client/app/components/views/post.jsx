@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import Navbar from '../Navbar.jsx';
 import CommentCard from '../CommentCard.jsx';
 import PropTypes from 'prop-types';
+import Modal from 'react-modal';
 import {
 	BrowserRouter as Router,
 	Route,
@@ -12,6 +13,19 @@ import {
 	from 'react-router-dom';
 import axios from 'axios';
 import { PulseLoader } from 'react-spinners';
+
+
+const modalStyles = {
+		  content : {
+		    top                   : '50%',
+		    left                  : '50%',
+		    right                 : 'auto',
+		    bottom                : 'auto',
+		    marginRight           : '-50%',
+		    transform             : 'translate(-50%, -50%)',
+		    maxWidth              : '750px',
+		  }
+		};
 
 
 /**
@@ -28,6 +42,7 @@ class Post extends React.Component {
 			vote: PropTypes.Integer,     //user's vote
 			comments: PropTypes.Array,   //list of comments
 			loading: false,              //is page loading?
+			modalOpen: false,            //is delete post confirmation dialog open
 		};
 
 		this.upvote = this.upvote.bind(this);
@@ -36,7 +51,12 @@ class Post extends React.Component {
 		this.submitComment = this.submitComment.bind(this);
 		this.submitUpdate = this.submitUpdate.bind(this);
 		this.setAnswered = this.setAnswered.bind(this);
+		this.openModal = this.openModal.bind(this);
+		this.closeModal = this.closeModal.bind(this);
+		this.deletePost = this.deletePost.bind(this);
 	}
+
+
 
 	/**
 	*After component is mounted
@@ -506,6 +526,26 @@ class Post extends React.Component {
 	}
 
 	/**
+	*Opens the confirm delete post dialog
+	*
+	*/
+	openModal(){
+		this.setState({ modalOpen: true });
+	}
+
+	/**
+	*Closes the confirm delete post dialog
+	*
+	*/
+	closeModal(){
+		this.setState({ modalOpen: false });
+	}
+
+	deletePost(){
+		this.setState({ modalOpen: false });
+	}
+
+	/**
 	*When component is mounted
 	*
 	*@return {React Component} - post page
@@ -528,7 +568,7 @@ class Post extends React.Component {
 									<div className ="card-body container">
 										<div className = "row ml-3">
 											{this.renderVoter()}
-											<div className = "col-11">
+											<div className = "col-10">
 												<h4 className = "card-title">
 													{this.state.data.title}
 												</h4>
@@ -544,6 +584,9 @@ class Post extends React.Component {
 												<h6 className="post-body mt-2">
 													{this.state.data.bodyText}
 												</h6>
+											</div>
+											<div className = "col-1 p-0">
+												<i className="fa fa-times fa-lg post-delete-button" onClick={this.openModal}/>
 											</div>
 										</div>
 										<div className = "row mt-4">
@@ -595,6 +638,32 @@ class Post extends React.Component {
 							</div>
 						</div>
 					</div>
+
+					<Modal
+				          isOpen={this.state.modalOpen}
+				          onRequestClose={this.closeModal}
+				          style={modalStyles}
+				          contentLabel="Delete Post"
+				        >
+					        <div className = "container">
+						        <div className = "row text-center">
+						        	<div className = "col-12">
+						          		<h2 ref={subtitle => this.subtitle = subtitle}>Are you sure you want to delete this post?</h2>
+						          	</div>
+						          	<div className = "col-12 mt-4">
+						          		<h5>This cannot be undone</h5>
+						          	</div>
+						          	<div className = "col-sm-2 offset-sm-4 col-12 mt-4">
+						          		<button type="button" className="btn btn-danger" onClick={this.deletePost}>Delete Post</button>
+						          	</div>
+						          	<div className = "col-sm-2 col-12 mt-4">
+						          		<button type="button" className="btn btn-primary" onClick={this.closeModal}>Cancel</button>
+						          	</div>
+						        </div>
+					        </div>
+				        </Modal>
+
+
 				</div>
 			);
 		} else {
