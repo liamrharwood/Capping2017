@@ -541,8 +541,40 @@ class Post extends React.Component {
 		this.setState({ modalOpen: false });
 	}
 
+	/**
+	*Deletes the current post
+	*
+	*/
 	deletePost(){
-		this.setState({ modalOpen: false });
+
+		axios({
+		method:'delete',
+			url: `${this.props.uri}/posts?post_id=${this.state.data.id}`,
+			headers:{
+				'Authorization': `HelpingHands ${window.btoa(this.props.username + ":" + this.props.token)}`
+			},
+			responseType: 'json'
+		}).then(res => {
+			this.setState({ modalOpen: false });
+			this.props.history.goBack()
+		}).catch(function (error) {
+			if (error.response) {
+
+			}
+		});
+		
+	}
+
+	/**
+	*Renders delete button is post is owned by currently auth'd user
+	*
+	*/
+	renderDeleteButton(){
+		if(this.state.data && this.state.data.userId == this.props.userId){
+			return <i className="fa fa-times fa-lg post-delete-button" onClick={this.openModal}/>
+		} else {
+			return
+		}
 	}
 
 	/**
@@ -586,7 +618,7 @@ class Post extends React.Component {
 												</h6>
 											</div>
 											<div className = "col-1 p-0">
-												<i className="fa fa-times fa-lg post-delete-button" onClick={this.openModal}/>
+												{this.renderDeleteButton()}
 											</div>
 										</div>
 										<div className = "row mt-4">
